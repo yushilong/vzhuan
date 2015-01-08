@@ -97,16 +97,16 @@
     <Wechat
         Id="4"
         SortId="4"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxc61b2f9446930f3f"
+        AppSecret="07634dd4ccbbcf57d1ac266aaefb6aa6"
         BypassApproval="false"
         Enable="true" />
     
     <WechatMoments
         Id="5"
         SortId="5"
-        AppId="wx4868b35061f87885"
-        AppSecret="64020361b8ec4c99936c0e3999a9f249"
+        AppId="wxc61b2f9446930f3f"
+        AppSecret="07634dd4ccbbcf57d1ac266aaefb6aa6"
         BypassApproval="false"
         Enable="true" />
         

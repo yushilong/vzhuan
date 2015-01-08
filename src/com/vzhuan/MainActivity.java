@@ -44,7 +44,9 @@ public class MainActivity extends BaseActivity
         HomeFragment homeFragment = new HomeFragment();
         homeFragment.setViewPager(mViewPager);
         fragments.add(0, homeFragment);
-        fragments.add(1, new TaskFragment());
+        TaskFragment taskFragment = new TaskFragment();
+        taskFragment.setViewPager(mViewPager);
+        fragments.add(1, taskFragment);
         ShareFragment shareFragment = new ShareFragment();
         shareFragment.setViewPager(mViewPager);
         fragments.add(2, shareFragment);

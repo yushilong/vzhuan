@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.TextUtils;
@@ -81,6 +82,7 @@ public class RegisterActivity extends BaseActivity
                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                 ShareUtil.setBoolean(RegisterActivity.this, ShareUtil.ShareKey.KEY_ISFIRST_OPEN, false);
                 finish();
+                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
         });
         //
@@ -100,7 +102,7 @@ public class RegisterActivity extends BaseActivity
         String code = et_code.getText().toString().trim();
         if (!TextUtils.isEmpty(code))
         {
-
+            startActivity(new Intent(RegisterActivity.this, MainActivity.class));//for test
         }
         else
         {
