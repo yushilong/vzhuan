@@ -25,8 +25,20 @@ public class ShareUtil
         getDefault(context).edit().putBoolean(shareKey, value).commit();
     }
 
-    static class ShareKey
+    public static String getString(Context context, String shareKey, String def)
     {
-        public static String KEY_ISFIRST_OPEN;
+        return getDefault(context).getString(shareKey, def);
+    }
+
+    public static void setString(Context context, String shareKey, String value)
+    {
+        getDefault(context).edit().putString(shareKey, value).commit();
+    }
+
+    public final static class ShareKey
+    {
+        public static final String KEY_ISFIRST_OPEN = "KEY_ISFIRST_OPEN";
+        public static final String KEY_USER_ID = "KEY_USER_ID";
+        public static final String KEY_CHANNEL_ID = "KEY_CHANNEL_ID";
     }
 }

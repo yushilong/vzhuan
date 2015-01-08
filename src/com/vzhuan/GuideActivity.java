@@ -78,7 +78,7 @@ public class GuideActivity extends BaseActivity
                         @Override public void onClick(View view)
                         {
                             finish();
-                            startActivity(new Intent(GuideActivity.this, MainActivity.class));
+                            startActivity(new Intent(GuideActivity.this, RegisterActivity.class));
                         }
                     });
                 }

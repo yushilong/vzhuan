@@ -1,4 +1,4 @@
-package com.vzhuan;
+package com.vzhuan.mode;
 
 import java.io.Serializable;
 

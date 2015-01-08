@@ -2,10 +2,12 @@ package com.vzhuan;
 
 import android.app.Application;
 import android.content.Context;
+import com.baidu.frontia.FrontiaApplication;
 import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.vzhuan.api.B5MVolley;
 
 /**
  * Created by lscm on 2015/1/6.
@@ -19,6 +21,8 @@ public class MainApplication extends Application
         super.onCreate();
         initImageLoader(this);
         _instance = this;
+        B5MVolley.init(_instance);
+        FrontiaApplication.initFrontiaApplication(this);
     }
 
     public static Application getInstance()

@@ -18,7 +18,6 @@ public class SplashActivity extends BaseActivity
         if (isfirstOpen)
         {
             startActivity(new Intent(this, GuideActivity.class));
-            ShareUtil.setBoolean(this, ShareUtil.ShareKey.KEY_ISFIRST_OPEN, false);
             finish();
         }
         //渐变展示启动屏

@@ -18,6 +18,20 @@
         <action android:name="android.intent.action.MAIN"/>
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
+      <!--
+  KakaoTalk , 分享应用的时候，可以设置打开应用的参数 excuteUrl, 用户点击分享的内容时，就会打开相应的应用，
+                                      如果应用不存在，可以设置 installURL参数, 打开下载应用的相关网址  (executeUrl)
+                                      设置后intent-filter 后，分享时，需要设置参数 setExecuteUrl("kakaoTalkTest://starActivity");
+-->
+      <intent-filter>
+        <data
+            android:scheme="kakaoTalkTest"
+            android:host="starActivity"/>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
     </activity>
     <activity
         android:name=".GuideActivity"
@@ -27,6 +41,159 @@
         android:name=".MainActivity"
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+    <activity
+        android:name=".RegisterActivity"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.NoTitleBar.Fullscreen"/>
+    <activity
+        android:name="cn.sharesdk.framework.ShareSDKUIShell"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:windowSoftInputMode="stateHidden|adjustResize">
+      <!--
+          AuthorizeAdapter表示一个继承自cn.sharesdk.framework.authorize.AuthorizeAdapter
+          的类，这个类可以监听到页面的生命周期，也可以获取授权页面的各种UI控件。
+          开发者可以通过继承AuthorizeAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
+      -->
+      <meta-data
+          android:name="AuthorizeAdapter"
+          android:value="cn.sharesdk.demo.MyAdapter"/>
+
+      <!--
+          QZoneWebShareAdapter表示一个继承自cn.sharesdk.tencent.qzone.QZoneWebShareAdapter
+          的类，这个类可以监听到页面的生命周期，也可以获QQ空间网页分享权页面的各种UI控件。
+          开发者可以通过继承QZoneWebShareAdapter，重写其方法，并获取各种UI来自定义这个页面的行为。
+      -->
+      <meta-data
+          android:name="QZoneWebShareAdapter"
+          android:value="cn.sharesdk.demo.MyQZoneWebShareAdapter"/>
+      <!--
+          Dropbox的SSO功能需要在此处添加一个对ACTION_VIEW事件的过滤器，其中的scheme是
+          “db-”前缀再开发者应用的加上appKey。如果此过滤器不设置，则不能完成SSO功能授权
+      -->
+      <intent-filter>
+        <data android:scheme="db-7janx53ilz11gbs"/>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.BROWSABLE"/>
+        <category android:name="android.intent.category.DEFAULT"/>
+      </intent-filter>
+
+      <!--
+          如果集成QQ分享，或者使用QQ客户端来进行QQ空间的分享，须要在此处添加一个对ACTION_VIEW
+          事件的过滤器，其中的scheme是“tencent”前缀再开发者应用的加上appId。如果此过滤器不设置，
+          则分享结束以后不能得到正确的回调
+      -->
+      <intent-filter>
+        <data android:scheme="tencent100371282"/>
+        <action android:name="android.intent.action.VIEW"/>
+
+        <category android:name="android.intent.category.DEFAULT"/>
+        <category android:name="android.intent.category.BROWSABLE"/>
+      </intent-filter>
+
+    </activity>
+    <!-- 微信分享回调 -->
+    <activity
+        android:name="cn.sharesdk.demo.wxapi.WXEntryActivity"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:exported="true"/>
+    <!-- 易信分享回调 -->
+    <activity
+        android:name="cn.sharesdk.demo.yxapi.YXEntryActivity"
+        android:theme="@android:style/Theme.Translucent.NoTitleBar"
+        android:configChanges="keyboardHidden|orientation|screenSize"
+        android:excludeFromRecents="true"
+        android:exported="true"
+        android:launchMode="singleTop"/>
+
+    <!-- push应用定义消息receiver声明 -->
+    <receiver android:name=".baidupush.MyPushMessageReceiver">
+      <intent-filter>
+        <!-- 接收push消息 -->
+        <action android:name="com.baidu.android.pushservice.action.MESSAGE"/>
+        <!-- 接收bind,unbind,fetch,delete等反馈消息 -->
+        <action android:name="com.baidu.android.pushservice.action.RECEIVE"/>
+        <action android:name="com.baidu.android.pushservice.action.notification.CLICK"/>
+      </intent-filter>
+    </receiver>
+
+    <!-- push必须的receviver和service声明 -->
+    <receiver
+        android:name="com.baidu.android.pushservice.PushServiceReceiver"
+        android:process=":bdservice_v1">
+      <intent-filter>
+        <action android:name="android.intent.action.BOOT_COMPLETED"/>
+        <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+        <action android:name="com.baidu.android.pushservice.action.notification.SHOW"/>
+        <action android:name="com.baidu.android.pushservice.action.media.CLICK"/>
+        <!-- 以下四项为可选的action声明，可大大提高service存活率和消息到达速度 -->
+        <action android:name="android.intent.action.MEDIA_MOUNTED"/>
+        <action android:name="android.intent.action.USER_PRESENT"/>
+        <action android:name="android.intent.action.ACTION_POWER_CONNECTED"/>
+        <action android:name="android.intent.action.ACTION_POWER_DISCONNECTED"/>
+      </intent-filter>
+    </receiver>
+    <receiver
+        android:name="com.baidu.android.pushservice.RegistrationReceiver"
+        android:process=":bdservice_v1">
+      <intent-filter>
+        <action android:name="com.baidu.android.pushservice.action.METHOD"/>
+        <action android:name="com.baidu.android.pushservice.action.BIND_SYNC"/>
+      </intent-filter>
+      <intent-filter>
+        <action android:name="android.intent.action.PACKAGE_REMOVED"/>
+        <data android:scheme="package"/>
+      </intent-filter>
+    </receiver>
+
+    <service
+        android:name="com.baidu.android.pushservice.PushService"
+        android:exported="true"
+        android:process=":bdservice_v1">
+      <intent-filter>
+        <action android:name="com.baidu.android.pushservice.action.PUSH_SERVICE"/>
+      </intent-filter>
+    </service>
+    <!-- push结束 -->
+
+    <!-- 在百度开发者中心查询应用的API Key -->
+    <meta-data
+        android:name="api_key"
+        android:value="INSERT YOUR OWN API_KEY HERE"/>
   </application>
+
+  <uses-permission android:name="android.permission.GET_TASKS"/>
   <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+  <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+  <!-- 蓝牙分享所需的权限 -->
+  <uses-permission android:name="android.permission.BLUETOOTH"/>
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+  <!-- Push service 运行需要的权限 -->
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+  <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+  <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+  <uses-permission android:name="android.permission.WRITE_SETTINGS"/>
+  <uses-permission android:name="android.permission.VIBRATE"/>
+  <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+  <uses-permission android:name="android.permission.ACCESS_DOWNLOAD_MANAGER"/>
+  <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION"/>
+  <uses-permission android:name="android.permission.DISABLE_KEYGUARD"/>
+  <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+  <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
+  <supports-screens
+      android:anyDensity="true"
+      android:largeScreens="true"
+      android:normalScreens="true"
+      android:resizeable="true"
+      android:smallScreens="true"/>
 </manifest>
