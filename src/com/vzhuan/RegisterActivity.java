@@ -103,6 +103,7 @@ public class RegisterActivity extends BaseActivity
         if (!TextUtils.isEmpty(code))
         {
             startActivity(new Intent(RegisterActivity.this, MainActivity.class));//for test
+            finish();
         }
         else
         {
