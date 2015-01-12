@@ -241,7 +241,7 @@ public class B5MRequest
         {
             @Override public void onResponse(ResponseResult response)
             {
-                Log.i(TAG, "response--->" + response);
+                Log.i(TAG, "response--->" + response.responseResult);
                 if (mShowProcessEnable)
                     setProgressVisible(false);
                 /**
@@ -262,7 +262,7 @@ public class B5MRequest
         {
             @Override public void onErrorResponse(VolleyError error)
             {
-                Log.i(TAG, "response--->" + error);
+                Log.i(TAG, "response--->" + error.toString());
                 onResponseError(error);
             }
         });

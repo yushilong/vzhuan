@@ -24,5 +24,6 @@
     <orderEntry type="library" name="picasso-2.3.2" level="project" />
     <orderEntry type="library" name="gson-2.2.2" level="project" />
     <orderEntry type="library" name="pushservice-4.1.0" level="project" />
+    <orderEntry type="library" name="jpush-sdk-release1.7.1" level="project" />
   </component>
 </module>

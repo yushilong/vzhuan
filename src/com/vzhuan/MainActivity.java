@@ -4,15 +4,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.widget.Toast;
+import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.demo.Laiwang;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
-import com.baidu.android.pushservice.PushConstants;
-import com.baidu.android.pushservice.PushManager;
 import com.vzhuan.api.B5MRequest;
 import com.vzhuan.api.IB5MResponseListenerImpl;
 import com.vzhuan.api.ResponseEntry;
-import com.vzhuan.baidupush.Utils;
 import com.vzhuan.viewpager.FragmentPagerAdapter;
 import com.vzhuan.viewpager.ViewPager;
 import org.json.JSONException;
@@ -43,9 +41,6 @@ public class MainActivity extends BaseActivity {
         ShareSDK.registerPlatform(Laiwang.class);
         ShareSDK.setConnTimeout(20000);
         ShareSDK.setReadTimeout(20000);
-        //
-        initBaiduPush();
-        //
         mViewPager = (ViewPager) findViewById(R.id.pager);
         fragments = new ArrayList<Fragment>();
         HomeFragment homeFragment = new HomeFragment();
@@ -67,25 +62,12 @@ public class MainActivity extends BaseActivity {
         });
         JSONObject userInfoObject = new JSONObject();
         try {
-            userInfoObject.put("did", "123456");
+            userInfoObject.put("did", JPushInterface.getRegistrationID(MainApplication.getInstance()));
         } catch (JSONException e) {
             e.printStackTrace();
         }
         userInfoRequest.setRequestBody(userInfoObject);
         userInfoRequest.start();
-    }
-
-    private void initBaiduPush() {
-        if (!Utils.hasBind(getApplicationContext())) {
-            // 请将AndroidManifest.xml 104行处 api_key 字段值修改为自己的 api_key 方可使用 ！！
-            // ATTENTION：You need to modify the value of api_key to your own at row 104 in AndroidManifest.xml to use this Demo !!
-            PushManager.startWork(getApplicationContext(), PushConstants.LOGIN_TYPE_API_KEY, Constants.BAIDU_PUSH_APIKEY);
-            // Push: 如果想基于地理位置推送，可以打开支持地理位置的推送的开关
-            //            PushManager.enableLbs(getApplicationContext());
-        }
-        if (PushManager.isPushEnabled(getApplicationContext())) {
-            PushManager.resumeWork(getApplicationContext());
-        }
     }
 
     class VerticalPager extends FragmentPagerAdapter {
