@@ -198,8 +198,7 @@ public class RequestQueue
         }
         cancelAll(new RequestFilter()
         {
-            @Override
-            public boolean apply(Request<?> request)
+            @Override public boolean apply(Request<?> request)
             {
                 return request.getTag() == tag;
             }

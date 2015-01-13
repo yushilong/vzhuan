@@ -62,9 +62,7 @@ public class BasicNetwork implements Network
         mPool = pool;
     }
 
-    @SuppressWarnings("unused")
-    @Override
-    public NetworkResponse performRequest(Request<?> request) throws VolleyError
+    @SuppressWarnings("unused") @Override public NetworkResponse performRequest(Request<?> request) throws VolleyError
     {
         long requestStart = SystemClock.elapsedRealtime();
         while (true)
@@ -164,13 +162,12 @@ public class BasicNetwork implements Network
     /**
      * Logs requests that took over SLOW_REQUEST_THRESHOLD_MS to complete.
      */
-    private void logSlowRequests(long requestLifetime , Request<?> request , byte[] responseContents , StatusLine statusLine)
+    private void logSlowRequests(long requestLifetime, Request<?> request, byte[] responseContents, StatusLine statusLine)
     {
         if (DEBUG || requestLifetime > SLOW_REQUEST_THRESHOLD_MS)
         {
-            VolleyLog.d("HTTP response for request=<%s> [lifetime=%d], [size=%s], " + "[rc=%d], [retryCount=%s]", request, requestLifetime,
-                    responseContents != null ? responseContents.length : "null", statusLine.getStatusCode(), request.getRetryPolicy()
-                            .getCurrentRetryCount());
+            VolleyLog.d("HTTP response for request=<%s> [lifetime=%d], [size=%s], " + "[rc=%d], [retryCount=%s]", request, requestLifetime, responseContents != null ? responseContents.length : "null", statusLine.getStatusCode(),
+                request.getRetryPolicy().getCurrentRetryCount());
         }
     }
 
@@ -179,7 +176,7 @@ public class BasicNetwork implements Network
      * request's retry policy, a timeout exception is thrown.
      * @param request The request to use.
      */
-    private static void attemptRetryOnException(String logPrefix , Request<?> request , VolleyError exception) throws VolleyError
+    private static void attemptRetryOnException(String logPrefix, Request<?> request, VolleyError exception) throws VolleyError
     {
         RetryPolicy retryPolicy = request.getRetryPolicy();
         int oldTimeout = request.getTimeoutMs();
@@ -195,7 +192,7 @@ public class BasicNetwork implements Network
         request.addMarker(String.format("%s-retry [timeout=%s]", logPrefix, oldTimeout));
     }
 
-    private void addCacheHeaders(Map<String, String> headers , Cache.Entry entry)
+    private void addCacheHeaders(Map<String, String> headers, Cache.Entry entry)
     {
         // If there's no cache entry, we're done.
         if (entry == null)
@@ -213,7 +210,7 @@ public class BasicNetwork implements Network
         }
     }
 
-    protected void logError(String what , String url , long start)
+    protected void logError(String what, String url, long start)
     {
         long now = SystemClock.elapsedRealtime();
         VolleyLog.v("HTTP ERROR(%s) %d ms to fetch %s", what, (now - start), url);

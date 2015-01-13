@@ -1,4 +1,3 @@
-
 package volley.toolbox;
 
 import android.content.Context;
@@ -14,8 +13,7 @@ import com.vzhuan.BitmapUtils;
 
 public class LightImageView extends NetworkImageView
 {
-    @Override
-    protected void drawableStateChanged()
+    @Override protected void drawableStateChanged()
     {
         super.drawableStateChanged();
         invalidate();
@@ -42,18 +40,18 @@ public class LightImageView extends NetworkImageView
         setOnTouchListener(onTouchListener);
     }
 
-    public void changeLight(ImageView imageView , int brightness)
+    public void changeLight(ImageView imageView, int brightness)
     {
         ColorMatrix cMatrix = new ColorMatrix();
-        cMatrix.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness,// 改变亮度
-                0, 0, 1, 0, brightness, 0, 0, 0, 1, 0 });
+        cMatrix.set(new float[] { 1 , 0 , 0 , 0 , brightness , 0 , 1 , 0 , 0 , brightness ,// 改变亮度
+            0 , 0 , 1 , 0 , brightness , 0 , 0 , 0 , 1 , 0 });
         colorFilter = new ColorMatrixColorFilter(cMatrix);
         invalidate();
     }
+
     public View.OnTouchListener onTouchListener = new View.OnTouchListener()
     {
-        @Override
-        public boolean onTouch(View view , MotionEvent event)
+        @Override public boolean onTouch(View view, MotionEvent event)
         {
             switch (event.getAction())
             {
@@ -74,8 +72,7 @@ public class LightImageView extends NetworkImageView
     };
     private Bitmap image;
 
-    @Override
-    protected void onDraw(Canvas canvas)
+    @Override protected void onDraw(Canvas canvas)
     {
         Drawable drawable = getDrawable();
         if (drawable != null)
@@ -92,6 +89,7 @@ public class LightImageView extends NetworkImageView
         paint.setAntiAlias(true);
         canvas.drawBitmap(bitmap, 0, 0, paint);
     }
+
     ColorFilter colorFilter = null;
 
     private Bitmap createFramedPhoto()
@@ -113,7 +111,7 @@ public class LightImageView extends NetworkImageView
     }
 
     //图片剪切  
-    public static Bitmap cutBitmap(Bitmap mBitmap , Rect r , Bitmap.Config config)
+    public static Bitmap cutBitmap(Bitmap mBitmap, Rect r, Bitmap.Config config)
     {
         int width = r.width();
         int height = r.height();

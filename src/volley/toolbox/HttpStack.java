@@ -26,7 +26,8 @@ import java.util.Map;
 /**
  * An HTTP stack abstraction.
  */
-public interface HttpStack {
+public interface HttpStack
+{
     /**
      * Performs an HTTP request with the given parameters.
      *
@@ -38,7 +39,5 @@ public interface HttpStack {
      *         {@link Request#getHeaders()}
      * @return the HTTP response
      */
-    public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders)
-        throws IOException, AuthFailureError;
-
+    public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders) throws IOException, AuthFailureError;
 }

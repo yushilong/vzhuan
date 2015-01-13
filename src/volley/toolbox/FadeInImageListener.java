@@ -1,4 +1,3 @@
-
 package volley.toolbox;
 
 import android.content.Context;
@@ -19,8 +18,7 @@ public class FadeInImageListener implements ImageLoader.ImageListener
         mContext = context;
     }
 
-    @Override
-    public void onErrorResponse(VolleyError arg0)
+    @Override public void onErrorResponse(VolleyError arg0)
     {
         if (mImageView.get() != null)
         {
@@ -28,8 +26,7 @@ public class FadeInImageListener implements ImageLoader.ImageListener
         }
     }
 
-    @Override
-    public void onResponse(ImageLoader.ImageContainer response , boolean arg1)
+    @Override public void onResponse(ImageLoader.ImageContainer response, boolean arg1)
     {
         if (mImageView.get() != null)
         {

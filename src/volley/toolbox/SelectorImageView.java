@@ -1,4 +1,3 @@
-
 package volley.toolbox;
 
 import android.content.Context;
@@ -15,8 +14,7 @@ import android.widget.ImageView;
 
 public class SelectorImageView extends ImageView implements OnClickListener
 {
-    @Override
-    protected void drawableStateChanged()
+    @Override protected void drawableStateChanged()
     {
         super.drawableStateChanged();
         invalidate();
@@ -41,14 +39,13 @@ public class SelectorImageView extends ImageView implements OnClickListener
     public void changeLight(int brightness)
     {
         ColorMatrix cMatrix = new ColorMatrix();
-        cMatrix.set(new float[] { 1, 0, 0, 0, brightness, 0, 1, 0, 0, brightness,// 改变亮度
-                0, 0, 1, 0, brightness, 0, 0, 0, 1, 0 });
+        cMatrix.set(new float[] { 1 , 0 , 0 , 0 , brightness , 0 , 1 , 0 , 0 , brightness ,// 改变亮度
+            0 , 0 , 1 , 0 , brightness , 0 , 0 , 0 , 1 , 0 });
         colorFilter = new ColorMatrixColorFilter(cMatrix);
         invalidate();
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event)
+    @Override public boolean onTouchEvent(MotionEvent event)
     {
         switch (event.getAction())
         {
@@ -69,8 +66,7 @@ public class SelectorImageView extends ImageView implements OnClickListener
 
     private Bitmap image;
 
-    @Override
-    protected void onDraw(Canvas canvas)
+    @Override protected void onDraw(Canvas canvas)
     {
         Drawable drawable = getBackground();
         if (drawable != null)
@@ -86,6 +82,7 @@ public class SelectorImageView extends ImageView implements OnClickListener
         paint.setAntiAlias(true);
         canvas.drawBitmap(bitmap, 0, 0, paint);
     }
+
     ColorFilter colorFilter = null;
 
     private Bitmap createFramedPhoto()
@@ -106,8 +103,7 @@ public class SelectorImageView extends ImageView implements OnClickListener
         return output;
     }
 
-    @Override
-    public void onClick(View v)
+    @Override public void onClick(View v)
     {
         // TODO Auto-generated method stub
     }

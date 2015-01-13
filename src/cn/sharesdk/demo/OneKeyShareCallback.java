@@ -22,19 +22,20 @@ import java.util.HashMap;
  */
 public class OneKeyShareCallback implements PlatformActionListener
 {
+    public void onComplete(Platform plat, int action, HashMap<String, Object> res)
+    {
+        Log.d(getClass().getSimpleName(), res.toString());
+        // 在这里添加分享成功的处理代码
+    }
 
-	public void onComplete(Platform plat, int action, HashMap<String, Object> res) {
-		Log.d(getClass().getSimpleName(), res.toString());
-		// 在这里添加分享成功的处理代码
-	}
+    public void onError(Platform plat, int action, Throwable t)
+    {
+        t.printStackTrace();
+        // 在这里添加分享失败的处理代码
+    }
 
-	public void onError(Platform plat, int action, Throwable t) {
-		t.printStackTrace();
-		// 在这里添加分享失败的处理代码
-	}
-
-	public void onCancel(Platform plat, int action) {
-		// 在这里添加取消分享的处理代码
-	}
-
+    public void onCancel(Platform plat, int action)
+    {
+        // 在这里添加取消分享的处理代码
+    }
 }

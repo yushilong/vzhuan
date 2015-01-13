@@ -1,4 +1,3 @@
-
 package volley.ex;
 
 import com.vzhuan.api.ResponseResult;
@@ -35,8 +34,7 @@ public class B5MJsonRequest extends JsonResponseRequest
         super(url, jsonRequest, listener, errorListener);
     }
 
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError
+    @Override public Map<String, String> getHeaders() throws AuthFailureError
     {
         return headers;
     }
@@ -46,8 +44,7 @@ public class B5MJsonRequest extends JsonResponseRequest
         this.headers = headers;
     }
 
-    @Override
-    public byte[] getBody()
+    @Override public byte[] getBody()
     {
         try
         {
@@ -65,8 +62,7 @@ public class B5MJsonRequest extends JsonResponseRequest
         this.mRequestBody = mRequestBody;
     }
 
-    @Override
-    public String getRequestBody() throws AuthFailureError
+    @Override public String getRequestBody() throws AuthFailureError
     {
         return mRequestBody + "";
     }

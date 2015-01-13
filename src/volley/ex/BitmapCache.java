@@ -37,8 +37,8 @@ public class BitmapCache implements ImageLoader.ImageCache
     private LruCache<String, Bitmap> mMemoryCache;
 
     /**
-     * Don't instantiate this class directly, use {@link #getInstance(android.support.v4.app.FragmentManager, float)}.
-     * 
+     * Don't instantiate this class directly, use {@link #getInstance(android.support.v4.app.FragmentManager , float)}.
+     *
      * @param memCacheSize
      *            Memory cache size in KB.
      */
@@ -50,7 +50,7 @@ public class BitmapCache implements ImageLoader.ImageCache
     /**
      * Find and return an existing BitmapCache stored in a {@link RetainFragment}, if not found a new one is created
      * using the supplied params and saved to a {@link RetainFragment}.
-     * 
+     *
      * @param fragmentManager
      *            The fragment manager to use when dealing with the retained fragment.
      * @param fragmentTag
@@ -58,7 +58,7 @@ public class BitmapCache implements ImageLoader.ImageCache
      * @param memCacheSize
      *            Memory cache size in KB.
      */
-    public static BitmapCache getInstance(FragmentManager fragmentManager , String fragmentTag , int memCacheSize)
+    public static BitmapCache getInstance(FragmentManager fragmentManager, String fragmentTag, int memCacheSize)
     {
         BitmapCache bitmapCache = null;
         RetainFragment mRetainFragment = null;
@@ -81,12 +81,12 @@ public class BitmapCache implements ImageLoader.ImageCache
         return bitmapCache;
     }
 
-    public static BitmapCache getInstance(FragmentManager fragmentManager , int memCacheSize)
+    public static BitmapCache getInstance(FragmentManager fragmentManager, int memCacheSize)
     {
         return getInstance(fragmentManager, TAG, memCacheSize);
     }
 
-    public static BitmapCache getInstance(FragmentManager fragmentManager , float memCachePercent)
+    public static BitmapCache getInstance(FragmentManager fragmentManager, float memCachePercent)
     {
         return getInstance(fragmentManager, calculateMemCacheSize(memCachePercent));
     }
@@ -108,8 +108,7 @@ public class BitmapCache implements ImageLoader.ImageCache
             /**
              * Measure item size in kilobytes rather than units which is more practical for a bitmap cache
              */
-            @Override
-            protected int sizeOf(String key , Bitmap bitmap)
+            @Override protected int sizeOf(String key, Bitmap bitmap)
             {
                 final int bitmapSize = getBitmapSize(bitmap) / 1024;
                 return bitmapSize == 0 ? 1 : bitmapSize;
@@ -119,13 +118,13 @@ public class BitmapCache implements ImageLoader.ImageCache
 
     /**
      * Adds a bitmap to both memory and disk cache.
-     * 
+     *
      * @param data
      *            Unique identifier for the bitmap to store
      * @param bitmap
      *            The bitmap to store
      */
-    public void addBitmapToCache(String data , Bitmap bitmap)
+    public void addBitmapToCache(String data, Bitmap bitmap)
     {
         if (data == null || bitmap == null)
         {
@@ -144,7 +143,7 @@ public class BitmapCache implements ImageLoader.ImageCache
 
     /**
      * Get from memory cache.
-     * 
+     *
      * @param data
      *            Unique identifier for which item to get
      * @return The bitmap if found in cache, null otherwise
@@ -184,10 +183,10 @@ public class BitmapCache implements ImageLoader.ImageCache
      * set the memory cache to one fifth of the available memory. Throws {@link IllegalArgumentException} if percent is
      * < 0.05 or > .8. memCacheSize is stored in kilobytes instead of bytes as this will eventually be passed to
      * construct a LruCache which takes an int in its constructor.
-     * 
+     *
      * This value should be chosen carefully based on a number of factors Refer to the corresponding Android Training
      * class for more discussion: http://developer.android.com/training/displaying-bitmaps/
-     * 
+     *
      * @param percent
      *            Percent of memory class to use to size memory cache
      * @return Memory cache size in KB
@@ -204,8 +203,7 @@ public class BitmapCache implements ImageLoader.ImageCache
     /**
      * Get the size in bytes of a bitmap.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
-    public static int getBitmapSize(Bitmap bitmap)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1) public static int getBitmapSize(Bitmap bitmap)
     {
         if (hasHoneycombMR1())
         {
@@ -217,14 +215,14 @@ public class BitmapCache implements ImageLoader.ImageCache
 
     /**
      * Locate an existing instance of this Fragment or if not found, create and add it using FragmentManager.
-     * 
+     *
      * @param fm
      *            The FragmentManager manager to use.
      * @param fragmentTag
      *            The tag of the retained fragment (should be unique for each memory cache that needs to be retained).
      * @return The existing instance of the Fragment or the new instance if just created.
      */
-    private static RetainFragment getRetainFragment(FragmentManager fm , String fragmentTag)
+    private static RetainFragment getRetainFragment(FragmentManager fm, String fragmentTag)
     {
         // Check to see if we have retained the worker fragment.
         RetainFragment mRetainFragment = (RetainFragment) fm.findFragmentByTag(fragmentTag);
@@ -237,14 +235,12 @@ public class BitmapCache implements ImageLoader.ImageCache
         return mRetainFragment;
     }
 
-    @Override
-    public Bitmap getBitmap(String key)
+    @Override public Bitmap getBitmap(String key)
     {
         return getBitmapFromMemCache(key);
     }
 
-    @Override
-    public void putBitmap(String key , Bitmap bitmap)
+    @Override public void putBitmap(String key, Bitmap bitmap)
     {
         addBitmapToCache(key, bitmap);
     }
@@ -264,8 +260,7 @@ public class BitmapCache implements ImageLoader.ImageCache
         {
         }
 
-        @Override
-        public void onCreate(Bundle savedInstanceState)
+        @Override public void onCreate(Bundle savedInstanceState)
         {
             super.onCreate(savedInstanceState);
             // Make sure this Fragment is retained over a configuration change
@@ -274,7 +269,7 @@ public class BitmapCache implements ImageLoader.ImageCache
 
         /**
          * Store a single object in this Fragment.
-         * 
+         *
          * @param object
          *            The object to store
          */
@@ -285,7 +280,7 @@ public class BitmapCache implements ImageLoader.ImageCache
 
         /**
          * Get the stored object.
-         * 
+         *
          * @return The stored object
          */
         public Object getObject()

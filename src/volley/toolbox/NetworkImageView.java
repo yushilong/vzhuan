@@ -71,7 +71,7 @@ public class NetworkImageView extends ImageView
      * @param url The URL that should be loaded into this ImageView.
      * @param imageLoader ImageLoader that will be used to make the request.
      */
-    public void setImageUrl(String url , ImageLoader imageLoader)
+    public void setImageUrl(String url, ImageLoader imageLoader)
     {
         mUrl = url;
         mImageLoader = imageLoader;
@@ -152,8 +152,7 @@ public class NetworkImageView extends ImageView
         // from the network.
         ImageLoader.ImageContainer newContainer = mImageLoader.get(mUrl, new ImageLoader.ImageListener()
         {
-            @Override
-            public void onErrorResponse(VolleyError error)
+            @Override public void onErrorResponse(VolleyError error)
             {
                 if (mErrorImageId != 0)
                 {
@@ -161,8 +160,7 @@ public class NetworkImageView extends ImageView
                 }
             }
 
-            @Override
-            public void onResponse(final ImageLoader.ImageContainer response , boolean isImmediate)
+            @Override public void onResponse(final ImageLoader.ImageContainer response, boolean isImmediate)
             {
                 // If this was an immediate response that was delivered inside of a layout
                 // pass do not set the image immediately as it will trigger a requestLayout
@@ -172,8 +170,7 @@ public class NetworkImageView extends ImageView
                 {
                     post(new Runnable()
                     {
-                        @Override
-                        public void run()
+                        @Override public void run()
                         {
                             onResponse(response, false);
                         }
@@ -206,15 +203,13 @@ public class NetworkImageView extends ImageView
         }
     }
 
-    @Override
-    protected void onLayout(boolean changed , int left , int top , int right , int bottom)
+    @Override protected void onLayout(boolean changed, int left, int top, int right, int bottom)
     {
         super.onLayout(changed, left, top, right, bottom);
         loadImageIfNecessary(true);
     }
 
-    @Override
-    protected void onDetachedFromWindow()
+    @Override protected void onDetachedFromWindow()
     {
         if (mImageContainer != null)
         {
@@ -228,15 +223,13 @@ public class NetworkImageView extends ImageView
         super.onDetachedFromWindow();
     }
 
-    @Override
-    protected void onAttachedToWindow()
+    @Override protected void onAttachedToWindow()
     {
         loadImageIfNecessary(false);
         super.onAttachedToWindow();
     }
 
-    @Override
-    protected void drawableStateChanged()
+    @Override protected void drawableStateChanged()
     {
         super.drawableStateChanged();
         invalidate();

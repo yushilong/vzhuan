@@ -1,4 +1,3 @@
-
 package volley.toolbox;
 
 import org.apache.http.Header;
@@ -60,7 +59,7 @@ class MultipartEntity implements HttpEntity
         isSetLast = true;
     }
 
-    public void addPart(final String key , final String value)
+    public void addPart(final String key, final String value)
     {
         writeFirstBoundaryIfNeeds();
         try
@@ -75,12 +74,12 @@ class MultipartEntity implements HttpEntity
         }
     }
 
-    public void addPart(final String key , final String fileName , final InputStream fin , final boolean isLast)
+    public void addPart(final String key, final String fileName, final InputStream fin, final boolean isLast)
     {
         addPart(key, fileName, fin, "application/octet-stream", isLast);
     }
 
-    public void addPart(final String key , final String fileName , final InputStream fin , String type , final boolean isLast)
+    public void addPart(final String key, final String fileName, final InputStream fin, String type, final boolean isLast)
     {
         writeFirstBoundaryIfNeeds();
         try
@@ -120,7 +119,7 @@ class MultipartEntity implements HttpEntity
         }
     }
 
-    public void addPart(final String key , final File value , final boolean isLast)
+    public void addPart(final String key, final File value, final boolean isLast)
     {
         try
         {
@@ -132,51 +131,43 @@ class MultipartEntity implements HttpEntity
         }
     }
 
-    @Override
-    public long getContentLength()
+    @Override public long getContentLength()
     {
         writeLastBoundaryIfNeeds();
         return out.toByteArray().length;
     }
 
-    @Override
-    public Header getContentType()
+    @Override public Header getContentType()
     {
         return new BasicHeader("Content-Type", "multipart/form-data; boundary=" + boundary);
     }
 
-    @Override
-    public boolean isChunked()
+    @Override public boolean isChunked()
     {
         return false;
     }
 
-    @Override
-    public boolean isRepeatable()
+    @Override public boolean isRepeatable()
     {
         return false;
     }
 
-    @Override
-    public boolean isStreaming()
+    @Override public boolean isStreaming()
     {
         return false;
     }
 
-    @Override
-    public void writeTo(final OutputStream outstream) throws IOException
+    @Override public void writeTo(final OutputStream outstream) throws IOException
     {
         outstream.write(out.toByteArray());
     }
 
-    @Override
-    public Header getContentEncoding()
+    @Override public Header getContentEncoding()
     {
         return null;
     }
 
-    @Override
-    public void consumeContent() throws IOException, UnsupportedOperationException
+    @Override public void consumeContent() throws IOException, UnsupportedOperationException
     {
         if (isStreaming())
         {
@@ -184,8 +175,7 @@ class MultipartEntity implements HttpEntity
         }
     }
 
-    @Override
-    public InputStream getContent() throws IOException, UnsupportedOperationException
+    @Override public InputStream getContent() throws IOException, UnsupportedOperationException
     {
         return new ByteArrayInputStream(out.toByteArray());
     }

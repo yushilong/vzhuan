@@ -70,8 +70,7 @@ public class CacheDispatcher extends Thread
         interrupt();
     }
 
-    @Override
-    public void run()
+    @Override public void run()
     {
         if (DEBUG)
             VolleyLog.v("start new dispatcher");
@@ -131,8 +130,7 @@ public class CacheDispatcher extends Thread
                     // the delivery then forward the request along to the network.
                     mDelivery.postResponse(request, response, new Runnable()
                     {
-                        @Override
-                        public void run()
+                        @Override public void run()
                         {
                             try
                             {

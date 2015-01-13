@@ -21,7 +21,8 @@ import volley.AuthFailureError;
 /**
  * An interface for interacting with auth tokens.
  */
-public interface Authenticator {
+public interface Authenticator
+{
     /**
      * Synchronously retrieves an auth token.
      *

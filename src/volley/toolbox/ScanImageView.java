@@ -1,4 +1,3 @@
-
 package volley.toolbox;
 
 import android.content.Context;
@@ -47,8 +46,7 @@ public class ScanImageView extends NetworkImageView
         this.currentBitmap = null;
     }
 
-    @Override
-    public void setImageBitmap(Bitmap bm)
+    @Override public void setImageBitmap(Bitmap bm)
     {
         currentBitmap = bm;
         super.setImageBitmap(currentBitmap);
@@ -56,16 +54,14 @@ public class ScanImageView extends NetworkImageView
             imageChangeListener.changed((currentBitmap == null));
     }
 
-    @Override
-    public void setImageDrawable(Drawable d)
+    @Override public void setImageDrawable(Drawable d)
     {
         super.setImageDrawable(d);
         if (imageChangeListener != null)
             imageChangeListener.changed((d == null));
     }
 
-    @Override
-    public void setImageResource(int id)
+    @Override public void setImageResource(int id)
     {
         super.setImageResource(id);
     }
@@ -85,6 +81,7 @@ public class ScanImageView extends NetworkImageView
     {
         this.imageChangeListener = imageChangeListener;
     }
+
     private int imageWidth;
     private int imageHeight;
 
@@ -98,8 +95,7 @@ public class ScanImageView extends NetworkImageView
         imageHeight = h;
     }
 
-    @Override
-    protected void onMeasure(int widthMeasureSpec , int heightMeasureSpec)
+    @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec)
     {
         int widthMode = View.MeasureSpec.getMode(widthMeasureSpec);
         int heightMode = View.MeasureSpec.getMode(heightMeasureSpec);

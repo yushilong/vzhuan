@@ -48,7 +48,7 @@ public class JsonResponseRequest extends JsonRequest<ResponseResult>
      * Constructor which defaults to <code>GET</code> if <code>jsonRequest</code> is
      * <code>null</code>, <code>POST</code> otherwise.
      *
-     * @see #JsonObjectRequest(int, String , org.json.JSONObject , Listener, ErrorListener)
+     * @see #JsonObjectRequest(int , String , org.json.JSONObject , Listener , ErrorListener)
      */
     public JsonResponseRequest(String url, JSONObject jsonRequest, Response.Listener<ResponseResult> listener, Response.ErrorListener errorListener)
     {
@@ -60,8 +60,7 @@ public class JsonResponseRequest extends JsonRequest<ResponseResult>
         super(method, url, listener, errorListener);
     }
 
-    @Override
-    protected Response<ResponseResult> parseNetworkResponse(NetworkResponse response)
+    @Override protected Response<ResponseResult> parseNetworkResponse(NetworkResponse response)
     {
         try
         {

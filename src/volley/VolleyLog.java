@@ -28,8 +28,8 @@ public class VolleyLog
 {
     public static String TAG = "Volley";
     public static boolean DEBUG = Log.isLoggable(TAG, Log.VERBOSE);
-
     //public static boolean DEBUG = true;
+
     /**
      * Customize the log tag for your application, so that other apps
      * using Volley don't mix their logs with yours.
@@ -46,7 +46,7 @@ public class VolleyLog
         DEBUG = Log.isLoggable(TAG, Log.VERBOSE);
     }
 
-    public static void v(String format , Object... args)
+    public static void v(String format, Object... args)
     {
         if (DEBUG)
         {
@@ -54,27 +54,27 @@ public class VolleyLog
         }
     }
 
-    public static void d(String format , Object... args)
+    public static void d(String format, Object... args)
     {
         Log.d(TAG, buildMessage(format, args));
     }
 
-    public static void e(String format , Object... args)
+    public static void e(String format, Object... args)
     {
         Log.e(TAG, buildMessage(format, args));
     }
 
-    public static void e(Throwable tr , String format , Object... args)
+    public static void e(Throwable tr, String format, Object... args)
     {
         Log.e(TAG, buildMessage(format, args), tr);
     }
 
-    public static void wtf(String format , Object... args)
+    public static void wtf(String format, Object... args)
     {
         Log.wtf(TAG, buildMessage(format, args));
     }
 
-    public static void wtf(Throwable tr , String format , Object... args)
+    public static void wtf(Throwable tr, String format, Object... args)
     {
         Log.wtf(TAG, buildMessage(format, args), tr);
     }
@@ -83,7 +83,7 @@ public class VolleyLog
      * Formats the caller's provided message and prepends useful info like
      * calling thread ID and method name.
      */
-    private static String buildMessage(String format , Object... args)
+    private static String buildMessage(String format, Object... args)
     {
         String msg = (args == null) ? format : String.format(Locale.US, format, args);
         StackTraceElement[] trace = new Throwable().fillInStackTrace().getStackTrace();
@@ -127,11 +127,12 @@ public class VolleyLog
                 this.time = time;
             }
         }
+
         private final List<Marker> mMarkers = new ArrayList<Marker>();
         private boolean mFinished = false;
 
         /** Adds a marker to this log with the specified name. */
-        public synchronized void add(String name , long threadId)
+        public synchronized void add(String name, long threadId)
         {
             if (mFinished)
             {
@@ -163,8 +164,7 @@ public class VolleyLog
             }
         }
 
-        @Override
-        protected void finalize() throws Throwable
+        @Override protected void finalize() throws Throwable
         {
             // Catch requests that have been collected (and hence end-of-lifed)
             // but had no debugging output printed for them.

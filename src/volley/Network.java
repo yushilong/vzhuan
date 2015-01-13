@@ -19,7 +19,8 @@ package volley;
 /**
  * An interface for performing requests.
  */
-public interface Network {
+public interface Network
+{
     /**
      * Performs the specified request.
      * @param request Request to process

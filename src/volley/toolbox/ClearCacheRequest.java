@@ -37,34 +37,36 @@ public class ClearCacheRequest extends Request<Object>
      * @param callback Callback to make on the main thread once the cache is clear,
      * or null for none
      */
-    public ClearCacheRequest(Cache cache, Runnable callback) {
+    public ClearCacheRequest(Cache cache, Runnable callback)
+    {
         super(Method.GET, null, null);
         mCache = cache;
         mCallback = callback;
     }
 
-    @Override
-    public boolean isCanceled() {
+    @Override public boolean isCanceled()
+    {
         // This is a little bit of a hack, but hey, why not.
         mCache.clear();
-        if (mCallback != null) {
+        if (mCallback != null)
+        {
             Handler handler = new Handler(Looper.getMainLooper());
             handler.postAtFrontOfQueue(mCallback);
         }
         return true;
     }
 
-    @Override
-    public Priority getPriority() {
+    @Override public Priority getPriority()
+    {
         return Priority.IMMEDIATE;
     }
 
-    @Override
-    protected Response<Object> parseNetworkResponse(NetworkResponse response) {
+    @Override protected Response<Object> parseNetworkResponse(NetworkResponse response)
+    {
         return null;
     }
 
-    @Override
-    protected void deliverResponse(Object response) {
+    @Override protected void deliverResponse(Object response)
+    {
     }
 }

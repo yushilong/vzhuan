@@ -37,8 +37,8 @@ public class StringRequest extends Request<String>
      * @param listener Listener to receive the String response
      * @param errorListener Error listener, or null to ignore errors
      */
-    public StringRequest(int method, String url, Response.Listener<String> listener,
-            Response.ErrorListener errorListener) {
+    public StringRequest(int method, String url, Response.Listener<String> listener, Response.ErrorListener errorListener)
+    {
         super(method, url, errorListener);
         mListener = listener;
     }
@@ -50,21 +50,25 @@ public class StringRequest extends Request<String>
      * @param listener Listener to receive the String response
      * @param errorListener Error listener, or null to ignore errors
      */
-    public StringRequest(String url, Response.Listener<String> listener, Response.ErrorListener errorListener) {
+    public StringRequest(String url, Response.Listener<String> listener, Response.ErrorListener errorListener)
+    {
         this(Method.GET, url, listener, errorListener);
     }
 
-    @Override
-    protected void deliverResponse(String response) {
+    @Override protected void deliverResponse(String response)
+    {
         mListener.onResponse(response);
     }
 
-    @Override
-    protected Response<String> parseNetworkResponse(NetworkResponse response) {
+    @Override protected Response<String> parseNetworkResponse(NetworkResponse response)
+    {
         String parsed;
-        try {
+        try
+        {
             parsed = new String(response.data, HttpHeaderParser.parseCharset(response.headers));
-        } catch (UnsupportedEncodingException e) {
+        }
+        catch (UnsupportedEncodingException e)
+        {
             parsed = new String(response.data);
         }
         return Response.success(parsed, HttpHeaderParser.parseCacheHeaders(response));

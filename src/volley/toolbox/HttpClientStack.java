@@ -47,7 +47,7 @@ public class HttpClientStack implements HttpStack
         mClient = client;
     }
 
-    private static void addHeaders(HttpUriRequest httpRequest , Map<String, String> headers)
+    private static void addHeaders(HttpUriRequest httpRequest, Map<String, String> headers)
     {
         for (String key : headers.keySet())
         {
@@ -55,8 +55,7 @@ public class HttpClientStack implements HttpStack
         }
     }
 
-    @SuppressWarnings("unused")
-    private static List<NameValuePair> getPostParameterPairs(Map<String, String> postParams)
+    @SuppressWarnings("unused") private static List<NameValuePair> getPostParameterPairs(Map<String, String> postParams)
     {
         List<NameValuePair> result = new ArrayList<NameValuePair>(postParams.size());
         for (String key : postParams.keySet())
@@ -66,8 +65,7 @@ public class HttpClientStack implements HttpStack
         return result;
     }
 
-    @Override
-    public HttpResponse performRequest(Request<?> request , Map<String, String> additionalHeaders) throws IOException, AuthFailureError
+    @Override public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders) throws IOException, AuthFailureError
     {
         HttpUriRequest httpRequest = createHttpRequest(request, additionalHeaders);
         addHeaders(httpRequest, additionalHeaders);
@@ -86,7 +84,7 @@ public class HttpClientStack implements HttpStack
      * Creates the appropriate subclass of HttpUriRequest for passed in request.
      */
     @SuppressWarnings("deprecation")
-    /* protected */static HttpUriRequest createHttpRequest(Request<?> request , Map<String, String> additionalHeaders) throws AuthFailureError
+    /* protected */ static HttpUriRequest createHttpRequest(Request<?> request, Map<String, String> additionalHeaders) throws AuthFailureError
     {
         switch (request.getMethod())
         {
@@ -146,7 +144,7 @@ public class HttpClientStack implements HttpStack
         }
     }
 
-    private static void setEntityIfNonEmptyBody(HttpEntityEnclosingRequestBase httpRequest , Request<?> request) throws AuthFailureError
+    private static void setEntityIfNonEmptyBody(HttpEntityEnclosingRequestBase httpRequest, Request<?> request) throws AuthFailureError
     {
         byte[] body = request.getBody();
         if (body != null)
@@ -193,8 +191,7 @@ public class HttpClientStack implements HttpStack
             setURI(URI.create(uri));
         }
 
-        @Override
-        public String getMethod()
+        @Override public String getMethod()
         {
             return METHOD_NAME;
         }

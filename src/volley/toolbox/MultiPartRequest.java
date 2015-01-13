@@ -1,4 +1,3 @@
-
 package volley.toolbox;
 
 import org.apache.http.HttpEntity;
@@ -35,8 +34,7 @@ public class MultiPartRequest extends Request<String>
         this.mListener = listener;
     }
 
-    @Override
-    public byte[] getBody() throws AuthFailureError
+    @Override public byte[] getBody() throws AuthFailureError
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         if (mParams != null)
@@ -54,8 +52,7 @@ public class MultiPartRequest extends Request<String>
         return baos.toByteArray();
     }
 
-    @Override
-    protected Response<String> parseNetworkResponse(NetworkResponse response)
+    @Override protected Response<String> parseNetworkResponse(NetworkResponse response)
     {
         try
         {
@@ -68,8 +65,7 @@ public class MultiPartRequest extends Request<String>
         }
     }
 
-    @Override
-    public Map<String, String> getHeaders() throws AuthFailureError
+    @Override public Map<String, String> getHeaders() throws AuthFailureError
     {
         Map<String, String> headers = super.getHeaders();
         if (null == headers || headers.equals(Collections.emptyMap()))
@@ -79,14 +75,12 @@ public class MultiPartRequest extends Request<String>
         return headers;
     }
 
-    @Override
-    public String getBodyContentType()
+    @Override public String getBodyContentType()
     {
         return httpEntity.getContentType().getValue();
     }
 
-    @Override
-    protected void deliverResponse(String response)
+    @Override protected void deliverResponse(String response)
     {
         mListener.onResponse(response);
     }

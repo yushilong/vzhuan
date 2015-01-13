@@ -251,45 +251,45 @@ public class ImageUtil
     public static void displayCircleTransfromRoundImage(String imgUrl, final ImageView imageView, int round, int imgResId)
     {
         ImageLoader.getInstance().displayImage(getImagePath(imgUrl, DEFAULT_IMG_SIZE), imageView, getDefaultRoundImgOptions(imgResId, round), new ImageLoadingListener()
+        {
+            @Override public void onLoadingStarted(String imageUri, View view)
             {
-                @Override public void onLoadingStarted(String imageUri, View view)
-                {
-                    // TODO Auto-generated method stub
-                }
+                // TODO Auto-generated method stub
+            }
 
-                @Override public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-                {
-                    // TODO Auto-generated method stub
-                }
+            @Override public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+            {
+                // TODO Auto-generated method stub
+            }
 
-                @Override public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+            @Override public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+            {
+                int i = loadedImage.getWidth();
+                int j = loadedImage.getHeight();
+                if (i < j)
                 {
-                    int i = loadedImage.getWidth();
-                    int j = loadedImage.getHeight();
-                    if (i < j)
-                    {
-                        i = j;
-                    }
-                    int k = i / 2;
-                    Bitmap localBitmap = Bitmap.createBitmap(k * 2, k * 2, Bitmap.Config.ARGB_8888);
-                    Canvas localCanvas1 = new Canvas(localBitmap);
-                    Paint localPaint = new Paint(1);
-                    localPaint.setColor(-65536);
-                    localCanvas1.drawCircle(k, k, k, localPaint);
-                    localPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
-                    Bitmap canvasBitmap = Bitmap.createBitmap(k * 2, k * 2, Bitmap.Config.ARGB_8888);
-                    Canvas localCanvas2 = new Canvas(localBitmap);
-                    localCanvas2.drawBitmap(canvasBitmap, 0.0F, 0.0F, null);
-                    localCanvas2.drawBitmap(localBitmap, 0.0F, 0.0F, localPaint);
-                    imageView.setImageBitmap(canvasBitmap);
-                    localBitmap.recycle();
+                    i = j;
                 }
+                int k = i / 2;
+                Bitmap localBitmap = Bitmap.createBitmap(k * 2, k * 2, Bitmap.Config.ARGB_8888);
+                Canvas localCanvas1 = new Canvas(localBitmap);
+                Paint localPaint = new Paint(1);
+                localPaint.setColor(-65536);
+                localCanvas1.drawCircle(k, k, k, localPaint);
+                localPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_IN));
+                Bitmap canvasBitmap = Bitmap.createBitmap(k * 2, k * 2, Bitmap.Config.ARGB_8888);
+                Canvas localCanvas2 = new Canvas(localBitmap);
+                localCanvas2.drawBitmap(canvasBitmap, 0.0F, 0.0F, null);
+                localCanvas2.drawBitmap(localBitmap, 0.0F, 0.0F, localPaint);
+                imageView.setImageBitmap(canvasBitmap);
+                localBitmap.recycle();
+            }
 
-                @Override public void onLoadingCancelled(String imageUri, View view)
-                {
-                    // TODO Auto-generated method stub
-                }
-            });
+            @Override public void onLoadingCancelled(String imageUri, View view)
+            {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     /**
@@ -333,41 +333,41 @@ public class ImageUtil
     public static void newSelector(String imgUrl, final ImageView imageView)
     {
         ImageLoader.getInstance().displayImage(imgUrl, imageView, getDefaultRoundImgOptions(R.drawable.avatar), new ImageLoadingListener()
+        {
+            @Override public void onLoadingStarted(String imageUri, View view)
             {
-                @Override public void onLoadingStarted(String imageUri, View view)
-                {
-                    // TODO Auto-generated method stub
-                }
+                // TODO Auto-generated method stub
+            }
 
-                @Override public void onLoadingFailed(String imageUri, View view, FailReason failReason)
-                {
-                    // TODO Auto-generated method stub
-                }
+            @Override public void onLoadingFailed(String imageUri, View view, FailReason failReason)
+            {
+                // TODO Auto-generated method stub
+            }
 
-                @Override public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
-                {
-                    int width = loadedImage.getWidth();
-                    int height = loadedImage.getHeight();
-                    BitmapDrawable disabled = new BitmapDrawable(loadedImage);
-                    Bitmap pressBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
-                    StateListDrawable bg = new StateListDrawable();
-                    Canvas canvas = new Canvas(pressBitmap);
-                    Paint paint = new Paint();
-                    paint.setAlpha(126);
-                    canvas.drawBitmap(loadedImage, 0, 0, paint);
-                    BitmapDrawable normal = new BitmapDrawable(MainApplication.getInstance().getResources(), pressBitmap);
-                    bg.addState(new int[] { android.R.attr.state_pressed , android.R.attr.state_enabled }, disabled);
-                    bg.addState(new int[] { android.R.attr.state_selected , android.R.attr.state_enabled }, disabled);
-                    bg.addState(new int[] { android.R.attr.state_enabled }, normal);
-                    bg.addState(new int[] { }, normal);
-                    imageView.setImageDrawable(bg);
-                }
+            @Override public void onLoadingComplete(String imageUri, View view, Bitmap loadedImage)
+            {
+                int width = loadedImage.getWidth();
+                int height = loadedImage.getHeight();
+                BitmapDrawable disabled = new BitmapDrawable(loadedImage);
+                Bitmap pressBitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888);
+                StateListDrawable bg = new StateListDrawable();
+                Canvas canvas = new Canvas(pressBitmap);
+                Paint paint = new Paint();
+                paint.setAlpha(126);
+                canvas.drawBitmap(loadedImage, 0, 0, paint);
+                BitmapDrawable normal = new BitmapDrawable(MainApplication.getInstance().getResources(), pressBitmap);
+                bg.addState(new int[] { android.R.attr.state_pressed , android.R.attr.state_enabled }, disabled);
+                bg.addState(new int[] { android.R.attr.state_selected , android.R.attr.state_enabled }, disabled);
+                bg.addState(new int[] { android.R.attr.state_enabled }, normal);
+                bg.addState(new int[] { }, normal);
+                imageView.setImageDrawable(bg);
+            }
 
-                @Override public void onLoadingCancelled(String imageUri, View view)
-                {
-                    // TODO Auto-generated method stub
-                }
-            });
+            @Override public void onLoadingCancelled(String imageUri, View view)
+            {
+                // TODO Auto-generated method stub
+            }
+        });
     }
 
     public static class AnimateFirstDisplayListener extends SimpleImageLoadingListener

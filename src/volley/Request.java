@@ -30,7 +30,7 @@ import volley.VolleyLog.MarkerLog;
 
 /**
  * Base class for all network requests.
- * 
+ *
  * @param <T> The type of parsed response this request expects.
  */
 public abstract class Request<T> implements Comparable<Request<T>>
@@ -77,6 +77,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
         int TRACE = 6;
         int PATCH = 7;
     }
+
     /** An event log tracing the lifetime of this request; for debugging. */
     private final MarkerLog mEventLog = MarkerLog.ENABLED ? new MarkerLog() : null;
     /**
@@ -130,7 +131,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * deliver an already-parsed response.
      *
      * @deprecated Use
-     *             {@link #Request(int, String , com.android.volley.Response.ErrorListener)}
+     *             {@link #Request(int , String , com.android.volley.Response.ErrorListener)}
      *             .
      */
     @Deprecated
@@ -283,8 +284,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
                 Handler mainThread = new Handler(Looper.getMainLooper());
                 mainThread.post(new Runnable()
                 {
-                    @Override
-                    public void run()
+                    @Override public void run()
                     {
                         mEventLog.add(tag, threadId);
                         mEventLog.finish(this.toString());
@@ -424,8 +424,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * @throws AuthFailureError In the event of auth failure
      * @deprecated Use {@link #getParams()} instead.
      */
-    @Deprecated
-    protected Map<String, String> getPostParams() throws AuthFailureError
+    @Deprecated protected Map<String, String> getPostParams() throws AuthFailureError
     {
         return getParams();
     }
@@ -444,8 +443,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      *
      * @deprecated Use {@link #getParamsEncoding()} instead.
      */
-    @Deprecated
-    protected String getPostParamsEncoding()
+    @Deprecated protected String getPostParamsEncoding()
     {
         return getParamsEncoding();
     }
@@ -453,8 +451,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
     /**
      * @deprecated Use {@link #getBodyContentType()} instead.
      */
-    @Deprecated
-    public String getPostBodyContentType()
+    @Deprecated public String getPostBodyContentType()
     {
         return getBodyContentType();
     }
@@ -465,8 +462,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * @throws AuthFailureError In the event of auth failure
      * @deprecated Use {@link #getBody()} instead.
      */
-    @Deprecated
-    public byte[] getPostBody() throws AuthFailureError
+    @Deprecated public byte[] getPostBody() throws AuthFailureError
     {
         // Note: For compatibility with legacy clients of volley, this
         // implementation must remain
@@ -544,7 +540,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * Converts <code>params</code> into an application/x-www-form-urlencoded
      * encoded string.
      */
-    private byte[] encodeParameters(Map<String, String> params , String paramsEncoding)
+    private byte[] encodeParameters(Map<String, String> params, String paramsEncoding)
     {
         StringBuilder encodedParams = new StringBuilder();
         try
@@ -587,7 +583,8 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * Priority values. Requests will be processed from higher priorities to
      * lower priorities, in FIFO order.
      */
-    public enum Priority {
+    public enum Priority
+    {
         LOW, NORMAL, HIGH, IMMEDIATE
     }
 
@@ -640,7 +637,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * Subclasses must implement this to parse the raw network response and
      * return an appropriate response type. This method will be called from a
      * worker thread. The response will not be delivered if you return null.
-     * 
+     *
      * @param response Response from the network
      * @return The parsed response, or null in the case of an error
      */
@@ -652,7 +649,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * <p>
      * The default implementation just returns the passed 'networkError'.
      * </p>
-     * 
+     *
      * @param volleyError the error retrieved from the network
      * @return an NetworkError augmented with additional information
      */
@@ -665,7 +662,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
      * Subclasses must implement this to perform delivery of the parsed response
      * to their listeners. The given response is guaranteed to be non-null;
      * responses that fail to parse are not delivered.
-     * 
+     *
      * @param response The parsed response returned by
      *            {@link #parseNetworkResponse(NetworkResponse)}
      */
@@ -674,7 +671,7 @@ public abstract class Request<T> implements Comparable<Request<T>>
     /**
      * Delivers error message to the ErrorListener that the Request was
      * initialized with.
-     * 
+     *
      * @param error Error details
      */
     public void deliverError(VolleyError error)

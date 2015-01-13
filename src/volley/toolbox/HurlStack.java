@@ -55,6 +55,7 @@ public class HurlStack implements HttpStack
          */
         public String rewriteUrl(String originalUrl);
     }
+
     private final UrlRewriter mUrlRewriter;
     private final SSLSocketFactory mSslSocketFactory;
 
@@ -81,8 +82,7 @@ public class HurlStack implements HttpStack
         mSslSocketFactory = sslSocketFactory;
     }
 
-    @Override
-    public HttpResponse performRequest(Request<?> request , Map<String, String> additionalHeaders) throws IOException, AuthFailureError
+    @Override public HttpResponse performRequest(Request<?> request, Map<String, String> additionalHeaders) throws IOException, AuthFailureError
     {
         String url = request.getUrl();
         HashMap<String, String> map = new HashMap<String, String>();
@@ -167,7 +167,7 @@ public class HurlStack implements HttpStack
      * @return an open connection
      * @throws java.io.IOException
      */
-    private HttpURLConnection openConnection(URL url , Request<?> request) throws IOException
+    private HttpURLConnection openConnection(URL url, Request<?> request) throws IOException
     {
         HttpURLConnection connection = createConnection(url);
         int timeoutMs = request.getTimeoutMs();
@@ -184,8 +184,7 @@ public class HurlStack implements HttpStack
     }
 
     @SuppressWarnings("deprecation")
-    /* package */
-    static void setConnectionParametersForRequest(HttpURLConnection connection , Request<?> request) throws IOException, AuthFailureError
+    /* package */ static void setConnectionParametersForRequest(HttpURLConnection connection, Request<?> request) throws IOException, AuthFailureError
     {
         switch (request.getMethod())
         {
@@ -241,7 +240,7 @@ public class HurlStack implements HttpStack
         }
     }
 
-    private static void addBodyIfExists(HttpURLConnection connection , Request<?> request) throws IOException, AuthFailureError
+    private static void addBodyIfExists(HttpURLConnection connection, Request<?> request) throws IOException, AuthFailureError
     {
         byte[] body = request.getBody();
         if (body != null)

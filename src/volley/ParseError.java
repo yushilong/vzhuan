@@ -19,8 +19,7 @@ package volley;
 /**
  * Indicates that the server's response could not be parsed.
  */
-@SuppressWarnings("serial")
-public class ParseError extends VolleyError
+@SuppressWarnings("serial") public class ParseError extends VolleyError
 {
     public ParseError()
     {

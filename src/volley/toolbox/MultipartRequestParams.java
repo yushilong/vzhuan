@@ -1,4 +1,3 @@
-
 package volley.toolbox;
 
 import org.apache.http.HttpEntity;
@@ -36,7 +35,7 @@ public class MultipartRequestParams
      * @param key
      * @param value
      */
-    public void put(String key , String value)
+    public void put(String key, String value)
     {
         if (key != null && value != null)
         {
@@ -49,7 +48,7 @@ public class MultipartRequestParams
      * @param key
      * @param file
      */
-    public void put(String key , File file)
+    public void put(String key, File file)
     {
         try
         {
@@ -67,7 +66,7 @@ public class MultipartRequestParams
      * @param stream
      * @param fileName
      */
-    public void put(String key , InputStream stream , String fileName)
+    public void put(String key, InputStream stream, String fileName)
     {
         put(key, stream, fileName, null);
     }
@@ -79,7 +78,7 @@ public class MultipartRequestParams
      * @param fileName
      * @param contentType
      */
-    public void put(String key , InputStream stream , String fileName , String contentType)
+    public void put(String key, InputStream stream, String fileName, String contentType)
     {
         if (key != null && stream != null)
         {
@@ -88,7 +87,7 @@ public class MultipartRequestParams
     }
 
     /**
-     * 
+     *
      * @return
      */
     public HttpEntity getEntity()

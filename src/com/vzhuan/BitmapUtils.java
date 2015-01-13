@@ -1,4 +1,3 @@
-
 package com.vzhuan;
 
 import android.content.Context;
@@ -73,7 +72,7 @@ public class BitmapUtils
     }
 
     // 图片按比例大小压缩
-    public static Bitmap compBitmap(Bitmap image , int size)
+    public static Bitmap compBitmap(Bitmap image, int size)
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         image.compress(Bitmap.CompressFormat.JPEG, 100, baos);
@@ -104,7 +103,7 @@ public class BitmapUtils
         return bitmap;// 压缩好比例大小后再进行质量压缩
     }
 
-    public static Bitmap getResizedBitmap2(Bitmap bitmap , int newWidth)
+    public static Bitmap getResizedBitmap2(Bitmap bitmap, int newWidth)
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);// 质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
@@ -155,7 +154,7 @@ public class BitmapUtils
     }
 
     //图片缩放
-    public static Bitmap scaleDownBitmap(Bitmap photo , int newHeight)
+    public static Bitmap scaleDownBitmap(Bitmap photo, int newHeight)
     {
         final float densityMultiplier = B5MDisplayHelper.getDensity();
         int h = (int) (newHeight * densityMultiplier);
@@ -164,7 +163,7 @@ public class BitmapUtils
         return photo;
     }
 
-    public static Bitmap getResizedBitmap(Bitmap bm , int newWidth)
+    public static Bitmap getResizedBitmap(Bitmap bm, int newWidth)
     {
         int width = bm.getWidth();
         int height = bm.getHeight();
@@ -213,20 +212,20 @@ public class BitmapUtils
         return bd.getBitmap();
     }
 
-    public static Bitmap getBitmapFromResources(Context act , int resId)
+    public static Bitmap getBitmapFromResources(Context act, int resId)
     {
         Resources res = act.getResources();
         return BitmapFactory.decodeResource(res, resId);
     }
 
-    public InputStream Drawable2InputStream(Context act , int resId)
+    public InputStream Drawable2InputStream(Context act, int resId)
     {
         Drawable d = act.getResources().getDrawable(resId);
         Bitmap bitmap = drawableToBitmap(d);
         return Bitmap2InputStream(bitmap, 50);
     }
 
-    public InputStream Bitmap2InputStream(Bitmap bm , int quality)
+    public InputStream Bitmap2InputStream(Bitmap bm, int quality)
     {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bm.compress(Bitmap.CompressFormat.PNG, quality, baos);
@@ -243,14 +242,14 @@ public class BitmapUtils
         return bitmap;
     }
 
-    /** 
-    * 将多个Bitmap合并成一个图片。 
-    *  
-    * @param columns 将多个图合成多少列
-    * @param bitmaps 要合成的图片
-    * @return 
-    */
-    public static Bitmap combineBitmaps(int columns , Bitmap... bitmaps)
+    /**
+     * 将多个Bitmap合并成一个图片。
+     *
+     * @param columns 将多个图合成多少列
+     * @param bitmaps 要合成的图片
+     * @return
+     */
+    public static Bitmap combineBitmaps(int columns, Bitmap... bitmaps)
     {
         if (columns <= 0 || bitmaps == null || bitmaps.length == 0)
         {
@@ -287,7 +286,7 @@ public class BitmapUtils
         return newBitmap;
     }
 
-    public static Bitmap mixtureBitmap(Bitmap first , Bitmap second , PointF fromPoint)
+    public static Bitmap mixtureBitmap(Bitmap first, Bitmap second, PointF fromPoint)
     {
         if (first == null || second == null || fromPoint == null)
         {
@@ -327,7 +326,8 @@ public class BitmapUtils
         return get(Effection.valueOf(paramString));
     }
 
-    public enum Effection {
+    public enum Effection
+    {
         CIRCLE("CIRCLE"), ROUND_CORNER("ROUND_CORNER");
         private final String effect;
 
@@ -342,7 +342,7 @@ public class BitmapUtils
         }
     }
 
-    public static byte[] bmpToByteArray(final Bitmap bmp , final boolean needRecycle)
+    public static byte[] bmpToByteArray(final Bitmap bmp, final boolean needRecycle)
     {
         ByteArrayOutputStream output = new ByteArrayOutputStream();
         bmp.compress(CompressFormat.PNG, 100, output);

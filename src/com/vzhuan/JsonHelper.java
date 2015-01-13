@@ -1,9 +1,9 @@
-
 package com.vzhuan;
 
 public class JsonHelper
 {
-    public enum JSON_TYPE {
+    public enum JSON_TYPE
+    {
         /**JSONObject*/
         JSON_TYPE_OBJECT,
         /**JSONArray*/

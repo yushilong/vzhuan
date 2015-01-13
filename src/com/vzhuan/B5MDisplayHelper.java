@@ -1,4 +1,3 @@
-
 package com.vzhuan;
 
 import android.content.Context;
@@ -19,7 +18,7 @@ public class B5MDisplayHelper
     /**
      *  [简要描述]: Display Density
      *  [详细描述]:
-    
+
      */
     public static float getDensity()
     {
@@ -37,7 +36,7 @@ public class B5MDisplayHelper
     /**
      *  [简要描述]: 获取屏幕宽度（像素值）
      *  [详细描述]:
-    
+
      */
     public static int getScreenWidth()
     {
@@ -46,7 +45,7 @@ public class B5MDisplayHelper
 
     /**
      *  [简要描述]: 获取屏幕宽度（Dip值）
-    
+
      */
     public static float getWidthDip()
     {
@@ -56,7 +55,7 @@ public class B5MDisplayHelper
     /**
      *  [简要描述]:   获取屏幕高度（像素值）
      *  [详细描述]:
-    
+
      */
     public static int getScreenHeight()
     {
@@ -66,7 +65,7 @@ public class B5MDisplayHelper
     /**
      *  [简要描述]:   获取屏幕高度（Dip值）
      *  [详细描述]: 
-    
+
      */
     public static float getHeightDip()
     {
@@ -75,7 +74,7 @@ public class B5MDisplayHelper
 
     /**
      *  [简要描述]: 获取Dip值 [Int]
-    
+
      */
     public static int getIntDip(float dpValue)
     {
@@ -84,7 +83,7 @@ public class B5MDisplayHelper
 
     /**
      *  [简要描述]: 获取Dip值 [Float]
-    
+
      */
     public float getFloatDip(int i)
     {
@@ -96,10 +95,10 @@ public class B5MDisplayHelper
         return (int) (pxValue / metrics.density + 0.5f);
     }
 
-    /** 
+    /**
      * 根据手机的分辨率从 dp 的单位 转成为 px(像素) 
      */
-    public static int dipTopx(Context context , float dpValue)
+    public static int dipTopx(Context context, float dpValue)
     {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
@@ -111,10 +110,10 @@ public class B5MDisplayHelper
         return (int) (dpValue * scale + 0.5f);
     }
 
-    /** 
+    /**
      * 根据手机的分辨率从 px(像素) 的单位 转成为 dp 
      */
-    public static int pxTodip(Context context , float pxValue)
+    public static int pxTodip(Context context, float pxValue)
     {
         final float scale = context.getResources().getDisplayMetrics().density;
         return (int) (pxValue / scale + 0.5f);
@@ -139,6 +138,6 @@ public class B5MDisplayHelper
 
     public static int[] getScreenCenter()
     {
-        return new int[] { getScreenWidth() / 2, getScreenHeight() / 2 };
+        return new int[] { getScreenWidth() / 2 , getScreenHeight() / 2 };
     }
 }

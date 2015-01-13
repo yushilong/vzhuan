@@ -22,7 +22,8 @@ import java.util.Map;
 /**
  * An interface for a cache keyed by a String with a byte array as data.
  */
-public interface Cache {
+public interface Cache
+{
     /**
      * Retrieves an entry from the cache.
      * @param key Cache key
@@ -64,34 +65,31 @@ public interface Cache {
     /**
      * Data and metadata for an entry returned by the cache.
      */
-    public static class Entry {
+    public static class Entry
+    {
         /** The data returned from cache. */
         public byte[] data;
-
         /** ETag for cache coherency. */
         public String etag;
-
         /** Date of this response as reported by the server. */
         public long serverDate;
-
         /** TTL for this record. */
         public long ttl;
-
         /** Soft TTL for this record. */
         public long softTtl;
-
         /** Immutable response headers as received from server; must be non-null. */
         public Map<String, String> responseHeaders = Collections.emptyMap();
 
         /** True if the entry is expired. */
-        public boolean isExpired() {
+        public boolean isExpired()
+        {
             return this.ttl < System.currentTimeMillis();
         }
 
         /** True if a refresh is needed from the original data source. */
-        public boolean refreshNeeded() {
+        public boolean refreshNeeded()
+        {
             return this.softTtl < System.currentTimeMillis();
         }
     }
-
 }

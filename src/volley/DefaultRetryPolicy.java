@@ -60,8 +60,7 @@ public class DefaultRetryPolicy implements RetryPolicy
     /**
      * Returns the current timeout.
      */
-    @Override
-    public int getCurrentTimeout()
+    @Override public int getCurrentTimeout()
     {
         return mCurrentTimeoutMs;
     }
@@ -69,8 +68,7 @@ public class DefaultRetryPolicy implements RetryPolicy
     /**
      * Returns the current retry count.
      */
-    @Override
-    public int getCurrentRetryCount()
+    @Override public int getCurrentRetryCount()
     {
         return mCurrentRetryCount;
     }
@@ -79,8 +77,7 @@ public class DefaultRetryPolicy implements RetryPolicy
      * Prepares for the next retry by applying a backoff to the timeout.
      * @param error The error code of the last attempt.
      */
-    @Override
-    public void retry(VolleyError error) throws VolleyError
+    @Override public void retry(VolleyError error) throws VolleyError
     {
         mCurrentRetryCount++;
         mCurrentTimeoutMs += (mCurrentTimeoutMs * mBackoffMultiplier);

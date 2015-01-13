@@ -42,7 +42,7 @@ public abstract class JsonRequest<T> extends Request<T>
      * Deprecated constructor for a JsonRequest which defaults to GET unless {@link #getPostBody()}
      * or {@link #getPostParams()} is overridden (which defaults to POST).
      *
-     * @deprecated Use {@link #JsonRequest(int, String , String , Listener, ErrorListener)}.
+     * @deprecated Use {@link #JsonRequest(int , String , String , Listener , ErrorListener)}.
      */
     public JsonRequest(String url, String requestBody, Response.Listener<T> listener, Response.ErrorListener errorListener)
     {
@@ -62,20 +62,17 @@ public abstract class JsonRequest<T> extends Request<T>
         mListener = listener;
     }
 
-    @Override
-    protected void deliverResponse(T response)
+    @Override protected void deliverResponse(T response)
     {
         mListener.onResponse(response);
     }
 
-    @Override
-    abstract protected Response<T> parseNetworkResponse(NetworkResponse response);
+    @Override abstract protected Response<T> parseNetworkResponse(NetworkResponse response);
 
     /**
      * @deprecated Use {@link #getBodyContentType()}.
      */
-    @Override
-    public String getPostBodyContentType()
+    @Override public String getPostBodyContentType()
     {
         return getBodyContentType();
     }
@@ -83,20 +80,17 @@ public abstract class JsonRequest<T> extends Request<T>
     /**
      * @deprecated Use {@link #getBody()}.
      */
-    @Override
-    public byte[] getPostBody()
+    @Override public byte[] getPostBody()
     {
         return getBody();
     }
 
-    @Override
-    public String getBodyContentType()
+    @Override public String getBodyContentType()
     {
         return PROTOCOL_CONTENT_TYPE;
     }
 
-    @Override
-    public byte[] getBody()
+    @Override public byte[] getBody()
     {
         try
         {

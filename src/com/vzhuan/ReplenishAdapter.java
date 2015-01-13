@@ -1,4 +1,3 @@
-
 package com.vzhuan;
 
 import android.app.Activity;
@@ -32,30 +31,25 @@ public abstract class ReplenishAdapter<T> extends BaseAdapter
         this.list = list;
     }
 
-    @Override
-    public int getCount()
+    @Override public int getCount()
     {
         // TODO Auto-generated method stub
         return list.size();
     }
 
-    @Override
-    public Object getItem(int position)
+    @Override public Object getItem(int position)
     {
         // TODO Auto-generated method stub
         return list.get(position);
     }
 
-    @Override
-    public long getItemId(int position)
+    @Override public long getItemId(int position)
     {
         // TODO Auto-generated method stub
         return position;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public View getView(int position , View convertView , ViewGroup parent)
+    @SuppressWarnings("unchecked") @Override public View getView(int position, View convertView, ViewGroup parent)
     {
         // TODO Auto-generated method stub
         ViewHolder holder;
@@ -80,7 +74,7 @@ public abstract class ReplenishAdapter<T> extends BaseAdapter
      * @param holder
      * @return
      */
-    public abstract View getView(int position , View convertView , ViewGroup parent , ViewHolder viewHolder);
+    public abstract View getView(int position, View convertView, ViewGroup parent, ViewHolder viewHolder);
 
     /**
      * 各个控件的缓存
@@ -97,7 +91,7 @@ public abstract class ReplenishAdapter<T> extends BaseAdapter
          * @param resId
          * @return
          */
-        public <T extends View> T obtainView(View convertView , int resId)
+        public <T extends View> T obtainView(View convertView, int resId)
         {
             View v = views.get(resId);
             if (null == v)

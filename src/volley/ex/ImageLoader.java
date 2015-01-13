@@ -121,7 +121,7 @@ public class ImageLoader extends volley.toolbox.ImageLoader
         return this;
     }
 
-    public ImageLoader setMaxImageSize(int maxImageWidth , int maxImageHeight)
+    public ImageLoader setMaxImageSize(int maxImageWidth, int maxImageHeight)
     {
         mMaxImageWidth = maxImageWidth;
         mMaxImageHeight = maxImageHeight;
@@ -133,27 +133,26 @@ public class ImageLoader extends volley.toolbox.ImageLoader
         return setMaxImageSize(maxImageSize, maxImageSize);
     }
 
-    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl , ImageView imageView)
+    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl, ImageView imageView)
     {
         return get(requestUrl, imageView, 0);
     }
 
-    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl , ImageView imageView , int placeHolderIndex)
+    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl, ImageView imageView, int placeHolderIndex)
     {
         return get(requestUrl, imageView, mPlaceHolderDrawables.get(placeHolderIndex), mMaxImageWidth, mMaxImageHeight);
     }
 
-    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl , ImageView imageView , Drawable placeHolder)
+    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl, ImageView imageView, Drawable placeHolder)
     {
         return get(requestUrl, imageView, placeHolder, mMaxImageWidth, mMaxImageHeight);
     }
 
-    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl , ImageView imageView , Drawable placeHolder , int maxWidth , int maxHeight)
+    public volley.toolbox.ImageLoader.ImageContainer get(String requestUrl, ImageView imageView, Drawable placeHolder, int maxWidth, int maxHeight)
     {
         // Find any old image load request pending on this ImageView (in case this view was
         // recycled)
-        volley.toolbox.ImageLoader.ImageContainer imageContainer = imageView.getTag() != null && imageView.getTag() instanceof volley.toolbox.ImageLoader.ImageContainer ? (ImageContainer) imageView
-                .getTag() : null;
+        volley.toolbox.ImageLoader.ImageContainer imageContainer = imageView.getTag() != null && imageView.getTag() instanceof volley.toolbox.ImageLoader.ImageContainer ? (ImageContainer) imageView.getTag() : null;
         // Find image url from prior request
         String recycledImageUrl = imageContainer != null ? imageContainer.getRequestUrl() : null;
         // If the new requestUrl is null or the new requestUrl is different to the previous
@@ -182,13 +181,11 @@ public class ImageLoader extends volley.toolbox.ImageLoader
         return imageContainer;
     }
 
-    private static volley.toolbox.ImageLoader.ImageListener getImageListener(final Resources resources , final ImageView imageView , final Drawable placeHolder ,
-            final boolean fadeInImage)
+    private static volley.toolbox.ImageLoader.ImageListener getImageListener(final Resources resources, final ImageView imageView, final Drawable placeHolder, final boolean fadeInImage)
     {
         return new volley.toolbox.ImageLoader.ImageListener()
         {
-            @Override
-            public void onResponse(volley.toolbox.ImageLoader.ImageContainer response , boolean isImmediate)
+            @Override public void onResponse(volley.toolbox.ImageLoader.ImageContainer response, boolean isImmediate)
             {
                 imageView.setTag(null);
                 if (response.getBitmap() != null)
@@ -201,8 +198,7 @@ public class ImageLoader extends volley.toolbox.ImageLoader
                 }
             }
 
-            @Override
-            public void onErrorResponse(VolleyError volleyError)
+            @Override public void onErrorResponse(VolleyError volleyError)
             {
             }
         };
@@ -225,24 +221,21 @@ public class ImageLoader extends volley.toolbox.ImageLoader
      * is a {@link android.graphics.drawable.Drawable} already set on the ImageView then use that as the image to fade
      * from. Otherwise fade in from a transparent Drawable.
      */
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
-    private static void setImageBitmap(final ImageView imageView , final Bitmap bitmap , Resources resources , boolean fadeIn)
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1) private static void setImageBitmap(final ImageView imageView, final Bitmap bitmap, Resources resources, boolean fadeIn)
     {
         // If we're fading in and on HC MR1+
         if (fadeIn && hasHoneycombMR1())
         {
             // Use ViewPropertyAnimator to run a simple fade in + fade out animation to update the
             // ImageView
-            imageView.animate().scaleY(0.95f).scaleX(0.95f).alpha(0f).setDuration(imageView.getDrawable() == null ? 0 : HALF_FADE_IN_TIME)
-                    .setListener(new AnimatorListenerAdapter()
-                    {
-                        @Override
-                        public void onAnimationEnd(Animator animation)
-                        {
-                            imageView.setImageBitmap(bitmap);
-                            imageView.animate().alpha(1f).scaleY(1f).scaleX(1f).setDuration(HALF_FADE_IN_TIME).setListener(null);
-                        }
-                    });
+            imageView.animate().scaleY(0.95f).scaleX(0.95f).alpha(0f).setDuration(imageView.getDrawable() == null ? 0 : HALF_FADE_IN_TIME).setListener(new AnimatorListenerAdapter()
+            {
+                @Override public void onAnimationEnd(Animator animation)
+                {
+                    imageView.setImageBitmap(bitmap);
+                    imageView.animate().alpha(1f).scaleY(1f).scaleX(1f).setDuration(HALF_FADE_IN_TIME).setListener(null);
+                }
+            });
         }
         else if (fadeIn)
         {
@@ -258,7 +251,7 @@ public class ImageLoader extends volley.toolbox.ImageLoader
             }
             BitmapDrawable bitmapDrawable = new BitmapDrawable(resources, bitmap);
             // Use TransitionDrawable to fade in
-            final TransitionDrawable td = new TransitionDrawable(new Drawable[] { initialDrawable, bitmapDrawable });
+            final TransitionDrawable td = new TransitionDrawable(new Drawable[] { initialDrawable , bitmapDrawable });
             imageView.setImageDrawable(td);
             td.startTransition(ANIMATION_FADE_IN_TIME);
         }
