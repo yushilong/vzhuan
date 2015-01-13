@@ -4,17 +4,14 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
 import android.widget.Toast;
-import cn.jpush.android.api.JPushInterface;
 import cn.sharesdk.demo.Laiwang;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
-import com.vzhuan.api.B5MRequest;
-import com.vzhuan.api.IB5MResponseListenerImpl;
-import com.vzhuan.api.ResponseEntry;
+import cn.waps.AppConnect;
+import com.dlnetwork.Dianle;
 import com.vzhuan.viewpager.FragmentPagerAdapter;
 import com.vzhuan.viewpager.ViewPager;
-import org.json.JSONException;
-import org.json.JSONObject;
+import net.youmi.android.AdManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,20 +19,20 @@ import java.util.List;
 /**
  * Created by lscm on 2015/1/5.
  */
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity
+{
     public static String TEST_IMAGE;
     public static String TEST_IMAGE_URL;
     private ViewPager mViewPager;
     private List<Fragment> fragments;
-    private B5MRequest userInfoRequest;
 
-    @Override
-    public int doGetContentViewId() {
+    @Override public int doGetContentViewId()
+    {
         return R.layout.main;
     }
 
-    @Override
-    public void doInitDataes() {
+    @Override public void doInitDataes()
+    {
         super.doInitDataes();
         ShareSDK.initSDK(this);
         ShareSDK.registerPlatform(Laiwang.class);
@@ -53,41 +50,38 @@ public class MainActivity extends BaseActivity {
         shareFragment.setViewPager(mViewPager);
         fragments.add(2, shareFragment);
         mViewPager.setAdapter(new VerticalPager(getSupportFragmentManager()));
-        //
-        userInfoRequest = new B5MRequest(Constants.USERINFO, new IB5MResponseListenerImpl() {
-            @Override
-            public void onResponse(ResponseEntry entry) {
-                super.onResponse(entry);
-            }
-        });
-        JSONObject userInfoObject = new JSONObject();
-        try {
-            userInfoObject.put("did", JPushInterface.getRegistrationID(MainApplication.getInstance()));
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        userInfoRequest.setRequestBody(userInfoObject);
-        userInfoRequest.start();
+        //ads config
+        initAds();
     }
-
-    class VerticalPager extends FragmentPagerAdapter {
-        public VerticalPager(FragmentManager fm) {
+    private void initAds()
+    {
+        //dianle
+        Dianle.initGoogleContext(this,"c96e880f25579db0645a73dddd6fc1b0");
+        //appoffer
+        AppConnect.getInstance("e962f6e8021a4d4db681772ac9783dae", "waps", this);
+        //youmi
+        AdManager.getInstance(this).init("760f04b16d9496fa", "81012bc40d0a99f4", Constants.DEBUG);
+    }
+    class VerticalPager extends FragmentPagerAdapter
+    {
+        public VerticalPager(FragmentManager fm)
+        {
             super(fm);
         }
 
-        @Override
-        public Fragment getItem(int i) {
+        @Override public Fragment getItem(int i)
+        {
             return fragments.get(i);
         }
 
-        @Override
-        public int getCount() {
+        @Override public int getCount()
+        {
             return fragments.size();
         }
     }
 
-    @Override
-    protected void onDestroy() {
+    @Override protected void onDestroy()
+    {
         super.onDestroy();
         AppManagerStack.getInstance().AppExit(this);
     }
@@ -95,8 +89,10 @@ public class MainActivity extends BaseActivity {
     /**
      * 将action转换为String
      */
-    public static String actionToString(int action) {
-        switch (action) {
+    public static String actionToString(int action)
+    {
+        switch (action)
+        {
             case Platform.ACTION_AUTHORIZING:
                 return "ACTION_AUTHORIZING";
             case Platform.ACTION_GETTING_FRIEND_LIST:
@@ -111,7 +107,8 @@ public class MainActivity extends BaseActivity {
                 return "ACTION_USER_INFOR";
             case Platform.ACTION_SHARE:
                 return "ACTION_SHARE";
-            default: {
+            default:
+            {
                 return "UNKNOWN";
             }
         }
@@ -119,14 +116,18 @@ public class MainActivity extends BaseActivity {
 
     private long exitTime = 0;
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-            if ((System.currentTimeMillis() - exitTime) > 2000) {
+    @Override public boolean onKeyDown(int keyCode, KeyEvent event)
+    {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
+        {
+            if ((System.currentTimeMillis() - exitTime) > 2000)
+            {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
                 return true;
-            } else {
+            }
+            else
+            {
                 AppManagerStack.getInstance().AppExit(MainActivity.this);
             }
         }

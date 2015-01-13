@@ -40,5 +40,8 @@ public class ShareUtil
         public static final String KEY_ISFIRST_OPEN = "KEY_ISFIRST_OPEN";
         public static final String KEY_USER_ID = "KEY_USER_ID";
         public static final String KEY_CHANNEL_ID = "KEY_CHANNEL_ID";
+        public static final String SHARE_TITLE = "SHARE_TITLE";
+        public static final String SHARE_URL = "SHARE_URL";
+        public static final String SHARE_DOWNLOAD = "SHARE_DOWNLOAD";
     }
 }

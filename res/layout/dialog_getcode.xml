@@ -9,7 +9,7 @@
       android:id="@+id/tv_title"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="方法一"
+      android:text="关注我们的微信号"
       android:layout_centerHorizontal="true"
       android:textColor="#3EBBFE"
       android:gravity="center"/>
@@ -34,7 +34,7 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="方法一"/>
+          android:text="方式一"/>
 
       <ImageView
           android:id="@+id/iv_code"
@@ -46,7 +46,7 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="点击保存图片"/>
+          android:text="点击保存二维码"/>
     </LinearLayout>
 
     <LinearLayout
@@ -59,7 +59,7 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="方法二"/>
+          android:text="方式二"/>
 
       <TextView
           android:id="@+id/tv_code"
@@ -74,7 +74,7 @@
       <TextView
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="长按复制邀请码"/>
+          android:text="长按复制公众号"/>
     </LinearLayout>
   </LinearLayout>
 

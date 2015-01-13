@@ -7,14 +7,14 @@
 
   <ImageView
       android:layout_width="match_parent"
-      android:layout_height="200dp"
+      android:layout_height="180dp"
       android:src="@drawable/banner"
       android:scaleType="fitXY"/>
 
   <RelativeLayout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:layout_marginTop="10dp"
+      android:layout_marginTop="5dp"
       android:background="#3EBBFE">
 
     <LinearLayout
@@ -37,8 +37,8 @@
 
         <ImageView
             android:id="@+id/iv_avatar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:src="@drawable/avatar"/>
 
         <ImageView
@@ -51,22 +51,34 @@
             android:layout_marginRight="5dp"/>
       </RelativeLayout>
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="id"
-          android:textColor="@android:color/white"
-          android:layout_marginTop="15dp"/>
 
       <TextView
+          android:id="@+id/tv_userStatus"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="用户非法"
           android:textColor="@android:color/white"
           android:background="@drawable/userunavalid"
           android:padding="5dp"
           android:gravity="center"
           android:layout_marginTop="15dp"/>
+
+      <TextView
+          android:id="@+id/tv_name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:textColor="@android:color/white"
+          android:layout_marginTop="10dp"/>
+
+      <TextView
+          android:id="@+id/tv_score"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:background="@drawable/icon_coinbg"
+          android:textColor="#CBDF9A"
+          android:text="￥ 2.00"
+          android:padding="5dp"
+          android:layout_marginTop="5dp"
+          android:gravity="center"/>
 
       <Button
           android:id="@+id/bt_startcoin"
@@ -76,6 +88,7 @@
           android:background="@drawable/startcoin"
           android:textColor="#3EBBFE"
           android:gravity="center"
+          android:padding="5dp"
           android:layout_marginTop="30dp"/>
     </LinearLayout>
 
@@ -93,16 +106,6 @@
           android:layout_width="80dp"
           android:layout_height="80dp"
           android:src="@drawable/icon_share"/>
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:background="@drawable/icon_coinbg"
-          android:textColor="#CBDF9A"
-          android:text="￥ 2.00"
-          android:padding="10dp"
-          android:layout_marginTop="5dp"
-          android:gravity="center"/>
     </LinearLayout>
   </RelativeLayout>
 </LinearLayout>

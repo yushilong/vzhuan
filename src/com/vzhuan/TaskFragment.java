@@ -1,11 +1,20 @@
 package com.vzhuan;
 
+import android.app.Activity;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
-import com.vzhuan.mode.Task;
+import com.google.gson.Gson;
+import com.vzhuan.ads.AdvertiseContext;
+import com.vzhuan.api.HttpListener;
+import com.vzhuan.api.MyHttpRequestor;
+import com.vzhuan.mode.Ads;
 import com.vzhuan.viewpager.ViewPager;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 
@@ -18,6 +27,8 @@ public class TaskFragment extends BaseFragment
     private TaskAdapter mTaskAdapter;
     GestureDetector mGestureDetector;
     ViewPager viewPager;
+    MyHttpRequestor getAdsRequest;
+    private Activity mActivity;
 
     @Override public int doGetContentViewId()
     {
@@ -27,8 +38,9 @@ public class TaskFragment extends BaseFragment
     @Override public void doInitSubViews(View containerView)
     {
         super.doInitSubViews(containerView);
+        mActivity = getActivity();
         mListView = (ListView) containerView.findViewById(R.id.lv_task);
-        mTaskAdapter = new TaskAdapter(getActivity(), new ArrayList<Task>());
+        mTaskAdapter = new TaskAdapter(getActivity(), new ArrayList<Ads>());
         mListView.setAdapter(mTaskAdapter);
         mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener()
         {
@@ -53,20 +65,56 @@ public class TaskFragment extends BaseFragment
                 return false;
             }
         });
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
+        {
+            @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id)
+            {
+                final Ads ads = mTaskAdapter.list.get((int) id);
+                new AdvertiseContext().setType(mActivity, ads.type).openAd();
+            }
+        });
     }
 
     @Override public void doInitDataes()
     {
         super.doInitDataes();
-        for (int i = 0; i < 50; i++)
+        //        for (int i = 0; i < 50; i++)
+        //        {
+        //            Task task = new Task();
+        //            task.pic = "http://c.hiphotos.baidu.com/image/pic/item/bba1cd11728b47106bd83abcc0cec3fdfd0323cf.jpg";
+        //            task.name = "this is task name " + i;
+        //            task.desc = "this is task description";
+        //            mTaskAdapter.list.add(task);
+        //        }
+        //
+        getAdsRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.GET_METHOD, Constants.GET_ADS, new HttpListener()
         {
-            Task task = new Task();
-            task.pic = "http://c.hiphotos.baidu.com/image/pic/item/bba1cd11728b47106bd83abcc0cec3fdfd0323cf.jpg";
-            task.name = "this is task name " + i;
-            task.desc = "this is task description";
-            mTaskAdapter.list.add(task);
-        }
-        mTaskAdapter.notifyDataSetChanged();
+            @Override public void onSuccess(String msg)
+            {
+                JSONArray jsonArray = null;
+                try
+                {
+                    jsonArray = new JSONObject(msg).optJSONArray("entity");
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+                int length = jsonArray.length();
+                Gson gson = new Gson();
+                for (int i = 0; i < length; i++)
+                {
+                    Ads ads = gson.fromJson(jsonArray.optJSONObject(i).toString(), Ads.class);
+                    mTaskAdapter.list.add(ads);
+                }
+                mTaskAdapter.notifyDataSetChanged();
+            }
+
+            @Override public void onFailure(int statusCode)
+            {
+            }
+        });
+        getAdsRequest.start();
     }
 
     public ViewPager getViewPager()

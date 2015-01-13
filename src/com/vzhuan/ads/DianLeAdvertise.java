@@ -1,15 +1,15 @@
 package com.vzhuan.ads;
 
 import android.app.Activity;
-import net.youmi.android.offers.OffersManager;
+import com.dlnetwork.Dianle;
 
 /**
  * Created by lscm on 2015/1/8.
  */
-public class YoumiAdvertise implements Advertise
+public class DianLeAdvertise implements Advertise
 {
     @Override public void show(Activity activity)
     {
-        OffersManager.getInstance(activity).showOffersWall();
+        Dianle.showOffers(activity);
     }
 }

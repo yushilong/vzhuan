@@ -5,13 +5,14 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
-import cn.sharesdk.framework.ShareSDK;
-import com.vzhuan.viewpager.ViewPager;
 import cn.sharesdk.demo.ShareContentCustomizeDemo;
+import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.onekeyshare.OnekeyShareTheme;
 import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
+import com.vzhuan.viewpager.ViewPager;
 
 /**
  * Created by lscm on 2015/1/5.
@@ -19,6 +20,7 @@ import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 public class ShareFragment extends BaseFragment
 {
     ViewPager viewPager;
+    TextView tv_id, tv_content;
 
     @Override public int doGetContentViewId()
     {
@@ -44,6 +46,14 @@ public class ShareFragment extends BaseFragment
                 showShare(false, null, false);
             }
         });
+        tv_id = (TextView) containerView.findViewById(R.id.tv_id);
+        tv_content = (TextView) containerView.findViewById(R.id.tv_content);
+    }
+
+    @Override public void doInitDataes()
+    {
+        super.doInitDataes();
+        tv_id.setText(UserManager.getInstance().getUser().id);
     }
 
     public ViewPager getViewPager()
@@ -76,8 +86,8 @@ public class ShareFragment extends BaseFragment
         oks.setNotification(R.drawable.ic_launcher, context.getString(R.string.app_name));
         //oks.setAddress("12345678901");
         oks.setTitle(context.getString(R.string.evenote_title));
-        oks.setTitleUrl("http://mob.com");
-        String customText = "text";
+        oks.setTitleUrl(Constants.HOST);
+        String customText = ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_TITLE, "v赚");
         if (customText != null)
         {
             oks.setText(customText);
@@ -141,7 +151,7 @@ public class ShareFragment extends BaseFragment
         // 为EditPage设置一个背景的View
         //        oks.setEditPageBackground(getPage());
         //设置kakaoTalk分享链接时，点击分享信息时，如果应用不存在，跳转到应用的下载地址
-        oks.setInstallUrl("http://www.mob.com");
+        oks.setInstallUrl(ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_DOWNLOAD, Constants.HOST));
         //设置kakaoTalk分享链接时，点击分享信息时，如果应用存在，打开相应的app
         oks.setExecuteUrl("kakaoTalkTest://starActivity");
         oks.show(context);

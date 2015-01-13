@@ -17,9 +17,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import cn.jpush.android.api.JPushInterface;
 import com.google.gson.Gson;
-import com.vzhuan.api.B5MRequest;
-import com.vzhuan.api.IB5MResponseListenerImpl;
-import com.vzhuan.api.ResponseEntry;
+import com.vzhuan.api.HttpListener;
+import com.vzhuan.api.MyHttpRequestor;
 import com.vzhuan.mode.Code;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,102 +28,123 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Created by lscm on 2015/1/7.
  */
-public class RegisterActivity extends BaseActivity {
+public class RegisterActivity extends BaseActivity
+{
     EditText et_code;
     ImageView iv_code;
     TextView tv_code;
     Dialog mDialog;
-    B5MRequest getCodeRequest, registerRequest, checkAccessRequest;
+    MyHttpRequestor getCodeRequest, registerRequest, checkAccessRequest;
     private String code;
 
-    @Override
-    public int doGetContentViewId() {
+    @Override public int doGetContentViewId()
+    {
         return R.layout.register;
     }
 
-    @Override
-    public void doInitSubViews() {
+    @Override public void doInitSubViews()
+    {
         super.doInitSubViews();
         et_code = (EditText) findViewById(R.id.et_code);
     }
 
-    @Override
-    public void doInitDataes() {
+    @Override public void doInitDataes()
+    {
         super.doInitDataes();
         //
-        if (JPushInterface.isPushStopped(MainApplication.getInstance())) {
+        if (JPushInterface.isPushStopped(MainApplication.getInstance()))
+        {
             JPushInterface.resumePush(MainApplication.getInstance());
         }
         Log.d(RegisterActivity.class.getSimpleName(), "Registration Id : " + JPushInterface.getRegistrationID(MainApplication.getInstance()));
         //
-        getCodeRequest = new B5MRequest(Constants.REGISTER_GETCODE, findViewById(R.id.progressBar), new IB5MResponseListenerImpl() {
-            @Override
-            public void onResponse(ResponseEntry entry) {
-                super.onResponse(entry);
+        getCodeRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.GET_METHOD, Constants.REGISTER_GETCODE, new HttpListener()
+        {
+            @Override public void onSuccess(String msg)
+            {
                 JSONObject jsonObject = null;
-                try {
-                    jsonObject = new JSONObject(entry.result);
+                try
+                {
+                    jsonObject = new JSONObject(msg);
                     jsonObject = jsonObject.getJSONObject("entity");
-                } catch (JSONException e) {
+                }
+                catch (JSONException e)
+                {
                     e.printStackTrace();
                 }
                 Gson gson = new Gson();
                 Code code = gson.fromJson(jsonObject.toString(), Code.class);
                 ImageUtil.displayDefaultNotPeopleRoundImage(Constants.HOST + code.wxTwoDimensionCode, iv_code);
                 tv_code.setText(code.wxAccount);
+                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_TITLE, code.context);
+                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_URL, code.referrer);
+                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_DOWNLOAD, code.download);
+            }
+
+            @Override public void onFailure(int statusCode)
+            {
             }
         });
         //
-        registerRequest = new B5MRequest(Constants.REGISTER, findViewById(R.id.progressBar), new IB5MResponseListenerImpl() {
-            @Override
-            public void onResponse(ResponseEntry entry) {
-                super.onResponse(entry);
+        registerRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.POST_METHOD, Constants.REGISTER, new HttpListener()
+        {
+            @Override public void onSuccess(String msg)
+            {
                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                 ShareUtil.setBoolean(RegisterActivity.this, ShareUtil.ShareKey.KEY_ISFIRST_OPEN, false);
                 finish();
                 startActivity(new Intent(RegisterActivity.this, MainActivity.class));
             }
+
+            @Override public void onFailure(int statusCode)
+            {
+            }
         });
         //
-        checkAccessRequest = new B5MRequest(Constants.REGISTER_CHECK_ACCESS, findViewById(R.id.progressBar), new IB5MResponseListenerImpl() {
-            @Override
-            public void onResponse(ResponseEntry entry) {
-                super.onResponse(entry);
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("mac", getImei());
-                    jsonObject.put("token", JPushInterface.getRegistrationID(MainApplication.getInstance()));
-                    jsonObject.put("openUdid", getImei());
-                    jsonObject.put("access", code);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                registerRequest.setRequestBody(jsonObject).start();
+        checkAccessRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.POST_METHOD, Constants.REGISTER_CHECK_ACCESS, new HttpListener()
+        {
+            @Override public void onSuccess(String msg)
+            {
+                Map<String, Object> register = new HashMap<String, Object>();
+                register.put("mac", getImei());
+                register.put("token", JPushInterface.getRegistrationID(MainApplication.getInstance()));
+                register.put("openUdid", getImei());
+                register.put("access", code);
+                registerRequest.setParam(register);
+                registerRequest.start();
+            }
+
+            @Override public void onFailure(int statusCode)
+            {
             }
         });
     }
 
-    public void toRegister(View view) {
+    public void toRegister(View view)
+    {
         code = et_code.getText().toString().trim();
-        if (!TextUtils.isEmpty(code)) {
-            JSONObject checkCodeObject = new JSONObject();
-            try {
-                checkCodeObject.put("access", code);
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-            checkAccessRequest.setRequestBody(checkCodeObject).start();
-        } else {
+        if (!TextUtils.isEmpty(code))
+        {
+            Map<String, Object> checkAddress = new HashMap<String, Object>();
+            checkAddress.put("access", code);
+            checkAccessRequest.setParam(checkAddress);
+            checkAccessRequest.start();
+        }
+        else
+        {
             et_code.requestFocus();
             et_code.setError("请填写邀请码");
         }
     }
 
-    public void showMethod(View view) {
+    public void showMethod(View view)
+    {
         if (mDialog == null)
             initDialog();
         getCodeRequest.start();
@@ -132,21 +152,24 @@ public class RegisterActivity extends BaseActivity {
             mDialog.show();
     }
 
-    private void initDialog() {
+    private void initDialog()
+    {
         mDialog = new Dialog(this, R.style.MyDialog);
         View view = View.inflate(this, R.layout.dialog_getcode, null);
         iv_code = (ImageView) view.findViewById(R.id.iv_code);
-        iv_code.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        iv_code.setOnClickListener(new View.OnClickListener()
+        {
+            @Override public void onClick(View view)
+            {
                 Bitmap bitmap = ((BitmapDrawable) iv_code.getDrawable()).getBitmap();
                 saveBitmap(bitmap);
             }
         });
         tv_code = (TextView) view.findViewById(R.id.tv_code);
-        tv_code.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
+        tv_code.setOnLongClickListener(new View.OnLongClickListener()
+        {
+            @Override public boolean onLongClick(View view)
+            {
                 ClipboardManager clipboardManager = (ClipboardManager) RegisterActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("simpleText", tv_code.getText());
                 clipboardManager.setPrimaryClip(clip);
@@ -157,38 +180,55 @@ public class RegisterActivity extends BaseActivity {
         mDialog.setContentView(view);
     }
 
-    public void closeDialog(View view) {
+    public void closeDialog(View view)
+    {
         mDialog.dismiss();
     }
 
     /**
      * 保存方法
      */
-    public void saveBitmap(Bitmap bm) {
+    public void saveBitmap(Bitmap bm)
+    {
         File fd = new File("/sdcard/vzhuan/");
         if (!fd.exists())
             fd.mkdirs();
         File f = new File("/sdcard/vzhuan/", new Date().getTime() + ".jpg");
-        if (f.exists()) {
+        if (f.exists())
+        {
             f.delete();
         }
-        try {
+        try
+        {
             f.createNewFile();
             FileOutputStream out = new FileOutputStream(f);
             bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-        } catch (FileNotFoundException e) {
+        }
+        catch (FileNotFoundException e)
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
-    private String getImei() {
-        return ((TelephonyManager) this.getSystemService(TELEPHONY_SERVICE)).getDeviceId();
+    public static String getImei()
+    {
+        return ((TelephonyManager) MainApplication.getInstance().getSystemService(TELEPHONY_SERVICE)).getDeviceId();
+    }
+
+    @Override protected void onDestroy()
+    {
+        super.onDestroy();
+        getCodeRequest.releaseConnection();
+        checkAccessRequest.releaseConnection();
+        registerRequest.releaseConnection();
     }
 }
