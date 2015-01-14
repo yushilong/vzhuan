@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +19,7 @@ import com.google.gson.Gson;
 import com.vzhuan.api.HttpListener;
 import com.vzhuan.api.MyHttpRequestor;
 import com.vzhuan.mode.Code;
+import com.vzhuan.mode.User;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,8 +40,9 @@ public class RegisterActivity extends BaseActivity
     ImageView iv_code;
     TextView tv_code;
     Dialog mDialog;
-    MyHttpRequestor getCodeRequest, registerRequest, checkAccessRequest;
+    MyHttpRequestor getCodeRequest, registerRequest, checkAccessRequest, alreadySubmitRequest;
     private String code;
+    User mUser;
 
     @Override public int doGetContentViewId()
     {
@@ -64,7 +65,7 @@ public class RegisterActivity extends BaseActivity
         }
         Log.d(RegisterActivity.class.getSimpleName(), "Registration Id : " + JPushInterface.getRegistrationID(MainApplication.getInstance()));
         //
-        getCodeRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.GET_METHOD, Constants.REGISTER_GETCODE, new HttpListener()
+        getCodeRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, Constants.REGISTER_GETCODE, new HttpListener()
         {
             @Override public void onSuccess(String msg)
             {
@@ -92,14 +93,56 @@ public class RegisterActivity extends BaseActivity
             }
         });
         //
-        registerRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.POST_METHOD, Constants.REGISTER, new HttpListener()
+        registerRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.REGISTER, new HttpListener()
         {
             @Override public void onSuccess(String msg)
             {
+                JSONObject jsonObject = null;
+                try
+                {
+                    jsonObject = new JSONObject(msg).optJSONObject("entity");
+                }
+                catch (JSONException e)
+                {
+                    e.printStackTrace();
+                }
+                mUser = new Gson().fromJson(jsonObject.toString(), User.class);
                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                 ShareUtil.setBoolean(RegisterActivity.this, ShareUtil.ShareKey.KEY_ISFIRST_OPEN, false);
-                finish();
-                startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                //
+                String alreadyUrl = Constants.ALREADY_SUBMIT_REFERRRERINFO + "?invited=" + getUid();
+                alreadySubmitRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, alreadyUrl, new HttpListener()
+                {
+                    @Override public void onSuccess(String msg)
+                    {
+                        JSONObject resultObject = null;
+                        try
+                        {
+                            resultObject = new JSONObject(msg);
+                        }
+                        catch (JSONException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        boolean isInvited = resultObject.optBoolean("entity");
+                        if (!isInvited)
+                        {
+                            Intent intent = new Intent(RegisterActivity.this, RerferrerInfoActivity.class);
+                            intent.putExtra("invited", getUid());
+                            startActivity(intent);
+                        }
+                        else
+                        {
+                            startActivity(new Intent(RegisterActivity.this, MainActivity.class));
+                        }
+                        finish();
+                    }
+
+                    @Override public void onFailure(int statusCode)
+                    {
+                    }
+                });
+                alreadySubmitRequest.start();
             }
 
             @Override public void onFailure(int statusCode)
@@ -107,14 +150,14 @@ public class RegisterActivity extends BaseActivity
             }
         });
         //
-        checkAccessRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.POST_METHOD, Constants.REGISTER_CHECK_ACCESS, new HttpListener()
+        checkAccessRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.REGISTER_CHECK_ACCESS, new HttpListener()
         {
             @Override public void onSuccess(String msg)
             {
                 Map<String, Object> register = new HashMap<String, Object>();
-                register.put("mac", getImei());
+                register.put("mac", Constants.getImei(RegisterActivity.this));
                 register.put("token", JPushInterface.getRegistrationID(MainApplication.getInstance()));
-                register.put("openUdid", getImei());
+                register.put("openUdid", Constants.getImei(RegisterActivity.this));
                 register.put("access", code);
                 registerRequest.setParam(register);
                 registerRequest.start();
@@ -124,6 +167,11 @@ public class RegisterActivity extends BaseActivity
             {
             }
         });
+    }
+
+    private String getUid()
+    {
+        return MD5.getMessageDigest((Constants.primary_token_uid + mUser.access + mUser.name + mUser.access + Constants.primary_token_uid).getBytes());
     }
 
     public void toRegister(View view)
@@ -219,11 +267,6 @@ public class RegisterActivity extends BaseActivity
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
-    public static String getImei()
-    {
-        return ((TelephonyManager) MainApplication.getInstance().getSystemService(TELEPHONY_SERVICE)).getDeviceId();
-    }
-
     @Override protected void onDestroy()
     {
         super.onDestroy();
@@ -231,4 +274,9 @@ public class RegisterActivity extends BaseActivity
         checkAccessRequest.releaseConnection();
         registerRequest.releaseConnection();
     }
+    //    public String getUid()
+    //    {
+    //        String preMd5 = Constants.primary_token + mUser.access + mUser.name + mUser.access + Constants.primary_token;
+    //        return MD5.getMessageDigest(preMd5.getBytes());
+    //    }
 }

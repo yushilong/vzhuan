@@ -87,7 +87,7 @@ public class TaskFragment extends BaseFragment
         //            mTaskAdapter.list.add(task);
         //        }
         //
-        getAdsRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.GET_METHOD, Constants.GET_ADS, new HttpListener()
+        getAdsRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, Constants.GET_ADS, new HttpListener()
         {
             @Override public void onSuccess(String msg)
             {

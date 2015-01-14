@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Toast;
 import com.vzhuan.Constants;
 import com.vzhuan.ExecutorServiceUtil;
+import com.vzhuan.MainApplication;
 import com.vzhuan.R;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.cookie.CookiePolicy;
@@ -148,11 +149,11 @@ public class MyHttpRequestor
         return httpMethod;
     }
 
-    public MyHttpRequestor init(Application appContext, byte methodType, String url, HttpListener httpListener)
+    public MyHttpRequestor init(byte methodType, String url, HttpListener httpListener)
     {
         _methodType = methodType;
         _httpClient = getHttpClient();
-        this.mContext = appContext;
+        this.mContext = MainApplication.getInstance();
         this.url = Constants.HOST + url;
         //        String urser_agent = appContext != null ? getUserAgent(appContext) : "";
         String urser_agent = "";

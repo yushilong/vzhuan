@@ -46,6 +46,10 @@
         android:screenOrientation="portrait"
         android:theme="@android:style/Theme.NoTitleBar"/>
     <activity
+        android:name=".RerferrerInfoActivity"
+        android:screenOrientation="portrait"
+        android:theme="@android:style/Theme.NoTitleBar"/>
+    <activity
         android:name="cn.sharesdk.framework.ShareSDKUIShell"
         android:theme="@android:style/Theme.Translucent.NoTitleBar"
         android:configChanges="keyboardHidden|orientation|screenSize"

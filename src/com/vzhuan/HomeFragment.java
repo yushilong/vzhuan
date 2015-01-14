@@ -1,5 +1,7 @@
 package com.vzhuan;
 
+import android.content.ComponentName;
+import android.content.Intent;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -45,13 +47,38 @@ public class HomeFragment extends BaseFragment
                 viewPager.setCurrentItem(1, true);
             }
         });
+        containerView.findViewById(R.id.iv_weixin).setOnClickListener(new View.OnClickListener()
+        {
+            @Override public void onClick(View view)
+            {
+                startWeixin();
+            }
+        });
+    }
+
+    private void startWeixin()
+    {
+        try
+        {
+            Intent intent = new Intent();
+            ComponentName cmp = new ComponentName("com.tencent.mm", "com.tencent.mm.ui.LauncherUI");
+            intent.setAction(Intent.ACTION_MAIN);
+            intent.addCategory(Intent.CATEGORY_LAUNCHER);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setComponent(cmp);
+            startActivity(intent);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
     @Override public void doInitDataes()
     {
         super.doInitDataes();
         //
-        userInfoRequest = new MyHttpRequestor().init(MainApplication.getInstance(), MyHttpRequestor.POST_METHOD, Constants.USERINFO, new HttpListener()
+        userInfoRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.USERINFO, new HttpListener()
         {
             @Override public void onSuccess(String msg)
             {
@@ -82,20 +109,21 @@ public class HomeFragment extends BaseFragment
     private void initUserInfo()
     {
         ImageView iv_avatar = (ImageView) containerView.findViewById(R.id.iv_avatar);
-        TextView tv_status = (TextView) containerView.findViewById(R.id.tv_userStatus);
+        ImageView iv_duigou = (ImageView) containerView.findViewById(R.id.iv_duigou);
+        TextView tv_status = (TextView) containerView.findViewById(R.id.tv_status);
         TextView tv_name = (TextView) containerView.findViewById(R.id.tv_name);
         TextView tv_score = (TextView) containerView.findViewById(R.id.tv_score);
         ImageUtil.displayRoundImage(mUser.thumb, iv_avatar, 180, R.drawable.avatar);
-        if ("ENABLE".equals(mUser.us))
-            tv_status.setText("用户非法");
+        iv_duigou.setImageResource("ENABLE".equals(mUser.ds) ? R.drawable.duigou : R.drawable.cha);
+        tv_status.setText("设备非法");
+        tv_status.setVisibility("ENABLE".equals(mUser.us) ? View.VISIBLE : View.GONE);
         tv_name.setText(mUser.name);
         tv_score.setText("￥:" + mUser.score);
     }
 
     private String getDid()
     {
-        String primary_token = "8mStOqOeKdqhcjwpG6AAcHrSdiN5FjOzp";
-        String preMd5 = primary_token + RegisterActivity.getImei() + primary_token;
+        String preMd5 = Constants.primary_token_did + Constants.getImei(getActivity()) + Constants.primary_token_did;
         return MD5.getMessageDigest(preMd5.getBytes());
     }
 

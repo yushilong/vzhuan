@@ -1,5 +1,8 @@
 package com.vzhuan;
 
+import android.content.Context;
+import android.telephony.TelephonyManager;
+
 /**
  * Created by lscm on 2015/1/7.
  */
@@ -14,5 +17,14 @@ public class Constants
     public static final String BAIDU_PUSH_APIKEY = "";
     public static final String USERINFO = "/api/user/info";
     public static final String GET_ADS = "/api/adw/ads";
+    public static final String ALREADY_SUBMIT_REFERRRERINFO = "/api/user/alreadySubmitTheReferrerInfo";
+    public static final String SUBMIT_REFERRER = "/api/user/submitReferrer";
     //接口end
+    public static final String primary_token_did = "8mStOqOeKdqhcjwpG6AAcHrSdiN5FjOzp";
+    public static final String primary_token_uid = "8pIRGOgoknwq7jDkgl2eBXnkdbx8OFPE";
+
+    public static final String getImei(Context context)
+    {
+        return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
+    }
 }

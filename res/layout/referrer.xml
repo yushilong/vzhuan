@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+  <LinearLayout
+      android:id="@+id/ll_invite"
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:padding="20dp"
+      android:gravity="center"
+      android:background="@drawable/login_first">
+
+    <EditText
+        android:id="@+id/et_id"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:hint="请输入邀请人ID"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/idbg"
+        android:textColorHint="#ccc"
+        android:paddingLeft="5dp"/>
+
+    <Button
+        android:id="@+id/bt_3"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:onClick="threeYuan"
+        android:background="@drawable/threeyuan"/>
+
+    <Button
+        android:id="@+id/bt_2"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:onClick="twoYuan"
+        android:background="@drawable/twoyuan"/>
+  </LinearLayout>
+
+  <RelativeLayout
+      android:orientation="vertical"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:id="@+id/rl_result"
+      android:visibility="gone">
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@drawable/bt_commit"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="40dp"
+        android:onClick="commit"/>
+  </RelativeLayout>
+</FrameLayout>

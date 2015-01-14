@@ -18,6 +18,7 @@
       android:background="#3EBBFE">
 
     <LinearLayout
+        android:id="@+id/ll_userinfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
@@ -28,6 +29,7 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="我的信息"
+          android:textSize="16sp"
           android:textColor="@android:color/white"/>
 
       <RelativeLayout
@@ -45,7 +47,6 @@
             android:id="@+id/iv_duigou"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/duigou"
             android:layout_alignTop="@id/iv_avatar"
             android:layout_alignRight="@id/iv_avatar"
             android:layout_marginRight="5dp"/>
@@ -53,7 +54,7 @@
 
 
       <TextView
-          android:id="@+id/tv_userStatus"
+          android:id="@+id/tv_status"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:textColor="@android:color/white"
@@ -82,8 +83,8 @@
 
       <Button
           android:id="@+id/bt_startcoin"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
+          android:layout_width="250dp"
+          android:layout_height="45dp"
           android:text="开始赚钱之旅"
           android:background="@drawable/startcoin"
           android:textColor="#3EBBFE"
@@ -106,6 +107,33 @@
           android:layout_width="80dp"
           android:layout_height="80dp"
           android:src="@drawable/icon_share"/>
+
+      <TextView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:text="分享收徒"
+          android:layout_marginTop="5dp"
+          android:textColor="@android:color/white"/>
     </LinearLayout>
+
+
+    <ImageView
+        android:id="@+id/iv_xuxian"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/xuxian"
+        android:layout_alignBottom="@id/ll_userinfo"
+        android:layout_marginBottom="40dp"
+        android:layout_alignRight="@id/ll_userinfo"/>
+
+    <ImageView
+        android:id="@+id/iv_weixin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/weixin_icon"
+        android:layout_alignTop="@id/iv_xuxian"
+        android:layout_toRightOf="@id/iv_xuxian"
+        android:layout_marginTop="-30dp"
+        android:layout_marginLeft="-30dp"/>
   </RelativeLayout>
 </LinearLayout>

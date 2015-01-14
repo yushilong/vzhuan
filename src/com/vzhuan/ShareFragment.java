@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,7 +21,8 @@ import com.vzhuan.viewpager.ViewPager;
 public class ShareFragment extends BaseFragment
 {
     ViewPager viewPager;
-    TextView tv_id, tv_content;
+    TextView tv_id;
+    WebView tv_content;
 
     @Override public int doGetContentViewId()
     {
@@ -47,13 +49,14 @@ public class ShareFragment extends BaseFragment
             }
         });
         tv_id = (TextView) containerView.findViewById(R.id.tv_id);
-        tv_content = (TextView) containerView.findViewById(R.id.tv_content);
+        tv_content = (WebView) containerView.findViewById(R.id.tv_content);
     }
 
     @Override public void doInitDataes()
     {
         super.doInitDataes();
-        tv_id.setText(UserManager.getInstance().getUser().id);
+        tv_id.setText("推荐人ID:" + UserManager.getInstance().getUser().id);
+        tv_content.loadUrl(ShareUtil.ShareKey.SHARE_URL);
     }
 
     public ViewPager getViewPager()
