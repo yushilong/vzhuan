@@ -3,9 +3,11 @@ package com.vzhuan;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.view.GestureDetector;
+import android.view.MotionEvent;
 import android.view.View;
 import android.webkit.WebView;
-import android.widget.ImageView;
+import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 import cn.sharesdk.demo.ShareContentCustomizeDemo;
@@ -23,6 +25,7 @@ public class ShareFragment extends BaseFragment
     ViewPager viewPager;
     TextView tv_id;
     WebView tv_content;
+    GestureDetector mGestureDetector;
 
     @Override public int doGetContentViewId()
     {
@@ -32,15 +35,6 @@ public class ShareFragment extends BaseFragment
     @Override public void doInitSubViews(View containerView)
     {
         super.doInitSubViews(containerView);
-        ImageView iv_rocket = (ImageView) containerView.findViewById(R.id.iv_rocket);
-        iv_rocket.setOnClickListener(new View.OnClickListener()
-        {
-            @Override public void onClick(View view)
-            {
-                if (viewPager != null)
-                    viewPager.setCurrentItem(0, true);
-            }
-        });
         containerView.findViewById(R.id.bt_share).setOnClickListener(new View.OnClickListener()
         {
             @Override public void onClick(View view)
@@ -50,13 +44,43 @@ public class ShareFragment extends BaseFragment
         });
         tv_id = (TextView) containerView.findViewById(R.id.tv_id);
         tv_content = (WebView) containerView.findViewById(R.id.tv_content);
+        mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener()
+        {
+            @Override public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
+            {
+                if (e1.getY() - e2.getY() <= 120 && (tv_content.getScrollY() == 0))
+                {//向下
+                    viewPager.setCurrentItem(1, true);
+                }
+                return true;
+            }
+        });
+        tv_content.setOnTouchListener(new View.OnTouchListener()
+        {
+            @Override public boolean onTouch(View view, MotionEvent motionEvent)
+            {
+                mGestureDetector.onTouchEvent(motionEvent);
+                return false;
+            }
+        });
     }
 
     @Override public void doInitDataes()
     {
         super.doInitDataes();
+        if (UserManager.getInstance().getUser() == null)
+            return;
         tv_id.setText("推荐人ID:" + UserManager.getInstance().getUser().id);
-        tv_content.loadUrl(ShareUtil.ShareKey.SHARE_URL);
+        tv_content.setWebViewClient(new WebViewClient()
+        {
+            @Override public boolean shouldOverrideUrlLoading(WebView view, String url)
+            {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+        tv_content.loadUrl(ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_URL, ""));
+        //        tv_content.loadUrl("http://www.baidu.com");
     }
 
     public ViewPager getViewPager()

@@ -13,6 +13,7 @@ import com.vzhuan.viewpager.ViewPager;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +55,29 @@ public class HomeFragment extends BaseFragment
                 startWeixin();
             }
         });
+        setViewPagerScroller();
+    }
+
+    private void setViewPagerScroller()
+    {
+        try
+        {
+            Field mScroller;
+            mScroller = ViewPager.class.getDeclaredField("mScroller");
+            mScroller.setAccessible(true);
+            FixedSpeedScroller scroller = new FixedSpeedScroller(getActivity());
+            // scroller.setFixedDuration(5000);
+            mScroller.set(viewPager, scroller);
+        }
+        catch (NoSuchFieldException e)
+        {
+        }
+        catch (IllegalArgumentException e)
+        {
+        }
+        catch (IllegalAccessException e)
+        {
+        }
     }
 
     private void startWeixin()

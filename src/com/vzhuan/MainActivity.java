@@ -3,6 +3,9 @@ package com.vzhuan;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
+import android.view.View;
+import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.Toast;
 import cn.sharesdk.demo.Laiwang;
 import cn.sharesdk.framework.Platform;
@@ -25,10 +28,26 @@ public class MainActivity extends BaseActivity
     public static String TEST_IMAGE_URL;
     private ViewPager mViewPager;
     private List<Fragment> fragments;
+    private ImageView iv_rocket;
 
     @Override public int doGetContentViewId()
     {
         return R.layout.main;
+    }
+
+    @Override public void doInitSubViews()
+    {
+        super.doInitSubViews();
+        iv_rocket = (ImageView) findViewById(R.id.iv_rocket);
+        iv_rocket.setOnClickListener(new View.OnClickListener()
+        {
+            @Override public void onClick(View view)
+            {
+                iv_rocket.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.rocket));
+                if (mViewPager != null)
+                    mViewPager.setCurrentItem(0, true);
+            }
+        });
     }
 
     @Override public void doInitDataes()
@@ -52,16 +71,34 @@ public class MainActivity extends BaseActivity
         mViewPager.setAdapter(new VerticalPager(getSupportFragmentManager()));
         //ads config
         initAds();
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
+        {
+            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
+            {
+            }
+
+            @Override public void onPageSelected(int position)
+            {
+                iv_rocket.setVisibility(position == 2 ? View.VISIBLE : View.GONE);
+            }
+
+            @Override public void onPageScrollStateChanged(int state)
+            {
+            }
+        });
+//        startActivity(new Intent(this,RerferrerInfoActivity.class));
     }
+
     private void initAds()
     {
         //dianle
-        Dianle.initGoogleContext(this,"c96e880f25579db0645a73dddd6fc1b0");
+        Dianle.initGoogleContext(this, "c96e880f25579db0645a73dddd6fc1b0");
         //appoffer
         AppConnect.getInstance("e962f6e8021a4d4db681772ac9783dae", "waps", this);
         //youmi
         AdManager.getInstance(this).init("760f04b16d9496fa", "81012bc40d0a99f4", Constants.DEBUG);
     }
+
     class VerticalPager extends FragmentPagerAdapter
     {
         public VerticalPager(FragmentManager fm)

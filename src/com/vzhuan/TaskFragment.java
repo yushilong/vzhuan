@@ -54,7 +54,7 @@ public class TaskFragment extends BaseFragment
                 {
                     viewPager.setCurrentItem(0, true);
                 }
-                return super.onFling(e1, e2, velocityX, velocityY);
+                return true;
             }
         });
         mListView.setOnTouchListener(new View.OnTouchListener()

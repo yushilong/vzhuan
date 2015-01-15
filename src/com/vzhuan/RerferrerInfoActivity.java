@@ -89,6 +89,7 @@ public class RerferrerInfoActivity extends BaseActivity
 
     public void commit(View view)
     {
+        finish();
         startActivity(new Intent(this, MainActivity.class));
     }
 }
