@@ -40,7 +40,7 @@ public class RerferrerInfoActivity extends BaseActivity
     @Override public void doInitDataes()
     {
         super.doInitDataes();
-        invited = getIntent().getStringExtra("invited");
+        invited = ShareUtil.getString(this, ShareUtil.ShareKey.UID, null);
         submitReferRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.SUBMIT_REFERRER, new HttpListener()
         {
             @Override public void onSuccess(String msg)
@@ -90,6 +90,7 @@ public class RerferrerInfoActivity extends BaseActivity
     public void commit(View view)
     {
         finish();
+        ShareUtil.setBoolean(this, ShareUtil.ShareKey.BONUSED, true);
         startActivity(new Intent(this, MainActivity.class));
     }
 }

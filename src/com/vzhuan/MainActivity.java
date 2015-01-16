@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
-import cn.sharesdk.demo.Laiwang;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.waps.AppConnect;
@@ -56,7 +55,7 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
     {
         super.doInitDataes();
         ShareSDK.initSDK(this);
-        ShareSDK.registerPlatform(Laiwang.class);
+//        ShareSDK.registerPlatform(Laiwang.class);
         ShareSDK.setConnTimeout(20000);
         ShareSDK.setReadTimeout(20000);
         mViewPager = (ViewPager) findViewById(R.id.pager);

@@ -70,7 +70,7 @@ public class ShareFragment extends BaseFragment
         super.doInitDataes();
         if (UserManager.getInstance().getUser() == null)
             return;
-        tv_id.setText("推荐人ID:" + UserManager.getInstance().getUser().id);
+        tv_id.setText("邀请码:" + UserManager.getInstance().getUser().id);
         tv_content.setWebViewClient(new WebViewClient()
         {
             @Override public boolean shouldOverrideUrlLoading(WebView view, String url)
@@ -79,7 +79,7 @@ public class ShareFragment extends BaseFragment
                 return true;
             }
         });
-        tv_content.loadUrl(Constants.HOST + ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_REFERRER, ""));
+        tv_content.loadUrl(Constants.HOST + ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_REFERRER, "") + "?did=" + Constants.getDid());
         //        tv_content.loadUrl("http://www.baidu.com");
     }
 

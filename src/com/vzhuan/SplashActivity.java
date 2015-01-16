@@ -29,7 +29,14 @@ public class SplashActivity extends BaseActivity
         {
             @Override public void onAnimationEnd(Animation arg0)
             {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                if (!ShareUtil.getBoolean(SplashActivity.this, ShareUtil.ShareKey.BONUSED, false))
+//                {
+//                    startActivity(new Intent(SplashActivity.this, RerferrerInfoActivity.class));
+//                }
+//                else
+//                {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                }
                 finish();
             }
 

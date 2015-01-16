@@ -43,5 +43,9 @@ public class ShareUtil
         public static final String SHARE_CONTEXT = "SHARE_TITLE";
         public static final String SHARE_REFERRER = "SHARE_URL";
         public static final String SHARE_DOWNLOAD = "SHARE_DOWNLOAD";
+        public static final String BONUSED = "BONUSED";//是否领取过红包
+        public static final String UID = "UID";
+        public static final String TIME_HOME = "TIME_HOME";//首页刷新时间点
+        public static final String TIME_TASK = "TIME_TASK";//任务页刷新时间点
     }
 }

@@ -21,16 +21,13 @@
     <orderEntry type="library" name="android-support-v4" level="project" />
     <orderEntry type="library" name="universal-image-loader-1.9.0-with-sources" level="project" />
     <orderEntry type="library" name="mframework (2)" level="project" />
-    <orderEntry type="library" name="picasso-2.3.2" level="project" />
     <orderEntry type="library" name="gson-2.2.2" level="project" />
-    <orderEntry type="library" name="pushservice-4.1.0" level="project" />
     <orderEntry type="library" name="jpush-sdk-release1.7.1" level="project" />
     <orderEntry type="library" name="commons-httpclient-3.1" level="project" />
-    <orderEntry type="library" name="YoumiSdk_v5.00_2014-12-24" level="project" />
     <orderEntry type="library" name="YoumiSdk_v5.00_2015-01-08" level="project" />
     <orderEntry type="library" name="AppOffer_2.3.2" level="project" />
     <orderEntry type="library" name="dlnetwork_v3.5.0" level="project" />
     <orderEntry type="library" name="box" level="project" />
-    <orderEntry type="library" name="插屏" level="project" />
+    <orderEntry type="library" name="chaping" level="project" />
   </component>
 </module>

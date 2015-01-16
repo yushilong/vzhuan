@@ -29,6 +29,7 @@ public class TaskFragment extends BaseFragment
     ViewPager viewPager;
     MyHttpRequestor getAdsRequest;
     private Activity mActivity;
+    private boolean isFirstLogin = true;
 
     @Override public int doGetContentViewId()
     {
@@ -102,19 +103,20 @@ public class TaskFragment extends BaseFragment
                 }
                 int length = jsonArray.length();
                 Gson gson = new Gson();
+                mTaskAdapter.list.clear();
                 for (int i = 0; i < length; i++)
                 {
                     Ads ads = gson.fromJson(jsonArray.optJSONObject(i).toString(), Ads.class);
                     mTaskAdapter.list.add(ads);
                 }
                 mTaskAdapter.notifyDataSetChanged();
+                ShareUtil.setString(getActivity(), ShareUtil.ShareKey.TIME_TASK, System.currentTimeMillis() + "");
             }
 
             @Override public void onFailure(int statusCode)
             {
             }
         });
-        getAdsRequest.start();
     }
 
     public ViewPager getViewPager()
@@ -125,5 +127,25 @@ public class TaskFragment extends BaseFragment
     public void setViewPager(ViewPager viewPager)
     {
         this.viewPager = viewPager;
+    }
+
+    @Override public void onResume()
+    {
+        super.onResume();
+        if (isFirstLogin)
+        {
+            getAdsRequest.start();
+            isFirstLogin = false;
+        }
+        else
+        {
+            String timeStr = ShareUtil.getString(getActivity(), ShareUtil.ShareKey.TIME_TASK, "0");
+            long time = Long.valueOf(timeStr);
+            long currentTime = System.currentTimeMillis();
+            if (Math.abs(currentTime - time) >= Constants.time_refresh)
+            {
+                getAdsRequest.start();
+            }
+        }
     }
 }

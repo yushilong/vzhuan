@@ -109,6 +109,7 @@ public class RegisterActivity extends BaseActivity
                 mUser = new Gson().fromJson(jsonObject.toString(), User.class);
                 Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                 ShareUtil.setBoolean(RegisterActivity.this, ShareUtil.ShareKey.KEY_ISFIRST_OPEN, false);
+                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.UID, getUid());
                 //
                 String alreadyUrl = Constants.ALREADY_SUBMIT_REFERRRERINFO + "?invited=" + getUid();
                 alreadySubmitRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, alreadyUrl, new HttpListener()
@@ -127,9 +128,7 @@ public class RegisterActivity extends BaseActivity
                         boolean isInvited = resultObject.optBoolean("entity");
                         if (!isInvited)
                         {
-                            Intent intent = new Intent(RegisterActivity.this, RerferrerInfoActivity.class);
-                            intent.putExtra("invited", getUid());
-                            startActivity(intent);
+                            startActivity(new Intent(RegisterActivity.this, RerferrerInfoActivity.class));
                         }
                         else
                         {

@@ -27,6 +27,7 @@ public class HomeFragment extends BaseFragment
     ViewPager viewPager;
     private MyHttpRequestor userInfoRequest;
     private User mUser;
+    boolean isFirstLogin = true;
 
     @Override public int doGetContentViewId()
     {
@@ -48,6 +49,13 @@ public class HomeFragment extends BaseFragment
             @Override public void onClick(View view)
             {
                 viewPager.setCurrentItem(1, true);
+            }
+        });
+        containerView.findViewById(R.id.tv_score).setOnClickListener(new View.OnClickListener()
+        {
+            @Override public void onClick(View view)
+            {
+                userInfoRequest.start();
             }
         });
         containerView.findViewById(R.id.iv_weixin).setOnClickListener(new View.OnClickListener()
@@ -127,9 +135,8 @@ public class HomeFragment extends BaseFragment
             }
         });
         Map<String, Object> userInfo = new HashMap<String, Object>();
-        userInfo.put("did", getDid());
+        userInfo.put("did", Constants.getDid());
         userInfoRequest.setParam(userInfo);
-        userInfoRequest.start();
     }
 
     private void initUserInfo()
@@ -147,12 +154,7 @@ public class HomeFragment extends BaseFragment
         tv_score.setText("￥:" + mUser.score);
         //
         EventBus.getInstance().notifiDataUpdate(EventNames.LOGIN_SUCCESS, mUser);
-    }
-
-    private String getDid()
-    {
-        String preMd5 = Constants.primary_token_did + Constants.getImei(getActivity()) + Constants.primary_token_did;
-        return MD5.getMessageDigest(preMd5.getBytes());
+        ShareUtil.setString(getActivity(), ShareUtil.ShareKey.TIME_HOME, System.currentTimeMillis() + "");
     }
 
     @Override public void onDestroy()
@@ -169,5 +171,25 @@ public class HomeFragment extends BaseFragment
     public void setViewPager(ViewPager viewPager)
     {
         this.viewPager = viewPager;
+    }
+
+    @Override public void onResume()
+    {
+        super.onResume();
+        if (isFirstLogin)
+        {
+            userInfoRequest.start();
+            isFirstLogin = false;
+        }
+        else
+        {
+            String timeStr = ShareUtil.getString(getActivity(), ShareUtil.ShareKey.TIME_HOME, "0");
+            long time = Long.valueOf(timeStr);
+            long currentTime = System.currentTimeMillis();
+            if (Math.abs(currentTime - time) >= Constants.time_refresh)
+            {
+                userInfoRequest.start();
+            }
+        }
     }
 }
