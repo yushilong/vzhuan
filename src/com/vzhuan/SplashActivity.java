@@ -3,6 +3,7 @@ package com.vzhuan;
 import android.content.Intent;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import cn.jpush.android.api.JPushInterface;
 
 public class SplashActivity extends BaseActivity
 {
@@ -28,8 +29,8 @@ public class SplashActivity extends BaseActivity
         {
             @Override public void onAnimationEnd(Animation arg0)
             {
-                finish();
                 startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                finish();
             }
 
             @Override public void onAnimationRepeat(Animation animation)
@@ -40,5 +41,17 @@ public class SplashActivity extends BaseActivity
             {
             }
         });
+    }
+
+    @Override protected void onResume()
+    {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+    @Override protected void onPause()
+    {
+        super.onPause();
+        JPushInterface.onPause(this);
     }
 }

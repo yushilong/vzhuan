@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.vzhuan.api.HttpListener;
 import com.vzhuan.api.MyHttpRequestor;
+import com.vzhuan.eventbus.EventBus;
+import com.vzhuan.eventbus.EventNames;
 import com.vzhuan.mode.User;
 import com.vzhuan.viewpager.ViewPager;
 import org.json.JSONException;
@@ -143,6 +145,8 @@ public class HomeFragment extends BaseFragment
         tv_status.setVisibility("ENABLE".equals(mUser.us) ? View.VISIBLE : View.GONE);
         tv_name.setText(mUser.name);
         tv_score.setText("￥:" + mUser.score);
+        //
+        EventBus.getInstance().notifiDataUpdate(EventNames.LOGIN_SUCCESS, mUser);
     }
 
     private String getDid()

@@ -12,6 +12,8 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.waps.AppConnect;
 import com.dlnetwork.Dianle;
+import com.vzhuan.eventbus.EventBus;
+import com.vzhuan.eventbus.EventNames;
 import com.vzhuan.viewpager.FragmentPagerAdapter;
 import com.vzhuan.viewpager.ViewPager;
 import net.youmi.android.AdManager;
@@ -22,7 +24,7 @@ import java.util.List;
 /**
  * Created by lscm on 2015/1/5.
  */
-public class MainActivity extends BaseActivity
+public class MainActivity extends BaseActivity implements EventBus.SubscriberChangeListener
 {
     public static String TEST_IMAGE;
     public static String TEST_IMAGE_URL;
@@ -86,7 +88,7 @@ public class MainActivity extends BaseActivity
             {
             }
         });
-//        startActivity(new Intent(this,RerferrerInfoActivity.class));
+        //        startActivity(new Intent(this,RerferrerInfoActivity.class));
     }
 
     private void initAds()
@@ -97,6 +99,12 @@ public class MainActivity extends BaseActivity
         AppConnect.getInstance("e962f6e8021a4d4db681772ac9783dae", "waps", this);
         //youmi
         AdManager.getInstance(this).init("760f04b16d9496fa", "81012bc40d0a99f4", Constants.DEBUG);
+        //aimeng
+    }
+
+    @Override public void onSubscriberDataChanged(Object notificationName, Object notificateContent)
+    {
+        findViewById(R.id.ll_logining).setVisibility(View.GONE);
     }
 
     class VerticalPager extends FragmentPagerAdapter
@@ -120,6 +128,7 @@ public class MainActivity extends BaseActivity
     @Override protected void onDestroy()
     {
         super.onDestroy();
+        EventBus.getInstance().unSubscribe(EventNames.LOGIN_SUCCESS, this);
         AppManagerStack.getInstance().AppExit(this);
     }
 
@@ -169,5 +178,11 @@ public class MainActivity extends BaseActivity
             }
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+    @Override protected void onResume()
+    {
+        super.onResume();
+        EventBus.getInstance().subscribe(EventNames.LOGIN_SUCCESS, this);
     }
 }

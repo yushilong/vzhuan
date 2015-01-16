@@ -79,7 +79,7 @@ public class ShareFragment extends BaseFragment
                 return true;
             }
         });
-        tv_content.loadUrl(ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_URL, ""));
+        tv_content.loadUrl(Constants.HOST + ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_REFERRER, ""));
         //        tv_content.loadUrl("http://www.baidu.com");
     }
 
@@ -114,7 +114,7 @@ public class ShareFragment extends BaseFragment
         //oks.setAddress("12345678901");
         oks.setTitle(context.getString(R.string.evenote_title));
         oks.setTitleUrl(Constants.HOST);
-        String customText = ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_TITLE, "v赚");
+        String customText = ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_CONTEXT, "v赚");
         if (customText != null)
         {
             oks.setText(customText);

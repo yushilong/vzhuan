@@ -83,8 +83,8 @@ public class RegisterActivity extends BaseActivity
                 Code code = gson.fromJson(jsonObject.toString(), Code.class);
                 ImageUtil.displayDefaultNotPeopleRoundImage(Constants.HOST + code.wxTwoDimensionCode, iv_code);
                 tv_code.setText(code.wxAccount);
-                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_TITLE, code.context);
-                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_URL, code.referrer);
+                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_CONTEXT, code.context);
+                ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_REFERRER, code.referrer);
                 ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_DOWNLOAD, code.download);
             }
 
@@ -167,6 +167,9 @@ public class RegisterActivity extends BaseActivity
             {
             }
         });
+        if (mDialog == null)
+            initDialog();
+        getCodeRequest.start();
     }
 
     private String getUid()
@@ -193,9 +196,6 @@ public class RegisterActivity extends BaseActivity
 
     public void showMethod(View view)
     {
-        if (mDialog == null)
-            initDialog();
-        getCodeRequest.start();
         if (!mDialog.isShowing())
             mDialog.show();
     }
