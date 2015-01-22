@@ -145,8 +145,13 @@ public class MyHttpRequestor
         //        httpMethod.setRequestHeader("Accept-Encoding", "gzip,deflate,sdch");
         //        httpMethod.setRequestHeader("Accept-Language", "zh-CN,zh;q=0.8,en;q=0.6,zh-TW;q=0.4");
         //        httpMethod.setRequestHeader("Connection", "Keep-Alive");
-        //        httpMethod.setRequestHeader(HTTP.USER_AGENT, userAgent);
+//                httpMethod.setRequestHeader(HTTP.USER_AGENT, userAgent);
+        httpMethod.setRequestHeader("Client-Agent", getClientAgent());
         return httpMethod;
+    }
+
+    private static String getClientAgent() {
+        return "Android "+android.os.Build.MODEL+" "+android.os.Build.VERSION.RELEASE;
     }
 
     public MyHttpRequestor init(byte methodType, String url, HttpListener httpListener)

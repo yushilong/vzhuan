@@ -29,5 +29,9 @@
     <orderEntry type="library" name="dlnetwork_v3.5.0" level="project" />
     <orderEntry type="library" name="box" level="project" />
     <orderEntry type="library" name="chaping" level="project" />
+    <orderEntry type="library" name="AppOffer_2.3.2" level="project" />
+    <orderEntry type="library" name="jackson-core-asl-1.9.9" level="project" />
+    <orderEntry type="library" name="libammsdk" level="project" />
+    <orderEntry type="library" name="YoumiSdk_v5.00_2015-01-08" level="project" />
   </component>
 </module>
