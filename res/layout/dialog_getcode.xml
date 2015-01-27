@@ -5,84 +5,84 @@
                 android:background="@android:color/white"
                 android:padding="5dp">
 
-  <TextView
-      android:id="@+id/tv_title"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:text="关注我们的微信号"
-      android:layout_centerHorizontal="true"
-      android:textColor="#3EBBFE"
-      android:gravity="center"/>
-
-  <LinearLayout
-      android:id="@+id/ll_code"
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:gravity="center"
-      android:layout_centerHorizontal="true"
-      android:layout_below="@id/tv_title"
-      android:layout_marginTop="10dp"
-      android:padding="5dp">
+    <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="关注我们的微信号"
+            android:layout_centerHorizontal="true"
+            android:textColor="#3EBBFE"
+            android:gravity="center"/>
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical">
+            android:id="@+id/ll_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/tv_title"
+            android:layout_marginTop="10dp"
+            android:padding="5dp">
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="方式一"/>
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
 
-      <ImageView
-          android:id="@+id/iv_code"
-          android:layout_width="80dp"
-          android:layout_height="80dp"
-          android:layout_marginTop="5dp"
-          android:layout_marginBottom="5dp"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="方式一"/>
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="点击保存二维码"/>
+            <ImageView
+                    android:id="@+id/iv_code"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点击保存二维码"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:layout_marginLeft="10dp">
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="方式二"/>
+
+            <TextView
+                    android:id="@+id/tv_code"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:background="@drawable/code_bg"
+
+                    android:gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"/>
+
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="长按复制公众号"/>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:layout_marginLeft="10dp">
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="方式二"/>
-
-      <TextView
-          android:id="@+id/tv_code"
-          android:layout_width="80dp"
-          android:layout_height="80dp"
-          android:background="@drawable/code_bg"
-
-          android:gravity="center"
-          android:layout_marginTop="5dp"
-          android:layout_marginBottom="5dp"/>
-
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="长按复制公众号"/>
-    </LinearLayout>
-  </LinearLayout>
-
-  <ImageView
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:src="@drawable/close"
-      android:layout_alignTop="@id/tv_title"
-      android:layout_alignRight="@id/tv_title"
-      android:onClick="closeDialog"/>
+    <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close"
+            android:layout_alignTop="@id/tv_title"
+            android:layout_alignRight="@id/tv_title"
+            android:onClick="closeDialog"/>
 </RelativeLayout>

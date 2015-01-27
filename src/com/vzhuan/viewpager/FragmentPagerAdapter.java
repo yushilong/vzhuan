@@ -24,21 +24,21 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     }
 
     public Object instantiateItem(ViewGroup container, int position) {
-        if(this.mCurTransaction == null) {
+        if (this.mCurTransaction == null) {
             this.mCurTransaction = this.mFragmentManager.beginTransaction();
         }
 
         long itemId = this.getItemId(position);
         String name = makeFragmentName(container.getId(), itemId);
         Fragment fragment = this.mFragmentManager.findFragmentByTag(name);
-        if(fragment != null) {
+        if (fragment != null) {
             this.mCurTransaction.attach(fragment);
         } else {
             fragment = this.getItem(position);
             this.mCurTransaction.add(container.getId(), fragment, makeFragmentName(container.getId(), itemId));
         }
 
-        if(fragment != this.mCurrentPrimaryItem) {
+        if (fragment != this.mCurrentPrimaryItem) {
             fragment.setMenuVisibility(false);
             fragment.setUserVisibleHint(false);
         }
@@ -47,22 +47,22 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     }
 
     public void destroyItem(ViewGroup container, int position, Object object) {
-        if(this.mCurTransaction == null) {
+        if (this.mCurTransaction == null) {
             this.mCurTransaction = this.mFragmentManager.beginTransaction();
         }
 
-        this.mCurTransaction.detach((Fragment)object);
+        this.mCurTransaction.detach((Fragment) object);
     }
 
     public void setPrimaryItem(ViewGroup container, int position, Object object) {
-        Fragment fragment = (Fragment)object;
-        if(fragment != this.mCurrentPrimaryItem) {
-            if(this.mCurrentPrimaryItem != null) {
+        Fragment fragment = (Fragment) object;
+        if (fragment != this.mCurrentPrimaryItem) {
+            if (this.mCurrentPrimaryItem != null) {
                 this.mCurrentPrimaryItem.setMenuVisibility(false);
                 this.mCurrentPrimaryItem.setUserVisibleHint(false);
             }
 
-            if(fragment != null) {
+            if (fragment != null) {
                 fragment.setMenuVisibility(true);
                 fragment.setUserVisibleHint(true);
             }
@@ -73,7 +73,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     }
 
     public void finishUpdate(ViewGroup container) {
-        if(this.mCurTransaction != null) {
+        if (this.mCurTransaction != null) {
             this.mCurTransaction.commitAllowingStateLoss();
             this.mCurTransaction = null;
             this.mFragmentManager.executePendingTransactions();
@@ -82,7 +82,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     }
 
     public boolean isViewFromObject(View view, Object object) {
-        return ((Fragment)object).getView() == view;
+        return ((Fragment) object).getView() == view;
     }
 
     public Parcelable saveState() {
@@ -93,7 +93,7 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
     }
 
     public long getItemId(int position) {
-        return (long)position;
+        return (long) position;
     }
 
     private static String makeFragmentName(int viewId, long id) {

@@ -20,61 +20,55 @@ import com.vzhuan.viewpager.ViewPager;
 /**
  * Created by lscm on 2015/1/5.
  */
-public class ShareFragment extends BaseFragment
-{
+public class ShareFragment extends BaseFragment {
     ViewPager viewPager;
     TextView tv_id;
     WebView tv_content;
     GestureDetector mGestureDetector;
 
-    @Override public int doGetContentViewId()
-    {
+    @Override
+    public int doGetContentViewId() {
         return R.layout.share;
     }
 
-    @Override public void doInitSubViews(View containerView)
-    {
+    @Override
+    public void doInitSubViews(View containerView) {
         super.doInitSubViews(containerView);
-        containerView.findViewById(R.id.bt_share).setOnClickListener(new View.OnClickListener()
-        {
-            @Override public void onClick(View view)
-            {
+        containerView.findViewById(R.id.bt_share).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 showShare(false, null, false);
             }
         });
         tv_id = (TextView) containerView.findViewById(R.id.tv_id);
         tv_content = (WebView) containerView.findViewById(R.id.tv_content);
-        mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener()
-        {
-            @Override public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
-            {
-                if (e1.getY() - e2.getY() <= 120 && (tv_content.getScrollY() == 0))
-                {//向下
+        mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (e1.getY() - e2.getY() <= 120 && (tv_content.getScrollY() == 0)) {//向下
                     viewPager.setCurrentItem(1, true);
                 }
                 return true;
             }
         });
-        tv_content.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override public boolean onTouch(View view, MotionEvent motionEvent)
-            {
+        tv_content.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 mGestureDetector.onTouchEvent(motionEvent);
                 return false;
             }
         });
     }
 
-    @Override public void doInitDataes()
-    {
+    @Override
+    public void doInitDataes() {
         super.doInitDataes();
         if (UserManager.getInstance().getUser() == null)
             return;
         tv_id.setText("邀请码:" + UserManager.getInstance().getUser().id);
-        tv_content.setWebViewClient(new WebViewClient()
-        {
-            @Override public boolean shouldOverrideUrlLoading(WebView view, String url)
-            {
+        tv_content.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
             }
@@ -83,31 +77,29 @@ public class ShareFragment extends BaseFragment
         //        tv_content.loadUrl("http://www.baidu.com");
     }
 
-    public ViewPager getViewPager()
-    {
+    public ViewPager getViewPager() {
         return viewPager;
     }
 
-    public void setViewPager(ViewPager viewPager)
-    {
+    public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
     }
 
-    /**ShareSDK集成方法有两种</br>
+    /**
+     * ShareSDK集成方法有两种</br>
      * 1、第一种是引用方式，例如引用onekeyshare项目，onekeyshare项目再引用mainlibs库</br>
      * 2、第二种是把onekeyshare和mainlibs集成到项目中，本例子就是用第二种方式</br>
      * 请看“ShareSDK 使用说明文档”，SDK下载目录中 </br>
      * 或者看网络集成文档 http://wiki.mob.com/Android_%E5%BF%AB%E9%80%9F%E9%9B%86%E6%88%90%E6%8C%87%E5%8D%97
      * 3、混淆时，把sample或者本例子的混淆代码copy过去，在proguard-project.txt文件中
-     *
-     *
+     * <p/>
+     * <p/>
      * 平台配置信息有三种方式：
      * 1、在我们后台配置各个微博平台的key
      * 2、在代码中配置各个微博平台的key，http://mob.com/androidDoc/cn/sharesdk/framework/ShareSDK.html
      * 3、在配置文件中配置，本例子里面的assets/ShareSDK.conf,
      */
-    private void showShare(boolean silent, String platform, boolean captureView)
-    {
+    private void showShare(boolean silent, String platform, boolean captureView) {
         Context context = getActivity();
         final OnekeyShare oks = new OnekeyShare();
         oks.setNotification(R.drawable.ic_launcher, context.getString(R.string.app_name));
@@ -115,12 +107,9 @@ public class ShareFragment extends BaseFragment
         oks.setTitle(context.getString(R.string.evenote_title));
         oks.setTitleUrl(Constants.HOST);
         String customText = ShareUtil.getString(getActivity(), ShareUtil.ShareKey.SHARE_CONTEXT, "v赚");
-        if (customText != null)
-        {
+        if (customText != null) {
             oks.setText(customText);
-        }
-        else
-        {
+        } else {
             oks.setText(context.getString(R.string.share_content));
         }
         //        oks.setImagePath(CustomShareFieldsPage.getString("imagePath", MainActivity.TEST_IMAGE));
@@ -138,16 +127,12 @@ public class ShareFragment extends BaseFragment
         //        oks.setSilent(silent);
         //        oks.setShareFromQQAuthSupport(shareFromQQLogin);
         String theme = null;
-        if (OnekeyShareTheme.SKYBLUE.toString().toLowerCase().equals(theme))
-        {
+        if (OnekeyShareTheme.SKYBLUE.toString().toLowerCase().equals(theme)) {
             oks.setTheme(OnekeyShareTheme.SKYBLUE);
-        }
-        else
-        {
+        } else {
             oks.setTheme(OnekeyShareTheme.CLASSIC);
         }
-        if (platform != null)
-        {
+        if (platform != null) {
             oks.setPlatform(platform);
         }
         // 令编辑页面显示为Dialog模式
@@ -163,10 +148,8 @@ public class ShareFragment extends BaseFragment
         Bitmap enableLogo = BitmapFactory.decodeResource(getResources(), R.drawable.ic_launcher);
         Bitmap disableLogo = BitmapFactory.decodeResource(getResources(), R.drawable.sharesdk_unchecked);
         String label = getResources().getString(R.string.app_name);
-        View.OnClickListener listener = new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
+        View.OnClickListener listener = new View.OnClickListener() {
+            public void onClick(View v) {
                 String text = "Customer Logo -- ShareSDK " + ShareSDK.getSDKVersionName();
                 Toast.makeText(getActivity(), text, Toast.LENGTH_SHORT).show();
             }

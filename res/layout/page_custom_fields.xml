@@ -10,22 +10,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-  <cn.sharesdk.framework.TitleLayout
-      android:id="@+id/llTitle"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:background="@drawable/auth_title_back"/>
+    <cn.sharesdk.framework.TitleLayout
+            android:id="@+id/llTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/auth_title_back"/>
 
-  <ListView
-      android:id="@+id/listView"
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_alignParentBottom="true"
-      android:layout_below="@id/llTitle"/>
+    <ListView
+            android:id="@+id/listView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/llTitle"/>
 
-  <ImageView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:layout_below="@id/llTitle"
-      android:background="@drawable/title_shadow"/>
+    <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/llTitle"
+            android:background="@drawable/title_shadow"/>
 </RelativeLayout>

@@ -7,6 +7,7 @@ public abstract class PagerAdapter extends android.support.v4.view.PagerAdapter 
 
     /**
      * {@inheritDoc}
+     *
      * @deprecated Use {@link #getPageSize(int)} instead.
      */
     @Override

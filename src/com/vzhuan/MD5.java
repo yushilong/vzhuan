@@ -17,7 +17,7 @@ public final class MD5 {
             char[] var3 = new char[var2 * 2];
             int var4 = 0;
 
-            for(int var5 = 0; var4 < var2; ++var4) {
+            for (int var5 = 0; var4 < var2; ++var4) {
                 byte var6 = var0[var4];
                 var3[var5++] = hexDigitalArray[var6 >>> 4 & 15];
                 var3[var5++] = hexDigitalArray[var6 & 15];

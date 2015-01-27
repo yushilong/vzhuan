@@ -16,16 +16,13 @@ import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 /**
  * 快捷分享项目现在添加为不同的平台添加不同分享内容的方法。
- *本类用于演示如何区别Twitter的分享内容和其他平台分享内容。
- *本类会在{@link com.vzhuan.ShareFragment#showShare(boolean , String , boolean)}方法
- *中被调用。
+ * 本类用于演示如何区别Twitter的分享内容和其他平台分享内容。
+ * 本类会在{@link com.vzhuan.ShareFragment#showShare(boolean, String, boolean)}方法
+ * 中被调用。
  */
-public class ShareContentCustomizeDemo implements ShareContentCustomizeCallback
-{
-    public void onShare(Platform platform, ShareParams paramsToShare)
-    {
-        if (platform instanceof CustomPlatform)
-        {
+public class ShareContentCustomizeDemo implements ShareContentCustomizeCallback {
+    public void onShare(Platform platform, ShareParams paramsToShare) {
+        if (platform instanceof CustomPlatform) {
             return;
         }
         int id = ShareSDK.platformNameToId(platform.getName());

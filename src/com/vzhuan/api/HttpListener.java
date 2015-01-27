@@ -3,9 +3,8 @@ package com.vzhuan.api;
 /**
  * Created by lscm on 2015/1/13.
  */
-public interface HttpListener
-{
+public interface HttpListener {
     void onSuccess(String msg);
 
-    void onFailure(int statusCode);
+    void onFailure(int statusCode, String emsg);
 }

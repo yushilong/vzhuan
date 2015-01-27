@@ -16,6 +16,7 @@ import com.vzhuan.eventbus.EventNames;
 import com.vzhuan.viewpager.FragmentPagerAdapter;
 import com.vzhuan.viewpager.ViewPager;
 import net.youmi.android.AdManager;
+import net.youmi.android.offers.OffersManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,27 +24,25 @@ import java.util.List;
 /**
  * Created by lscm on 2015/1/5.
  */
-public class MainActivity extends BaseActivity implements EventBus.SubscriberChangeListener
-{
+public class MainActivity extends BaseActivity implements EventBus.SubscriberChangeListener {
     public static String TEST_IMAGE;
     public static String TEST_IMAGE_URL;
     private ViewPager mViewPager;
     private List<Fragment> fragments;
     private ImageView iv_rocket;
 
-    @Override public int doGetContentViewId()
-    {
+    @Override
+    public int doGetContentViewId() {
         return R.layout.main;
     }
 
-    @Override public void doInitSubViews()
-    {
+    @Override
+    public void doInitSubViews() {
         super.doInitSubViews();
         iv_rocket = (ImageView) findViewById(R.id.iv_rocket);
-        iv_rocket.setOnClickListener(new View.OnClickListener()
-        {
-            @Override public void onClick(View view)
-            {
+        iv_rocket.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 iv_rocket.startAnimation(AnimationUtils.loadAnimation(MainActivity.this, R.anim.rocket));
                 if (mViewPager != null)
                     mViewPager.setCurrentItem(0, true);
@@ -51,8 +50,8 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
         });
     }
 
-    @Override public void doInitDataes()
-    {
+    @Override
+    public void doInitDataes() {
         super.doInitDataes();
         ShareSDK.initSDK(this);
 //        ShareSDK.registerPlatform(Laiwang.class);
@@ -72,60 +71,60 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
         mViewPager.setAdapter(new VerticalPager(getSupportFragmentManager()));
         //ads config
         initAds();
-        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener()
-        {
-            @Override public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels)
-            {
+        mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
 
-            @Override public void onPageSelected(int position)
-            {
+            @Override
+            public void onPageSelected(int position) {
                 iv_rocket.setVisibility(position == 2 ? View.VISIBLE : View.GONE);
             }
 
-            @Override public void onPageScrollStateChanged(int state)
-            {
+            @Override
+            public void onPageScrollStateChanged(int state) {
             }
         });
         //        startActivity(new Intent(this,RerferrerInfoActivity.class));
     }
 
-    private void initAds()
-    {
+    private void initAds() {
         //dianle
         Dianle.initGoogleContext(this, "c96e880f25579db0645a73dddd6fc1b0");
+        Dianle.setCurrentUserID(this, Constants.getDid());
         //appoffer
         AppConnect.getInstance("e962f6e8021a4d4db681772ac9783dae", "waps", this);
+        AppConnect.getInstance(this).getConfig(Constants.getDid());
         //youmi
         AdManager.getInstance(this).init("760f04b16d9496fa", "81012bc40d0a99f4", Constants.DEBUG);
+        OffersManager.getInstance(this).setCustomUserId(Constants.getDid());
+        OffersManager.getInstance(this).setUsingServerCallBack(true);
         //aimeng
     }
 
-    @Override public void onSubscriberDataChanged(Object notificationName, Object notificateContent)
-    {
+    @Override
+    public void onSubscriberDataChanged(Object notificationName, Object notificateContent) {
         findViewById(R.id.ll_logining).setVisibility(View.GONE);
     }
 
-    class VerticalPager extends FragmentPagerAdapter
-    {
-        public VerticalPager(FragmentManager fm)
-        {
+    class VerticalPager extends FragmentPagerAdapter {
+        public VerticalPager(FragmentManager fm) {
             super(fm);
         }
 
-        @Override public Fragment getItem(int i)
-        {
+        @Override
+        public Fragment getItem(int i) {
             return fragments.get(i);
         }
 
-        @Override public int getCount()
-        {
+        @Override
+        public int getCount() {
             return fragments.size();
         }
     }
 
-    @Override protected void onDestroy()
-    {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         EventBus.getInstance().unSubscribe(EventNames.LOGIN_SUCCESS, this);
         AppManagerStack.getInstance().AppExit(this);
@@ -134,10 +133,8 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
     /**
      * 将action转换为String
      */
-    public static String actionToString(int action)
-    {
-        switch (action)
-        {
+    public static String actionToString(int action) {
+        switch (action) {
             case Platform.ACTION_AUTHORIZING:
                 return "ACTION_AUTHORIZING";
             case Platform.ACTION_GETTING_FRIEND_LIST:
@@ -152,8 +149,7 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
                 return "ACTION_USER_INFOR";
             case Platform.ACTION_SHARE:
                 return "ACTION_SHARE";
-            default:
-            {
+            default: {
                 return "UNKNOWN";
             }
         }
@@ -161,26 +157,22 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
 
     private long exitTime = 0;
 
-    @Override public boolean onKeyDown(int keyCode, KeyEvent event)
-    {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0)
-        {
-            if ((System.currentTimeMillis() - exitTime) > 2000)
-            {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
                 Toast.makeText(getApplicationContext(), "再按一次退出程序", Toast.LENGTH_SHORT).show();
                 exitTime = System.currentTimeMillis();
                 return true;
-            }
-            else
-            {
+            } else {
                 AppManagerStack.getInstance().AppExit(MainActivity.this);
             }
         }
         return super.onKeyDown(keyCode, event);
     }
 
-    @Override protected void onResume()
-    {
+    @Override
+    protected void onResume() {
         super.onResume();
         EventBus.getInstance().subscribe(EventNames.LOGIN_SUCCESS, this);
     }

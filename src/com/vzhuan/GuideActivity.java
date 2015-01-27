@@ -14,26 +14,23 @@ import java.util.List;
 /**
  * Created by lscm on 2015/1/5.
  */
-public class GuideActivity extends BaseActivity
-{
-    @Override public int doGetContentViewId()
-    {
+public class GuideActivity extends BaseActivity {
+    @Override
+    public int doGetContentViewId() {
         return R.layout.guide;
     }
 
-    @Override public void doInitDataes()
-    {
+    @Override
+    public void doInitDataes() {
         super.doInitDataes();
         ViewPager mViewPager = (ViewPager) findViewById(R.id.viewpager);
         final List<View> views = new ArrayList<View>();
         LayoutInflater layoutInflater = getLayoutInflater();
-        for (int i = 0; i < 4; i++)
-        {
+        for (int i = 0; i < 4; i++) {
             ViewGroup view = (ViewGroup) layoutInflater.inflate(R.layout.guideitem, null);
             views.add(view);
             int imgResId = 0;
-            switch (i)
-            {
+            switch (i) {
                 case 0:
                     imgResId = R.drawable.guide1;
                     break;
@@ -49,41 +46,36 @@ public class GuideActivity extends BaseActivity
             }
             ((ImageView) view.findViewById(R.id.imageView)).setImageResource(imgResId);
         }
-        PagerAdapter mPagerAdapter = new PagerAdapter()
-        {
-            @Override public int getCount()
-            {
+        PagerAdapter mPagerAdapter = new PagerAdapter() {
+            @Override
+            public int getCount() {
                 return views.size();
             }
 
-            @Override public boolean isViewFromObject(View view, Object o)
-            {
+            @Override
+            public boolean isViewFromObject(View view, Object o) {
                 return view == o;
             }
 
-            @Override public void destroyItem(ViewGroup container, int position, Object object)
-            {
+            @Override
+            public void destroyItem(ViewGroup container, int position, Object object) {
                 container.removeView(views.get(position));
             }
 
-            @Override public Object instantiateItem(ViewGroup container, int position)
-            {
+            @Override
+            public Object instantiateItem(ViewGroup container, int position) {
                 View view = views.get(position);
                 container.addView(view);
-                if (position == views.size() - 1)
-                {
+                if (position == views.size() - 1) {
                     view.findViewById(R.id.iv_go).setVisibility(View.VISIBLE);
-                    view.findViewById(R.id.iv_go).setOnClickListener(new View.OnClickListener()
-                    {
-                        @Override public void onClick(View view)
-                        {
+                    view.findViewById(R.id.iv_go).setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
                             finish();
                             startActivity(new Intent(GuideActivity.this, RegisterActivity.class));
                         }
                     });
-                }
-                else
-                {
+                } else {
                     view.findViewById(R.id.iv_go).setVisibility(View.GONE);
                 }
                 return view;

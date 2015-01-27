@@ -16,61 +16,56 @@ import java.util.Map;
 /**
  * Created by lscm on 2015/1/14.
  */
-public class RerferrerInfoActivity extends BaseActivity
-{
+public class RerferrerInfoActivity extends BaseActivity {
     MyHttpRequestor submitReferRequest;
     ViewGroup inviteView, resultView;
     String invited;
     EditText et_id;
     long currentId;
 
-    @Override public int doGetContentViewId()
-    {
+    @Override
+    public int doGetContentViewId() {
         return R.layout.referrer;
     }
 
-    @Override public void doInitSubViews()
-    {
+    @Override
+    public void doInitSubViews() {
         super.doInitSubViews();
         inviteView = (ViewGroup) findViewById(R.id.ll_invite);
         resultView = (ViewGroup) findViewById(R.id.rl_result);
         et_id = (EditText) findViewById(R.id.et_id);
     }
 
-    @Override public void doInitDataes()
-    {
+    @Override
+    public void doInitDataes() {
         super.doInitDataes();
         invited = ShareUtil.getString(this, ShareUtil.ShareKey.UID, null);
-        submitReferRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.SUBMIT_REFERRER, new HttpListener()
-        {
-            @Override public void onSuccess(String msg)
-            {
+        submitReferRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.SUBMIT_REFERRER, new HttpListener() {
+            @Override
+            public void onSuccess(String msg) {
                 JSONObject resultObject = null;
-                try
-                {
+                try {
                     resultObject = new JSONObject(msg);
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 boolean isInvited = resultObject.optBoolean("entity");
-                if (isInvited)
-                {
+                if (isInvited) {
                     inviteView.setVisibility(View.GONE);
                     resultView.setBackgroundResource(currentId == R.id.bt_2 ? R.drawable.get2yuan : R.drawable.get3yuan);
                     resultView.setVisibility(View.VISIBLE);
                 }
             }
 
-            @Override public void onFailure(int statusCode)
-            {
+            @Override
+            public void onFailure(int statusCode, String emsg) {
+                finish();
+                startActivity(new Intent(RerferrerInfoActivity.this, MainActivity.class));
             }
         });
     }
 
-    public void threeYuan(View view)
-    {
+    public void threeYuan(View view) {
         currentId = view.getId();
         Map<String, Object> objectMap = new HashMap<String, Object>();
         objectMap.put("invited", invited);
@@ -81,14 +76,12 @@ public class RerferrerInfoActivity extends BaseActivity
         submitReferRequest.start();
     }
 
-    public void twoYuan(View view)
-    {
+    public void twoYuan(View view) {
         currentId = view.getId();
         submitReferRequest.start();
     }
 
-    public void commit(View view)
-    {
+    public void commit(View view) {
         finish();
         ShareUtil.setBoolean(this, ShareUtil.ShareKey.BONUSED, true);
         startActivity(new Intent(this, MainActivity.class));

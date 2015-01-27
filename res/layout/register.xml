@@ -5,68 +5,68 @@
               android:layout_height="match_parent"
               android:background="@android:color/white">
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:orientation="horizontal"
-      android:background="#3EBBFE"
-      android:gravity="center">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#3EBBFE"
+            android:gravity="center">
 
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:text="V赚注册"
-        android:textColor="@android:color/white"
-        android:gravity="center"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="V赚注册"
+                android:textColor="@android:color/white"
+                android:gravity="center"/>
 
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="?android:progressBarStyleSmall"
-        android:visibility="gone"/>
-  </LinearLayout>
+        <ProgressBar
+                android:id="@+id/progressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:progressBarStyleSmall"
+                android:visibility="gone"/>
+    </LinearLayout>
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical"
-      android:padding="10dp">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="请填写微信邀请码"
-        android:layout_marginTop="20dp"/>
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="请填写微信验证码"
+                android:layout_marginTop="20dp"/>
 
-    <EditText
-        android:id="@+id/et_code"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="请输入你的邀请码"
-        android:textColorHint="#ccc"
-        android:selectAllOnFocus="true"
-        android:layout_marginTop="10dp"/>
+        <EditText
+                android:id="@+id/et_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="请输入你的验证码"
+                android:textColorHint="#ccc"
+                android:selectAllOnFocus="true"
+                android:layout_marginTop="10dp"/>
 
-    <Button
-        android:onClick="toRegister"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="确定"
-        android:padding="10dp"
-        android:layout_marginTop="10dp"
-        android:textColor="@android:color/white"
-        android:background="#3EBBFE"/>
+        <Button
+                android:onClick="toRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="确定"
+                android:padding="10dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@android:color/white"
+                android:background="#3EBBFE"/>
 
-    <Button
-        android:onClick="showMethod"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="没有邀请码?"
-        android:padding="5dp"
-        android:background="@null"
-        android:layout_marginTop="10dp"
-        android:textColor="#ccc"/>
-  </LinearLayout>
+        <Button
+                android:onClick="showMethod"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="没有验证码?"
+                android:padding="5dp"
+                android:background="@null"
+                android:layout_marginTop="10dp"
+                android:textColor="#ccc"/>
+    </LinearLayout>
 </LinearLayout>

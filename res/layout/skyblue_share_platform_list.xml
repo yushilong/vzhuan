@@ -4,17 +4,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-  <include
-      layout="@layout/skyblue_share_actionbar"
-      android:id="@+id/actionbarLayout"/>
+    <include
+            layout="@layout/skyblue_share_actionbar"
+            android:id="@+id/actionbarLayout"/>
 
-  <GridView
-      android:id="@+id/gridView"
-      android:layout_below="@id/actionbarLayout"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:numColumns="3"
-      android:stretchMode="columnWidth"
-      android:listSelector="@android:color/transparent"
-      />
+    <GridView
+            android:id="@+id/gridView"
+            android:layout_below="@id/actionbarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:numColumns="3"
+            android:stretchMode="columnWidth"
+            android:listSelector="@android:color/transparent"
+            />
 </RelativeLayout>

@@ -10,8 +10,7 @@ import android.util.AttributeSet;
 import android.widget.ImageView;
 import com.vzhuan.R;
 
-public class CircleImageView extends ImageView
-{
+public class CircleImageView extends ImageView {
 
     private static final ScaleType SCALE_TYPE = ScaleType.CENTER_CROP;
 
@@ -88,8 +87,8 @@ public class CircleImageView extends ImageView
         }
 
         canvas.drawCircle(getWidth() / 2, getHeight() / 2, mDrawableRadius, mBitmapPaint);
-        if(mBorderWidth != 0){
-          canvas.drawCircle(getWidth() / 2, getHeight() / 2, mBorderRadius, mBorderPaint);
+        if (mBorderWidth != 0) {
+            canvas.drawCircle(getWidth() / 2, getHeight() / 2, mBorderRadius, mBorderPaint);
         }
     }
 
@@ -116,7 +115,7 @@ public class CircleImageView extends ImageView
     public int getBorderWidth() {
         return mBorderWidth;
     }
-    
+
     public void setBorderWidth(int borderWidth) {
         if (borderWidth == mBorderWidth) {
             return;

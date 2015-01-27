@@ -29,8 +29,7 @@ import java.util.Map;
 /**
  * Created by lscm on 2015/1/13.
  */
-public class MyHttpRequestor
-{
+public class MyHttpRequestor {
     public static final byte GET_METHOD = 0x00;
     public static final byte POST_METHOD = 0x01;
     public static final byte PUT_METHOD = 0x02;
@@ -61,20 +60,16 @@ public class MyHttpRequestor
     private Handler mHandler;
     private String responseBodyString;
 
-    private enum METHOD
-    {
+    private enum METHOD {
         GET, PUT, POST, PATCH, DELETE, HEAD, OPTIONS, TRACE;
 
-        public static String prettyValues()
-        {
+        public static String prettyValues() {
             METHOD[] methods = METHOD.values();
             StringBuilder builder = new StringBuilder();
-            for (int i = 0; i < methods.length; i++)
-            {
+            for (int i = 0; i < methods.length; i++) {
                 METHOD method = methods[i];
                 builder.append(method.toString());
-                if (i != methods.length - 1)
-                {
+                if (i != methods.length - 1) {
                     builder.append(", ");
                 }
             }
@@ -84,10 +79,10 @@ public class MyHttpRequestor
 
     /**
      * 获得一个http连接
+     *
      * @return
      */
-    private static HttpClient getHttpClient()
-    {
+    private static HttpClient getHttpClient() {
         HttpClient httpClient = new HttpClient();
         // 设置 HttpClient 接收 Cookie,用与浏览器一样的策略
         httpClient.getParams().setCookiePolicy(CookiePolicy.BROWSER_COMPATIBILITY);
@@ -102,11 +97,9 @@ public class MyHttpRequestor
         return httpClient;
     }
 
-    private static HttpMethod getMethod(byte methodType, String url, String userAgent)
-    {
+    private static HttpMethod getMethod(byte methodType, String url, String userAgent) {
         HttpMethod httpMethod = null;
-        switch (methodType)
-        {
+        switch (methodType) {
             case GET_METHOD:
                 httpMethod = new GetMethod(url);
                 break;
@@ -134,8 +127,7 @@ public class MyHttpRequestor
             default:
                 break;
         }
-        if (null == httpMethod)
-        {
+        if (null == httpMethod) {
             // 抛出一个不支持的请求方法
             throw new IllegalArgumentException("Invalid HTTP Method: UnKonwn" + ". Must be one of " + METHOD.prettyValues());
         }
@@ -151,11 +143,10 @@ public class MyHttpRequestor
     }
 
     private static String getClientAgent() {
-        return "Android "+android.os.Build.MODEL+" "+android.os.Build.VERSION.RELEASE;
+        return "Android " + android.os.Build.MODEL + " " + android.os.Build.VERSION.RELEASE;
     }
 
-    public MyHttpRequestor init(byte methodType, String url, HttpListener httpListener)
-    {
+    public MyHttpRequestor init(byte methodType, String url, HttpListener httpListener) {
         _methodType = methodType;
         _httpClient = getHttpClient();
         this.mContext = MainApplication.getInstance();
@@ -187,98 +178,75 @@ public class MyHttpRequestor
     //        return appUserAgent;
     //    }
 
-    public void start()
-    {
-        if (!isNetworkConnected())
-        {
+    public void start() {
+        if (!isNetworkConnected()) {
             Toast.makeText(mContext, mContext.getString(R.string.network_not_connected), Toast.LENGTH_SHORT).show();
             return;
         }
         Log.i(TAG, "url--->" + url);
         // 设置请求参数
-        if (hasOutput())
-        {
+        if (hasOutput()) {
             submitData();
         }
         responseBodyString = null;
         //        GZIPInputStream gis = null;
-        ExecutorServiceUtil.getInstance().submit(new Runnable()
-        {
-            @Override public void run()
-            {
-                try
-                {
+        ExecutorServiceUtil.getInstance().submit(new Runnable() {
+            @Override
+            public void run() {
+                try {
                     final int statusCode = _httpClient.executeMethod(_method);
-                    if (statusCode != HttpStatus.SC_OK)
-                    {
+                    if (statusCode != HttpStatus.SC_OK) {
                         //                uploadErrorToServer(mContext, url, statusCode, getMethod(_methodType) + "  " + _method.getResponseBodyAsString() + "  " + getUserAgent(mContext) + "  " + getJsonString(_data));
-                        mHandler.post(new Runnable()
-                        {
-                            @Override public void run()
-                            {
+                        mHandler.post(new Runnable() {
+                            @Override
+                            public void run() {
                                 AppException.http(statusCode).makeToast(mContext);
                                 if (mHttpListener != null)
-                                    mHttpListener.onFailure(statusCode);
+                                    mHttpListener.onFailure(statusCode, null);
                             }
                         });
-                    }
-                    else
-                    {
+                    } else {
                         responseBodyString = _method.getResponseBodyAsString();
                         if (mHttpListener != null)
-                            mHandler.post(new Runnable()
-                            {
-                                @Override public void run()
-                                {
+                            mHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
                                     JSONObject resultObject = null;
-                                    try
-                                    {
+                                    try {
                                         resultObject = new JSONObject(responseBodyString);
-                                    }
-                                    catch (JSONException e)
-                                    {
+                                    } catch (JSONException e) {
                                         e.printStackTrace();
                                     }
-                                    if ("2".equals(resultObject.optString("s")))
-                                    {
+                                    if ("2".equals(resultObject.optString("s"))) {
                                         mHttpListener.onSuccess(resultObject.toString());
-                                    }
-                                    else
-                                    {
+                                    } else {
                                         String emsg = resultObject.optString("emsg");
-                                        mHttpListener.onFailure(statusCode);
+                                        int ec = Integer.valueOf(resultObject.optString("ec"));
+                                        mHttpListener.onFailure(ec, emsg);
                                         Toast.makeText(mContext, emsg, Toast.LENGTH_SHORT).show();
                                     }
                                 }
                             });
                     }
-                }
-                catch (final HttpException e)
-                {
+                } catch (final HttpException e) {
                     // 发生致命的异常，可能是协议不对或者返回的内容有问题
                     e.printStackTrace();
-                    mHandler.post(new Runnable()
-                    {
-                        @Override public void run()
-                        {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
                             AppException.http(e).makeToast(mContext);
                         }
                     });
-                }
-                catch (final IOException e)
-                {
+                } catch (final IOException e) {
                     // 发生网络异常
                     e.printStackTrace();
-                    mHandler.post(new Runnable()
-                    {
-                        @Override public void run()
-                        {
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
                             AppException.network(e).makeToast(mContext);
                         }
                     });
-                }
-                finally
-                {
+                } finally {
                     // 释放连接
                     //                    releaseConnection();
                 }
@@ -287,34 +255,29 @@ public class MyHttpRequestor
         });
     }
 
-    public void releaseConnection()
-    {
+    public void releaseConnection() {
         // 释放连接
-        if (_method != null)
-        {
+        if (_method != null) {
             _method.releaseConnection();
         }
-        if (_httpClient != null)
-        {
+        if (_httpClient != null) {
             _httpClient = null;
         }
     }
 
     /**
      * 判断是否需要设置表单参数
+     *
      * @param methodType
      * @return
      */
-    private boolean hasOutput()
-    {
+    private boolean hasOutput() {
         return _methodType == POST_METHOD || _methodType == PUT_METHOD;
     }
 
-    private String getMethod(byte method)
-    {
+    private String getMethod(byte method) {
         String res = "";
-        switch (method)
-        {
+        switch (method) {
             case GET_METHOD:
                 res = "GET";
                 break;
@@ -346,16 +309,12 @@ public class MyHttpRequestor
     /**
      * 表单参数处理
      */
-    private void submitData()
-    {
+    private void submitData() {
         _method.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        if (_method instanceof PostMethod)
-        {
+        if (_method instanceof PostMethod) {
             List<NameValuePair> nvps = new ArrayList<NameValuePair>();
-            if (_data != null)
-            {
-                for (String name : _data.keySet())
-                {
+            if (_data != null) {
+                for (String name : _data.keySet()) {
                     if (((PostMethod) _method).getParameter(name) != null)
                         ((PostMethod) _method).removeParameter(name);
                     Object value = _data.get(name);
@@ -364,17 +323,14 @@ public class MyHttpRequestor
                     nvps.add(nvp);
                 }
             }
-            for (NameValuePair nameValuePair : nvps)
-            {
+            for (NameValuePair nameValuePair : nvps) {
                 ((PostMethod) _method).addParameter(nameValuePair);
             }
         }
-        if (_method instanceof PutMethod)
-        {
+        if (_method instanceof PutMethod) {
             Part parts[] = new Part[_data.size()];
             int i = 0;
-            for (String name : _data.keySet())
-            {
+            for (String name : _data.keySet()) {
                 Object value = _data.get(name);
                 parts[i++] = new StringPart(name, String.valueOf(value));
             }
@@ -382,13 +338,11 @@ public class MyHttpRequestor
         }
     }
 
-    public Map<String, Object> getParam()
-    {
+    public Map<String, Object> getParam() {
         return _data;
     }
 
-    public void setParam(Map<String, Object> _data)
-    {
+    public void setParam(Map<String, Object> _data) {
         this._data = _data;
     }
 
@@ -397,8 +351,7 @@ public class MyHttpRequestor
      *
      * @return
      */
-    public boolean isNetworkConnected()
-    {
+    public boolean isNetworkConnected() {
         ConnectivityManager cm = (ConnectivityManager) mContext.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo ni = cm.getActiveNetworkInfo();
         return ni != null && ni.isConnectedOrConnecting();

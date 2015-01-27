@@ -6,8 +6,7 @@ import android.telephony.TelephonyManager;
 /**
  * Created by lscm on 2015/1/7.
  */
-public class Constants
-{
+public class Constants {
     public static final String HOST = "http://www.dongchengxijiu.net";
     public static boolean DEBUG = true;
     //接口start
@@ -25,13 +24,11 @@ public class Constants
     //
     public static final long time_refresh = 2 * 60 * 1000;
 
-    public static final String getImei(Context context)
-    {
+    public static final String getImei(Context context) {
         return ((TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE)).getDeviceId();
     }
 
-    public static String getDid()
-    {
+    public static String getDid() {
         String preMd5 = Constants.primary_token_did + Constants.getImei(MainApplication.getInstance()) + Constants.primary_token_did;
         return MD5.getMessageDigest(preMd5.getBytes());
     }

@@ -22,72 +22,72 @@ import static cn.sharesdk.framework.utils.R.getLayoutRes;
 import static cn.sharesdk.framework.utils.R.getStringRes;
 
 public class PlatformListPage extends PlatformListFakeActivity implements View.OnClickListener {
-	private PlatformGridViewAdapter gridViewAdapter;
+    private PlatformGridViewAdapter gridViewAdapter;
 
-	public void onCreate() {
-		super.onCreate();
-		activity.setContentView(getLayoutRes(activity, "skyblue_share_platform_list"));
+    public void onCreate() {
+        super.onCreate();
+        activity.setContentView(getLayoutRes(activity, "skyblue_share_platform_list"));
 
-		initView();
-	}
+        initView();
+    }
 
-	private void initView() {
-		View backImageView = findViewByResName("backImageView");
-		backImageView.setTag(android.R.string.cancel);
-		backImageView.setOnClickListener(this);
+    private void initView() {
+        View backImageView = findViewByResName("backImageView");
+        backImageView.setTag(android.R.string.cancel);
+        backImageView.setOnClickListener(this);
 
-		View okImageView = findViewByResName("okImageView");
-		okImageView.setTag(android.R.string.ok);
-		okImageView.setOnClickListener(this);
+        View okImageView = findViewByResName("okImageView");
+        okImageView.setTag(android.R.string.ok);
+        okImageView.setOnClickListener(this);
 
-		gridViewAdapter = new PlatformGridViewAdapter(activity);
-		gridViewAdapter.setCustomerLogos(customerLogos);
+        gridViewAdapter = new PlatformGridViewAdapter(activity);
+        gridViewAdapter.setCustomerLogos(customerLogos);
 
-		GridView gridView = (GridView) findViewByResName("gridView");
-		gridView.setAdapter(gridViewAdapter);
+        GridView gridView = (GridView) findViewByResName("gridView");
+        gridView.setAdapter(gridViewAdapter);
 
-		new AsyncTask<Void, Void, Platform[]>() {
+        new AsyncTask<Void, Void, Platform[]>() {
 
-			@Override
-			protected Platform[] doInBackground(Void... params) {
-				return ShareSDK.getPlatformList();
-			}
+            @Override
+            protected Platform[] doInBackground(Void... params) {
+                return ShareSDK.getPlatformList();
+            }
 
-			@Override
-			protected void onPostExecute(Platform[] platforms) {
-				gridViewAdapter.setData(platforms, hiddenPlatforms);
-			}
-		}.execute();
-	}
+            @Override
+            protected void onPostExecute(Platform[] platforms) {
+                gridViewAdapter.setData(platforms, hiddenPlatforms);
+            }
+        }.execute();
+    }
 
-	public void onClick(View v) {
-		Object tag = v.getTag();
-		if(tag == null || !(tag instanceof Integer))
-			return;
+    public void onClick(View v) {
+        Object tag = v.getTag();
+        if (tag == null || !(tag instanceof Integer))
+            return;
 
-		switch ((Integer)tag) {
-			case android.R.string.cancel:
-				setCanceled(true);
-				finish();
-				break;
-			case android.R.string.ok:
-				onShareButtonClick(v);
-				break;
-		}
-	}
+        switch ((Integer) tag) {
+            case android.R.string.cancel:
+                setCanceled(true);
+                finish();
+                break;
+            case android.R.string.ok:
+                onShareButtonClick(v);
+                break;
+        }
+    }
 
-	private void onShareButtonClick(View v) {
-		if(gridViewAdapter == null || "locked".equals(v.getTag()))
-			return;
+    private void onShareButtonClick(View v) {
+        if (gridViewAdapter == null || "locked".equals(v.getTag()))
+            return;
 
-		List<Object> checkedPlatforms = gridViewAdapter.getCheckedItems();
-		if(checkedPlatforms.size() == 0){
-			Toast.makeText(activity, getStringRes(activity, "select_one_plat_at_least"), Toast.LENGTH_SHORT).show();
-			return;
-		}
+        List<Object> checkedPlatforms = gridViewAdapter.getCheckedItems();
+        if (checkedPlatforms.size() == 0) {
+            Toast.makeText(activity, getStringRes(activity, "select_one_plat_at_least"), Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-		v.setTag("locked");
-		onShareButtonClick(v, checkedPlatforms);
-	}
+        v.setTag("locked");
+        onShareButtonClick(v, checkedPlatforms);
+    }
 
 }

@@ -1,10 +1,8 @@
 package com.vzhuan;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
-import android.content.Intent;
+import android.content.*;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.text.TextUtils;
@@ -34,8 +32,7 @@ import java.util.Map;
 /**
  * Created by lscm on 2015/1/7.
  */
-public class RegisterActivity extends BaseActivity
-{
+public class RegisterActivity extends BaseActivity {
     EditText et_code;
     ImageView iv_code;
     TextView tv_code;
@@ -44,39 +41,34 @@ public class RegisterActivity extends BaseActivity
     private String code;
     User mUser;
 
-    @Override public int doGetContentViewId()
-    {
+    @Override
+    public int doGetContentViewId() {
         return R.layout.register;
     }
 
-    @Override public void doInitSubViews()
-    {
+    @Override
+    public void doInitSubViews() {
         super.doInitSubViews();
         et_code = (EditText) findViewById(R.id.et_code);
     }
 
-    @Override public void doInitDataes()
-    {
+    @Override
+    public void doInitDataes() {
         super.doInitDataes();
         //
-        if (JPushInterface.isPushStopped(MainApplication.getInstance()))
-        {
+        if (JPushInterface.isPushStopped(MainApplication.getInstance())) {
             JPushInterface.resumePush(MainApplication.getInstance());
         }
         Log.d(RegisterActivity.class.getSimpleName(), "Registration Id : " + JPushInterface.getRegistrationID(MainApplication.getInstance()));
         //
-        getCodeRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, Constants.REGISTER_GETCODE, new HttpListener()
-        {
-            @Override public void onSuccess(String msg)
-            {
+        getCodeRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, Constants.REGISTER_GETCODE, new HttpListener() {
+            @Override
+            public void onSuccess(String msg) {
                 JSONObject jsonObject = null;
-                try
-                {
+                try {
                     jsonObject = new JSONObject(msg);
                     jsonObject = jsonObject.getJSONObject("entity");
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 Gson gson = new Gson();
@@ -88,22 +80,18 @@ public class RegisterActivity extends BaseActivity
                 ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.SHARE_DOWNLOAD, code.download);
             }
 
-            @Override public void onFailure(int statusCode)
-            {
+            @Override
+            public void onFailure(int statusCode, String emsg) {
             }
         });
         //
-        registerRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.REGISTER, new HttpListener()
-        {
-            @Override public void onSuccess(String msg)
-            {
+        registerRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.REGISTER, new HttpListener() {
+            @Override
+            public void onSuccess(String msg) {
                 JSONObject jsonObject = null;
-                try
-                {
+                try {
                     jsonObject = new JSONObject(msg).optJSONObject("entity");
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 mUser = new Gson().fromJson(jsonObject.toString(), User.class);
@@ -112,58 +100,62 @@ public class RegisterActivity extends BaseActivity
                 ShareUtil.setString(RegisterActivity.this, ShareUtil.ShareKey.UID, getUid());
                 //
                 String alreadyUrl = Constants.ALREADY_SUBMIT_REFERRRERINFO + "?invited=" + getUid();
-                alreadySubmitRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, alreadyUrl, new HttpListener()
-                {
-                    @Override public void onSuccess(String msg)
-                    {
+                alreadySubmitRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, alreadyUrl, new HttpListener() {
+                    @Override
+                    public void onSuccess(String msg) {
                         JSONObject resultObject = null;
-                        try
-                        {
+                        try {
                             resultObject = new JSONObject(msg);
-                        }
-                        catch (JSONException e)
-                        {
+                        } catch (JSONException e) {
                             e.printStackTrace();
                         }
                         boolean isInvited = resultObject.optBoolean("entity");
-                        if (!isInvited)
-                        {
+                        if (!isInvited) {
                             startActivity(new Intent(RegisterActivity.this, RerferrerInfoActivity.class));
-                        }
-                        else
-                        {
+                        } else {
                             startActivity(new Intent(RegisterActivity.this, MainActivity.class));
                         }
                         finish();
                     }
 
-                    @Override public void onFailure(int statusCode)
-                    {
+                    @Override
+                    public void onFailure(int statusCode, String emsg) {
                     }
                 });
                 alreadySubmitRequest.start();
             }
 
-            @Override public void onFailure(int statusCode)
-            {
+            @Override
+            public void onFailure(int statusCode, String emsg) {
             }
         });
         //
-        checkAccessRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.REGISTER_CHECK_ACCESS, new HttpListener()
-        {
-            @Override public void onSuccess(String msg)
-            {
-                Map<String, Object> register = new HashMap<String, Object>();
-                register.put("mac", Constants.getImei(RegisterActivity.this));
-                register.put("token", JPushInterface.getRegistrationID(MainApplication.getInstance()));
-                register.put("openUdid", Constants.getImei(RegisterActivity.this));
-                register.put("access", code);
-                registerRequest.setParam(register);
-                registerRequest.start();
+        checkAccessRequest = new MyHttpRequestor().init(MyHttpRequestor.POST_METHOD, Constants.REGISTER_CHECK_ACCESS, new HttpListener() {
+            @Override
+            public void onSuccess(String msg) {
+                startRegister();
             }
 
-            @Override public void onFailure(int statusCode)
-            {
+            @Override
+            public void onFailure(final int statusCode, String emsg) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                builder.setTitle(statusCode == 126 ? "验证码无效" : "请输入正确验证码").setMessage(statusCode == 126 ? emsg : null);
+                if (statusCode == 126) {
+                    builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                }
+                builder.setPositiveButton(statusCode == 126 ? "继续" : "确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        if (statusCode == 126)
+                            startRegister();
+                        dialog.dismiss();
+                    }
+                }).create().show();
             }
         });
         if (mDialog == null)
@@ -171,52 +163,53 @@ public class RegisterActivity extends BaseActivity
         getCodeRequest.start();
     }
 
-    private String getUid()
-    {
+    private void startRegister() {
+        Map<String, Object> register = new HashMap<String, Object>();
+        register.put("mac", Constants.getImei(this));
+        register.put("token", JPushInterface.getRegistrationID(MainApplication.getInstance()));
+        register.put("openUdid", Constants.getImei(this));
+        register.put("access", code);
+        registerRequest.setParam(register);
+        registerRequest.start();
+    }
+
+    private String getUid() {
         return MD5.getMessageDigest((Constants.primary_token_uid + mUser.access + mUser.name + mUser.access + Constants.primary_token_uid).getBytes());
     }
 
-    public void toRegister(View view)
-    {
+    public void toRegister(View view) {
         code = et_code.getText().toString().trim();
-        if (!TextUtils.isEmpty(code))
-        {
+        if (!TextUtils.isEmpty(code)) {
             Map<String, Object> checkAddress = new HashMap<String, Object>();
             checkAddress.put("access", code);
             checkAccessRequest.setParam(checkAddress);
             checkAccessRequest.start();
-        }
-        else
-        {
+        } else {
             et_code.requestFocus();
-            et_code.setError("请填写邀请码");
+            et_code.setError("请填写验证码");
         }
     }
 
-    public void showMethod(View view)
-    {
+    public void showMethod(View view) {
         if (!mDialog.isShowing())
             mDialog.show();
     }
 
-    private void initDialog()
-    {
+    private void initDialog() {
         mDialog = new Dialog(this, R.style.MyDialog);
         View view = View.inflate(this, R.layout.dialog_getcode, null);
         iv_code = (ImageView) view.findViewById(R.id.iv_code);
-        iv_code.setOnClickListener(new View.OnClickListener()
-        {
-            @Override public void onClick(View view)
-            {
+        iv_code.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 Bitmap bitmap = ((BitmapDrawable) iv_code.getDrawable()).getBitmap();
                 saveBitmap(bitmap);
             }
         });
         tv_code = (TextView) view.findViewById(R.id.tv_code);
-        tv_code.setOnLongClickListener(new View.OnLongClickListener()
-        {
-            @Override public boolean onLongClick(View view)
-            {
+        tv_code.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
                 ClipboardManager clipboardManager = (ClipboardManager) RegisterActivity.this.getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("simpleText", tv_code.getText());
                 clipboardManager.setPrimaryClip(clip);
@@ -227,47 +220,39 @@ public class RegisterActivity extends BaseActivity
         mDialog.setContentView(view);
     }
 
-    public void closeDialog(View view)
-    {
+    public void closeDialog(View view) {
         mDialog.dismiss();
     }
 
     /**
      * 保存方法
      */
-    public void saveBitmap(Bitmap bm)
-    {
+    public void saveBitmap(Bitmap bm) {
         File fd = new File("/sdcard/vzhuan/");
         if (!fd.exists())
             fd.mkdirs();
         File f = new File("/sdcard/vzhuan/", new Date().getTime() + ".jpg");
-        if (f.exists())
-        {
+        if (f.exists()) {
             f.delete();
         }
-        try
-        {
+        try {
             f.createNewFile();
             FileOutputStream out = new FileOutputStream(f);
             bm.compress(Bitmap.CompressFormat.JPEG, 90, out);
             out.flush();
             out.close();
-        }
-        catch (FileNotFoundException e)
-        {
+        } catch (FileNotFoundException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
         Toast.makeText(this, "保存成功", Toast.LENGTH_SHORT).show();
     }
 
-    @Override protected void onDestroy()
-    {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         getCodeRequest.releaseConnection();
         checkAccessRequest.releaseConnection();

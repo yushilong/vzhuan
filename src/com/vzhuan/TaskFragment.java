@@ -21,8 +21,7 @@ import java.util.ArrayList;
 /**
  * Created by lscm on 2015/1/5.
  */
-public class TaskFragment extends BaseFragment
-{
+public class TaskFragment extends BaseFragment {
     private ListView mListView;
     private TaskAdapter mTaskAdapter;
     GestureDetector mGestureDetector;
@@ -31,53 +30,47 @@ public class TaskFragment extends BaseFragment
     private Activity mActivity;
     private boolean isFirstLogin = true;
 
-    @Override public int doGetContentViewId()
-    {
+    @Override
+    public int doGetContentViewId() {
         return R.layout.task;
     }
 
-    @Override public void doInitSubViews(View containerView)
-    {
+    @Override
+    public void doInitSubViews(View containerView) {
         super.doInitSubViews(containerView);
         mActivity = getActivity();
         mListView = (ListView) containerView.findViewById(R.id.lv_task);
         mTaskAdapter = new TaskAdapter(getActivity(), new ArrayList<Ads>());
         mListView.setAdapter(mTaskAdapter);
-        mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener()
-        {
-            @Override public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY)
-            {
-                if (e1.getY() - e2.getY() > 120 && mListView.getLastVisiblePosition() == mTaskAdapter.list.size() - 1)
-                {//向上
+        mGestureDetector = new GestureDetector(getActivity(), new GestureDetector.SimpleOnGestureListener() {
+            @Override
+            public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                if (e1.getY() - e2.getY() > 120 && mListView.getLastVisiblePosition() == mTaskAdapter.list.size() - 1) {//向上
                     viewPager.setCurrentItem(2, true);
-                }
-                else if (e1.getY() - e2.getY() <= 120 && mListView.getFirstVisiblePosition() == 0)
-                {
+                } else if (e1.getY() - e2.getY() <= 120 && mListView.getFirstVisiblePosition() == 0) {
                     viewPager.setCurrentItem(0, true);
                 }
                 return true;
             }
         });
-        mListView.setOnTouchListener(new View.OnTouchListener()
-        {
-            @Override public boolean onTouch(View view, MotionEvent motionEvent)
-            {
+        mListView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
                 mGestureDetector.onTouchEvent(motionEvent);
                 return false;
             }
         });
-        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener()
-        {
-            @Override public void onItemClick(AdapterView<?> parent, View view, int position, long id)
-            {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 final Ads ads = mTaskAdapter.list.get((int) id);
                 new AdvertiseContext().setType(mActivity, ads.type).openAd();
             }
         });
     }
 
-    @Override public void doInitDataes()
-    {
+    @Override
+    public void doInitDataes() {
         super.doInitDataes();
         //        for (int i = 0; i < 50; i++)
         //        {
@@ -88,24 +81,19 @@ public class TaskFragment extends BaseFragment
         //            mTaskAdapter.list.add(task);
         //        }
         //
-        getAdsRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, Constants.GET_ADS, new HttpListener()
-        {
-            @Override public void onSuccess(String msg)
-            {
+        getAdsRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, Constants.GET_ADS, new HttpListener() {
+            @Override
+            public void onSuccess(String msg) {
                 JSONArray jsonArray = null;
-                try
-                {
+                try {
                     jsonArray = new JSONObject(msg).optJSONArray("entity");
-                }
-                catch (JSONException e)
-                {
+                } catch (JSONException e) {
                     e.printStackTrace();
                 }
                 int length = jsonArray.length();
                 Gson gson = new Gson();
                 mTaskAdapter.list.clear();
-                for (int i = 0; i < length; i++)
-                {
+                for (int i = 0; i < length; i++) {
                     Ads ads = gson.fromJson(jsonArray.optJSONObject(i).toString(), Ads.class);
                     mTaskAdapter.list.add(ads);
                 }
@@ -113,37 +101,31 @@ public class TaskFragment extends BaseFragment
                 ShareUtil.setString(getActivity(), ShareUtil.ShareKey.TIME_TASK, System.currentTimeMillis() + "");
             }
 
-            @Override public void onFailure(int statusCode)
-            {
+            @Override
+            public void onFailure(int statusCode,String emsg) {
             }
         });
     }
 
-    public ViewPager getViewPager()
-    {
+    public ViewPager getViewPager() {
         return viewPager;
     }
 
-    public void setViewPager(ViewPager viewPager)
-    {
+    public void setViewPager(ViewPager viewPager) {
         this.viewPager = viewPager;
     }
 
-    @Override public void onResume()
-    {
+    @Override
+    public void onResume() {
         super.onResume();
-        if (isFirstLogin)
-        {
+        if (isFirstLogin) {
             getAdsRequest.start();
             isFirstLogin = false;
-        }
-        else
-        {
+        } else {
             String timeStr = ShareUtil.getString(getActivity(), ShareUtil.ShareKey.TIME_TASK, "0");
             long time = Long.valueOf(timeStr);
             long currentTime = System.currentTimeMillis();
-            if (Math.abs(currentTime - time) >= Constants.time_refresh)
-            {
+            if (Math.abs(currentTime - time) >= Constants.time_refresh) {
                 getAdsRequest.start();
             }
         }

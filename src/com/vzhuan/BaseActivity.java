@@ -6,10 +6,9 @@ import android.support.v4.app.FragmentActivity;
 /**
  * Created by lscm on 2015/1/5.
  */
-public class BaseActivity extends FragmentActivity
-{
-    @Override protected void onCreate(Bundle savedInstanceState)
-    {
+public class BaseActivity extends FragmentActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppManagerStack.getInstance().addActivity(this);
         setContentView(doGetContentViewId());
@@ -17,21 +16,18 @@ public class BaseActivity extends FragmentActivity
         doInitDataes();
     }
 
-    public void doInitDataes()
-    {
+    public void doInitDataes() {
     }
 
-    public void doInitSubViews()
-    {
+    public void doInitSubViews() {
     }
 
-    public int doGetContentViewId()
-    {
+    public int doGetContentViewId() {
         return 0;
     }
 
-    @Override protected void onDestroy()
-    {
+    @Override
+    protected void onDestroy() {
         super.onDestroy();
         AppManagerStack.getInstance().finishActivity(this);
     }

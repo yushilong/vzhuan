@@ -12,15 +12,13 @@ import java.util.List;
 /**
  * Created by lscm on 2015/1/6.
  */
-public class TaskAdapter extends ReplenishAdapter<Ads>
-{
-    public TaskAdapter(Activity activity, List<Ads> mList)
-    {
+public class TaskAdapter extends ReplenishAdapter<Ads> {
+    public TaskAdapter(Activity activity, List<Ads> mList) {
         super(activity, mList);
     }
 
-    @Override public View getView(int position, View convertView, ViewGroup parent, ViewHolder viewHolder)
-    {
+    @Override
+    public View getView(int position, View convertView, ViewGroup parent, ViewHolder viewHolder) {
         ImageView iv_pic = viewHolder.obtainView(convertView, R.id.iv_pic);
         TextView tv_name = viewHolder.obtainView(convertView, R.id.tv_name);
         TextView tv_desc = viewHolder.obtainView(convertView, R.id.tv_desc);
@@ -31,8 +29,8 @@ public class TaskAdapter extends ReplenishAdapter<Ads>
         return convertView;
     }
 
-    @Override public int itemLayoutRes()
-    {
+    @Override
+    public int itemLayoutRes() {
         return R.layout.task_item;
     }
 }

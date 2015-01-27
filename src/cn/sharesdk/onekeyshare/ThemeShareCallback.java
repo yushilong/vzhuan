@@ -13,5 +13,5 @@ import cn.sharesdk.framework.Platform;
 import java.util.HashMap;
 
 public interface ThemeShareCallback {
-	public void doShare(HashMap<Platform, HashMap<String, Object>> shareData);
+    public void doShare(HashMap<Platform, HashMap<String, Object>> shareData);
 }

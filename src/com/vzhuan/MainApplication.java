@@ -11,31 +11,27 @@ import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
 /**
  * Created by lscm on 2015/1/6.
  */
-public class MainApplication extends Application
-{
+public class MainApplication extends Application {
     private static Application _instance;
 
-    @Override public void onCreate()
-    {
+    @Override
+    public void onCreate() {
         super.onCreate();
         initImageLoader(this);
         _instance = this;
         initJPush();
     }
 
-    private void initJPush()
-    {
+    private void initJPush() {
         JPushInterface.setDebugMode(true);    // 设置开启日志,发布时请关闭日志
         JPushInterface.init(this);            // 初始化 JPush
     }
 
-    public static Application getInstance()
-    {
+    public static Application getInstance() {
         return _instance;
     }
 
-    public static void initImageLoader(Context context)
-    {
+    public static void initImageLoader(Context context) {
         // This configuration tuning is custom. You can tune every option, you may tune some of them,
         // or you can create default configuration by
         //  ImageLoaderConfiguration.createDefault(this);
