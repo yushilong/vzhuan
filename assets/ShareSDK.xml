@@ -98,16 +98,16 @@
     <Wechat
             Id="4"
             SortId="4"
-            AppId="wxc61b2f9446930f3f"
-            AppSecret="07634dd4ccbbcf57d1ac266aaefb6aa6"
+            AppId="wx0585fdf669e13c77"
+            AppSecret="8edc314d571966c79ecfbc48450ef2d2"
             BypassApproval="false"
             Enable="true"/>
 
     <WechatMoments
             Id="5"
             SortId="5"
-            AppId="wxc61b2f9446930f3f"
-            AppSecret="07634dd4ccbbcf57d1ac266aaefb6aa6"
+            AppId="wx0585fdf669e13c77"
+            AppSecret="8edc314d571966c79ecfbc48450ef2d2"
             BypassApproval="false"
             Enable="true"/>
 
@@ -167,7 +167,7 @@
     <ShortMessage
             Id="13"
             SortId="13"
-            Enable="true"/>
+            Enable="false"/>
 
     <Douban
             Id="16"

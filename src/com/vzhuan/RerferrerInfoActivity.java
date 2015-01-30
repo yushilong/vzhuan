@@ -1,9 +1,12 @@
 package com.vzhuan;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import com.vzhuan.api.HttpListener;
 import com.vzhuan.api.MyHttpRequestor;
@@ -51,9 +54,8 @@ public class RerferrerInfoActivity extends BaseActivity {
                 }
                 boolean isInvited = resultObject.optBoolean("entity");
                 if (isInvited) {
-                    inviteView.setVisibility(View.GONE);
-                    resultView.setBackgroundResource(currentId == R.id.bt_2 ? R.drawable.get2yuan : R.drawable.get3yuan);
-                    resultView.setVisibility(View.VISIBLE);
+                    //
+                    showResultDialog();
                 }
             }
 
@@ -63,6 +65,26 @@ public class RerferrerInfoActivity extends BaseActivity {
                 startActivity(new Intent(RerferrerInfoActivity.this, MainActivity.class));
             }
         });
+    }
+
+    private void showResultDialog() {
+        View view = View.inflate(this, R.layout.rerferresult, null);
+        view.setBackgroundResource(currentId == R.id.bt_2 ? R.drawable.get2yuan : R.drawable.get3yuan);
+        Button bt_commit = (Button) view.findViewById(R.id.bt_commit);
+        bt_commit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                commit(v);
+            }
+        });
+        Dialog mDialog = new Dialog(RerferrerInfoActivity.this, R.style.MyDialog);
+        ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.width = getDisplayMetrics().widthPixels * 3 / 4;
+        layoutParams.height = getDisplayMetrics().heightPixels * 2 / 3;
+        mDialog.setContentView(view, layoutParams);
+        mDialog.setCancelable(false);
+        mDialog.setCanceledOnTouchOutside(false);
+        mDialog.show();
     }
 
     public void threeYuan(View view) {
@@ -85,5 +107,11 @@ public class RerferrerInfoActivity extends BaseActivity {
         finish();
         ShareUtil.setBoolean(this, ShareUtil.ShareKey.BONUSED, true);
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public DisplayMetrics getDisplayMetrics() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        return displayMetrics;
     }
 }

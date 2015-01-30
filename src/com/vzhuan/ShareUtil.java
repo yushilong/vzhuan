@@ -29,6 +29,10 @@ public class ShareUtil {
         getDefault(context).edit().putString(shareKey, value).commit();
     }
 
+    public static boolean isExist(Context context, String key) {
+        return getDefault(context).contains(key);
+    }
+
     public final static class ShareKey {
         public static final String KEY_ISFIRST_OPEN = "KEY_ISFIRST_OPEN";
         public static final String KEY_USER_ID = "KEY_USER_ID";

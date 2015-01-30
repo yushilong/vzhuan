@@ -4,8 +4,14 @@ import android.content.Intent;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import cn.jpush.android.api.JPushInterface;
+import com.vzhuan.api.HttpListener;
+import com.vzhuan.api.MyHttpRequestor;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class SplashActivity extends BaseActivity {
+    private MyHttpRequestor alreadySubmitRequest;
+
     @Override
     public int doGetContentViewId() {
         return R.layout.splash;
@@ -26,12 +32,16 @@ public class SplashActivity extends BaseActivity {
         aa.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationEnd(Animation arg0) {
-                if (!ShareUtil.getBoolean(SplashActivity.this, ShareUtil.ShareKey.BONUSED, false)) {
-                    startActivity(new Intent(SplashActivity.this, RerferrerInfoActivity.class));
+                if (!ShareUtil.isExist(SplashActivity.this, ShareUtil.ShareKey.BONUSED)) {
+                    alreadySubmitRequest.start();
                 } else {
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    if (!ShareUtil.getBoolean(SplashActivity.this, ShareUtil.ShareKey.BONUSED, false)) {
+                        startActivity(new Intent(SplashActivity.this, RerferrerInfoActivity.class));
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    }
+                    finish();
                 }
-                finish();
             }
 
             @Override
@@ -40,6 +50,30 @@ public class SplashActivity extends BaseActivity {
 
             @Override
             public void onAnimationStart(Animation animation) {
+            }
+        });
+        //
+        String alreadyUrl = Constants.ALREADY_SUBMIT_REFERRRERINFO + "?invited=" + ShareUtil.getString(SplashActivity.this, ShareUtil.ShareKey.UID, null);
+        alreadySubmitRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, alreadyUrl, new HttpListener() {
+            @Override
+            public void onSuccess(String msg) {
+                JSONObject resultObject = null;
+                try {
+                    resultObject = new JSONObject(msg);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                boolean isInvited = resultObject.optBoolean("entity");
+                if (!isInvited) {
+                    startActivity(new Intent(SplashActivity.this, RerferrerInfoActivity.class));
+                } else {
+                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                }
+                finish();
+            }
+
+            @Override
+            public void onFailure(int statusCode, String emsg) {
             }
         });
     }

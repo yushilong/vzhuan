@@ -13,4 +13,5 @@ public class Code implements Serializable {
     public String download;
     public String context;
     public String icon;
+    public String title;
 }
