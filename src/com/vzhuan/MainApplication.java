@@ -7,6 +7,7 @@ import com.nostra13.universalimageloader.cache.disc.naming.Md5FileNameGenerator;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 import com.nostra13.universalimageloader.core.assist.QueueProcessingType;
+import com.testin.cloud.tesaclo;
 
 /**
  * Created by lscm on 2015/1/6.
@@ -20,6 +21,7 @@ public class MainApplication extends Application {
         initImageLoader(this);
         _instance = this;
         initJPush();
+        tesaclo.onCreate(this);
     }
 
     private void initJPush() {

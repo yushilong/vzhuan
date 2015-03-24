@@ -8,7 +8,7 @@ import android.telephony.TelephonyManager;
  */
 public class Constants {
     public static final String HOST = "http://www.dongchengxijiu.net";
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = BuildConfig.DEBUG;
     //接口start
     public static final String REGISTER_GETCODE = "/api/app/more?ac=vzhuan&did=" + getDid();
     public static final String REGISTER = "/api/user/regist";

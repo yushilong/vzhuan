@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="offers-android-sdk">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/offers-android-sdk.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
