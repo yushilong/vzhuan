@@ -21,13 +21,13 @@ public class AdvertiseContext {
             advertise = new YoumiAdvertise();
         } else if ("BEIDUO".equals(type)) {
             advertise = new BeiDuoAdvertise();
-        }else if ("DTN".equals(type)) {
+        }else if ("DATOUNIAO".equals(type)) {
             advertise = new DTNAdvertise();
-        }else if ("DM".equals(type)) {
+        }else if ("DOMOB".equals(type)) {
             advertise = new DAOWAdvertise();
-        }else if ("MJF".equals(type)) {
+        }else if ("MIJIFEN".equals(type)) {
             advertise = new MiJiAdvertise();
-        }else if ("YGWX".equals(type)) {
+        }else if ("WINADS".equals(type)) {
             advertise = new YGWXAdvertise();
         }
         return this;

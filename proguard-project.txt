@@ -63,18 +63,15 @@
 -dontwarn cn.waps.**
 #youmi
 -dontwarn com.testin.cloud.**
--keep class com.testin.cloud.** {
-*;
-}
+-keep class com.testin.cloud.** {*;}
 #aimeng
 -keep public class com.esas.cned.** {*;}
 -keep public class com.exds.ceffcs.** {*;}
 #dianle
 -dontwarn com.dlnetwork.**
--keep class **.R$* { *;
-}
+-keep class **.R$* {*;}
 #beiduo
--keep class com.bb.dd.* { *;}
+-keep class com.bb.dd.* {*;}
 #米积分
 -dontwarn com.miji.**
 -keep public class com.miji.** {*;}

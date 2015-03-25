@@ -74,5 +74,6 @@
     <orderEntry type="library" name="mijisdk" level="project" />
     <orderEntry type="library" name="offers-android-sdk" level="project" />
     <orderEntry type="library" name="dm_dynamic_sdk_3.0.0" level="project" />
+    <orderEntry type="library" name="dm_sdk_3.1.0" level="project" />
   </component>
 </module>
