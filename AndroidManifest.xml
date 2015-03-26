@@ -272,8 +272,7 @@
                 android:value="true" />
         <!-- beiduo -->
         <!-- 广告的展示载体  必须 -->
-        <activity
-                android:name="com.bb.dd.Browser"
+        <activity android:name="com.bb.dd.Browser"
                 android:configChanges="keyboardHidden|orientation" >
         </activity>
 
@@ -286,8 +285,7 @@
                  android:exported="false">
         </service>
 
-        <receiver
-                android:name="com.datouniao.AdPublisher.service.AppReceiver" >
+        <receiver android:name="com.datouniao.AdPublisher.service.AppReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
@@ -295,7 +293,10 @@
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
-        <activity android:name="com.datouniao.AdPublisher.AdsOffersWebView" android:configChanges="keyboardHidden|orientation" />
+        <activity android:name="com.datouniao.AdPublisher.AdsOffersWebView"
+                  android:configChanges="keyboardHidden|orientation" />
+        <!--渠道标识-->
+        <meta-data android:name="DTN_PLACE_ID" android:value="DTN" />
         <!-- 米积分 -->
         <!-- 正常模式配置墙 -->
         <activity

@@ -12,7 +12,6 @@ import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.waps.AppConnect;
 import com.bb.dd.BeiduoPlatform;
-import com.datouniao.AdPublisher.AppConfig;
 import com.dlnetwork.Dianle;
 import com.miji.MijiConnect;
 import com.testin.cloud.tesaclo;
@@ -103,19 +102,17 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
         tesaclo.getInstance(this).weaklp();
         //aimeng
         //beiduo
-        BeiduoPlatform.setAppId(this,"13535","14c46f9e7471112");
+        BeiduoPlatform.setAppId(this, "13535", "14c46f9e7471112");
         BeiduoPlatform.setUserId(Constants.getDid());
         //大头鸟
-        AppConfig appConfig = new AppConfig();
-        appConfig.setAppID("c65e9440-0ca7-49fc-affd-46c3609c68fd");
-        appConfig.setSecretKey("ylssasxbjasv");
+
         //米积分
-        MijiConnect.requestConnect(this,"d27a7cb7e7a6a8929a87767bc74e5d4e","google");
+        MijiConnect.requestConnect(this, "d27a7cb7e7a6a8929a87767bc74e5d4e", "google");
         //赢告无限
-        AdManager.setAPPID(this,"FE62770D3B6D0B8F72D7F94EB7F5F2B8504D51AC");
-        AdManager.setUserID(this,Constants.getDid());
+        AdManager.setAPPID(this, "FE62770D3B6D0B8F72D7F94EB7F5F2B8504D51AC");
+        AdManager.setUserID(this, Constants.getDid());
         //多盟
-        DAOW.getInstance(this).init(this,"96ZJ2vTgzeDHXwTCab",Constants.getDid());
+        DAOW.getInstance(this).init(this, "96ZJ2vTgzeDHXwTCab", Constants.getDid());
     }
 
     @Override
@@ -143,7 +140,7 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
     protected void onDestroy() {
         // 回收积分墙资源
         tesaclo.getInstance(this).webclp();
-        if (com.datouniao.AdPublisher.AppConnect.getInstance(this)!=null)
+        if (com.datouniao.AdPublisher.AppConnect.getInstance(this) != null)
             com.datouniao.AdPublisher.AppConnect.getInstance(this).close();
         super.onDestroy();
         EventBus.getInstance().unSubscribe(EventNames.LOGIN_SUCCESS, this);
