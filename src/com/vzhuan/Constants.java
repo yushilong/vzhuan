@@ -18,6 +18,7 @@ public class Constants {
     public static final String GET_ADS = "/api/adw/ads/android";
     public static final String ALREADY_SUBMIT_REFERRRERINFO = "/api/user/alreadySubmitTheReferrerInfo";
     public static final String SUBMIT_REFERRER = "/api/user/submitReferrer";
+    public static final String UPDATE_POINT = "/api/adw/android/callback?adType=22,MIJIFEN";
     //接口end
     public static final String primary_token_did = "8mStOqOeKdqhcjwpG6AAcHrSdiN5FjOzp";
     public static final String primary_token_uid = "8pIRGOgoknwq7jDkgl2eBXnkdbx8OFPE";
