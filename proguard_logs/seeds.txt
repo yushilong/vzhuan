@@ -18697,6 +18697,7 @@ com.vzhuan.R$id: int ctvName
 com.vzhuan.R$id: int ctvStWc
 com.vzhuan.R$id: int ctvStWf
 com.vzhuan.R$id: int ctvStWm
+com.vzhuan.R$id: int description
 com.vzhuan.R$id: int divider
 com.vzhuan.R$id: int et_code
 com.vzhuan.R$id: int et_id
@@ -18730,6 +18731,10 @@ com.vzhuan.R$id: int lvFriendList
 com.vzhuan.R$id: int lvPlats
 com.vzhuan.R$id: int lv_task
 com.vzhuan.R$id: int mainRelLayout
+com.vzhuan.R$id: int miji_appIcon
+com.vzhuan.R$id: int miji_progress_bar
+com.vzhuan.R$id: int miji_progress_text
+com.vzhuan.R$id: int miji_title
 com.vzhuan.R$id: int nameTextView
 com.vzhuan.R$id: int okImageView
 com.vzhuan.R$id: int pager
@@ -18763,6 +18768,7 @@ com.vzhuan.R$layout: int guide
 com.vzhuan.R$layout: int guideitem
 com.vzhuan.R$layout: int home
 com.vzhuan.R$layout: int main
+com.vzhuan.R$layout: int miji_notification
 com.vzhuan.R$layout: int page_auth
 com.vzhuan.R$layout: int page_custom_fields
 com.vzhuan.R$layout: int page_custom_fields_item

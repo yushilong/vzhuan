@@ -1132,7 +1132,7 @@ com.vzhuan.MainActivity:
 com.vzhuan.Manifest
 com.vzhuan.Manifest$permission
 com.vzhuan.R:
-    10:565:public R()
+    10:10:public R()
 com.vzhuan.ReplenishAdapter:
     23:23:public java.util.List getList()
     27:28:public void setList(java.util.List)

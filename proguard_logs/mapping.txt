@@ -22086,6 +22086,7 @@ com.vzhuan.R$id -> com.vzhuan.R$id:
     int ctvStWc -> ctvStWc
     int ctvStWf -> ctvStWf
     int ctvStWm -> ctvStWm
+    int description -> description
     int divider -> divider
     int et_code -> et_code
     int et_id -> et_id
@@ -22119,6 +22120,10 @@ com.vzhuan.R$id -> com.vzhuan.R$id:
     int lvPlats -> lvPlats
     int lv_task -> lv_task
     int mainRelLayout -> mainRelLayout
+    int miji_appIcon -> miji_appIcon
+    int miji_progress_bar -> miji_progress_bar
+    int miji_progress_text -> miji_progress_text
+    int miji_title -> miji_title
     int nameTextView -> nameTextView
     int okImageView -> okImageView
     int pager -> pager
@@ -22151,6 +22156,7 @@ com.vzhuan.R$layout -> com.vzhuan.R$layout:
     int guideitem -> guideitem
     int home -> home
     int main -> main
+    int miji_notification -> miji_notification
     int page_auth -> page_auth
     int page_custom_fields -> page_custom_fields
     int page_custom_fields_item -> page_custom_fields_item
