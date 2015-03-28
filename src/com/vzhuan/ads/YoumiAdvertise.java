@@ -1,7 +1,7 @@
 package com.vzhuan.ads;
 
 import android.app.Activity;
-import net.youmi.android.offers.OffersManager;
+import com.testin.cloud.tesaclo;
 
 /**
  * Created by lscm on 2015/1/8.
@@ -9,6 +9,6 @@ import net.youmi.android.offers.OffersManager;
 public class YoumiAdvertise implements Advertise {
     @Override
     public void show(Activity activity) {
-        OffersManager.getInstance(activity).showOffersWall();
+        tesaclo.getInstance(activity).webolp();
     }
 }

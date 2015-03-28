@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="com.datouniao.AdPublisher">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/com.datouniao.AdPublisher.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

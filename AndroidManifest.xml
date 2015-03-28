@@ -4,7 +4,7 @@
           android:versionCode="1"
           android:versionName="1.0">
 
-    <uses-sdk android:minSdkVersion="15"/>
+    <uses-sdk android:minSdkVersion="14"/>
     <application
             android:label="@string/app_name"
             android:icon="@drawable/logo"
@@ -232,27 +232,93 @@
         <service android:name="com.exds.ceffcs.Kyy"/>
         <!-- 添加必须的组件 -->
         <activity
-                android:name="net.youmi.android.AdBrowser"
-                android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-                android:theme="@android:style/Theme.Light.NoTitleBar">
+                android:name="net.dy.updt.BoBrowser"
+                android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
-
         <service
-                android:name="net.youmi.android.AdService"
-                android:exported="false">
+                android:name="net.dy.updt.BoService"
+                android:exported="true" >
         </service>
         <service
-                android:name="net.youmi.android.ExpService"
-                android:exported="false">
+                android:name="net.dy.updt.ExpService"
+                android:exported="true" >
         </service>
 
-        <receiver android:name="net.youmi.android.AdReceiver">
+        <receiver android:name="com.testin.cloud.tesajlo" >
             <intent-filter>
-                <action android:name="android.intent.action.PACKAGE_ADDED"/>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_INSTALL" />
 
-                <data android:scheme="package"/>
+                <data android:scheme="package" />
             </intent-filter>
         </receiver>
+        <meta-data
+                android:name="appId"
+                android:value="760f04b16d9496fa" />
+        <meta-data
+                android:name="appSecret"
+                android:value="81012bc40d0a99f4" />
+        <meta-data
+                android:name="splashAnim"
+                android:value="true" />
+        <meta-data
+                android:name="animType"
+                android:value="2" />
+        <meta-data
+                android:name="orientation"
+                android:value="0" />
+        <meta-data
+                android:name="loadExitSpot"
+                android:value="true" />
+        <!-- beiduo -->
+        <!-- 广告的展示载体  必须 -->
+        <activity android:name="com.bb.dd.Browser"
+                android:configChanges="keyboardHidden|orientation" >
+        </activity>
+
+        <!-- 广告的服务  必须 -->
+        <service
+                android:name="com.bb.dd.BDService" >
+        </service>
+        <!-- 大头鸟 -->
+        <service android:name ="com.datouniao.AdPublisher.service.AdsService"
+                 android:exported="false">
+        </service>
+
+        <receiver android:name="com.datouniao.AdPublisher.service.AppReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="com.datouniao.AdPublisher.service.check"/>
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <activity android:name="com.datouniao.AdPublisher.AdsOffersWebView"
+                  android:configChanges="keyboardHidden|orientation" />
+        <!--渠道标识-->
+        <meta-data android:name="DTN_PLACE_ID" android:value="DTN" />
+        <!-- 米积分 -->
+        <!-- 正常模式配置墙 -->
+        <activity
+                android:name="com.miji.MJCOffersWebView"
+                android:configChanges="keyboardHidden|orientation" />
+        <!-- 正常模式配置广播 -->
+        <receiver
+                android:name="com.miji.receiver.AppStatusReceiver"
+                android:enabled="true"
+                android:exported="false" >
+            <intent-filter android:priority="0x7fffffff" >
+                <action android:name="android.intent.action.PACKAGE_ADDED" />
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <action android:name="android.intent.action.PACKAGE_REPLACED" />
+                <data android:scheme="package" />
+            </intent-filter>
+        </receiver>
+        <!-- 赢告无线 -->
+        <!-- 配置积分墙显示页面 -->
+        <activity
+                android:name="com.winad.android.offers.OffersActivity"
+                android:configChanges="keyboardHidden|orientation|navigation" />
     </application>
 
     <uses-permission android:name="android.permission.GET_TASKS"/>
@@ -295,7 +361,8 @@
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
 
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT"/>
-
+    
+    <uses-permission android:name="android.permission.PROCESS_OUTGOING_CALLS"/>
 
     <supports-screens
             android:anyDensity="true"

@@ -62,21 +62,39 @@
 -keep public interface cn.waps.** {*;}
 -dontwarn cn.waps.**
 #youmi
--dontwarn net.youmi.android.**
--keep class net.youmi.android.** {
-    *;
-}
+-dontwarn com.testin.cloud.**
+-keep class com.testin.cloud.** {*;}
 #aimeng
 -keep public class com.esas.cned.** {*;}
 -keep public class com.exds.ceffcs.** {*;}
 #dianle
 -dontwarn com.dlnetwork.**
--keep class **.R$* { *;
-}
-
+-keep class **.R$* {*;}
+#beiduo
+-keep class com.bb.dd.* {*;}
+#米积分
+-dontwarn com.miji.**
+-keep public class com.miji.** {*;}
+-keep public interface com.miji.** {*;}
+#赢告无限
+-keep public class com.winad.android.offers.** {*;}
+-keep public class com.baidu.location.** {*;}
+#多盟
+-dontwarn cn.aow.**
+-keep class cn.aow.** {*;}
 
 -dontwarn org.apache.commons.*.**
 -dontwarn org.w3c.dom.bootstrap.**
 -dontwarn org.joda.time.*.**
 -dontwarn org.joda.time.*
 -dontwarn com.exds.ceffcs.*.**
+
+-libraryjars ./libs/android-support-v4.jar
+-dontwarn android.support.v4.**
+-dontwarn **CompatHoneycomb
+-dontwarn **CompatHoneycombMR2
+-dontwarn **CompatCreatorHoneycombMR2
+-keep interface android.support.v4.app.** { *; }
+-keep class android.support.v4.** { *; }
+-keep public class * extends android.support.v4.**
+-keep public class * extends android.app.Fragment

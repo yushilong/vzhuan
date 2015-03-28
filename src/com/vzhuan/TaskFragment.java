@@ -1,12 +1,16 @@
 package com.vzhuan;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.google.gson.Gson;
+import com.miji.MijiConnect;
+import com.miji.MijiNotifier;
+import com.miji.MijiSpendPointsNotifier;
 import com.vzhuan.ads.AdvertiseContext;
 import com.vzhuan.api.HttpListener;
 import com.vzhuan.api.MyHttpRequestor;
@@ -17,6 +21,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by lscm on 2015/1/5.
@@ -26,9 +32,12 @@ public class TaskFragment extends BaseFragment {
     private TaskAdapter mTaskAdapter;
     GestureDetector mGestureDetector;
     ViewPager viewPager;
-    MyHttpRequestor getAdsRequest;
+    MyHttpRequestor getAdsRequest,updatePointRequest;
     private Activity mActivity;
     private boolean isFirstLogin = true;
+    private Timer mTimer;
+    private TimerTask mTimeTask;
+    private boolean isSendEnd = true;
 
     @Override
     public int doGetContentViewId() {
@@ -99,10 +108,64 @@ public class TaskFragment extends BaseFragment {
                 }
                 mTaskAdapter.notifyDataSetChanged();
                 ShareUtil.setString(getActivity(), ShareUtil.ShareKey.TIME_TASK, System.currentTimeMillis() + "");
+                //init timer
+                mTimer = new Timer();
+                mTimeTask = new TimerTask() {
+                    @Override
+                    public void run() {
+                        updatePointToSever();
+                    }
+                };
+                mTimer.schedule(mTimeTask, 0, 1 * 60 * 1000);
             }
 
             @Override
-            public void onFailure(int statusCode,String emsg) {
+            public void onFailure(int statusCode, String emsg) {
+            }
+        });
+    }
+
+    private void updatePointToSever() {
+        if (!isSendEnd)
+            return;
+        isSendEnd = false;
+        MijiConnect.getInstance().getPoints(new MijiNotifier() {
+            @Override
+            public void getUpdatePoints(String s, int i) {
+                Log.i("HTTP", "积分数--->" + i);
+                if (i > 0) {
+                    MijiConnect.getInstance().spendPoints(i, new MijiSpendPointsNotifier() {
+                        @Override
+                        public void getSpendPointsResponse(String s, int i) {
+                            //调wuyimin端接口
+                            //
+                            String updateUrl = Constants.UPDATE_POINT+"&oid="+s+"&uid="+Constants.getDid()+"&p="+i;
+                            updatePointRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, null, new HttpListener() {
+                                @Override
+                                public void onSuccess(String msg) {
+                                    isSendEnd = true;
+                                }
+
+                                @Override
+                                public void onFailure(int statusCode, String emsg) {
+                                    isSendEnd = true;
+                                }
+                            });
+                        }
+
+                        @Override
+                        public void getSpendPointsResponseFailed(String s) {
+                            isSendEnd = true;
+                        }
+                    });
+                }else {
+                    isSendEnd = true;
+                }
+            }
+
+            @Override
+            public void getUpdatePointsFailed(String s) {
+                isSendEnd = true;
             }
         });
     }
@@ -129,5 +192,12 @@ public class TaskFragment extends BaseFragment {
                 getAdsRequest.start();
             }
         }
+    }
+
+    @Override
+    public void onDestroy() {
+        if (mTimer!=null)
+            mTimer.cancel();
+        super.onDestroy();
     }
 }

@@ -19,6 +19,16 @@ public class AdvertiseContext {
             advertise = new WapsAdvertise();
         } else if ("YOUMI".equals(type)) {
             advertise = new YoumiAdvertise();
+        } else if ("BEIDUO".equals(type)) {
+            advertise = new BeiDuoAdvertise();
+        }else if ("DATOUNIAO".equals(type)) {
+            advertise = new DTNAdvertise();
+        }else if ("DOMOB".equals(type)) {
+            advertise = new DAOWAdvertise();
+        }else if ("MIJIFEN".equals(type)) {
+            advertise = new MiJiAdvertise();
+        }else if ("WINADS".equals(type)) {
+            advertise = new YGWXAdvertise();
         }
         return this;
     }

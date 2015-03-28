@@ -7,16 +7,19 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
+import cn.aow.android.DAOW;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.waps.AppConnect;
+import com.bb.dd.BeiduoPlatform;
 import com.dlnetwork.Dianle;
+import com.miji.MijiConnect;
+import com.testin.cloud.tesaclo;
 import com.vzhuan.eventbus.EventBus;
 import com.vzhuan.eventbus.EventNames;
 import com.vzhuan.viewpager.FragmentPagerAdapter;
 import com.vzhuan.viewpager.ViewPager;
-import net.youmi.android.AdManager;
-import net.youmi.android.offers.OffersManager;
+import com.winad.android.offers.AdManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -96,10 +99,20 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
         AppConnect.getInstance("e962f6e8021a4d4db681772ac9783dae", "waps", this);
         AppConnect.getInstance(this).getConfig(Constants.getDid());
         //youmi
-        AdManager.getInstance(this).init("760f04b16d9496fa", "81012bc40d0a99f4", Constants.DEBUG);
-        OffersManager.getInstance(this).setCustomUserId(Constants.getDid());
-        OffersManager.getInstance(this).setUsingServerCallBack(true);
+        tesaclo.getInstance(this).weaklp();
         //aimeng
+        //beiduo
+        BeiduoPlatform.setAppId(this, "13535", "14c46f9e7471112");
+        BeiduoPlatform.setUserId(Constants.getDid());
+        //大头鸟
+
+        //米积分
+        MijiConnect.requestConnect(this, "d27a7cb7e7a6a8929a87767bc74e5d4e", "google");
+        //赢告无限
+        AdManager.setAPPID(this, "FE62770D3B6D0B8F72D7F94EB7F5F2B8504D51AC");
+        AdManager.setUserID(this, Constants.getDid());
+        //多盟
+        DAOW.getInstance(this).init(this, "96ZJ2vTgzeDHXwTCab", Constants.getDid());
     }
 
     @Override
@@ -125,6 +138,10 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
 
     @Override
     protected void onDestroy() {
+        // 回收积分墙资源
+        tesaclo.getInstance(this).webclp();
+        if (com.datouniao.AdPublisher.AppConnect.getInstance(this) != null)
+            com.datouniao.AdPublisher.AppConnect.getInstance(this).close();
         super.onDestroy();
         EventBus.getInstance().unSubscribe(EventNames.LOGIN_SUCCESS, this);
         AppManagerStack.getInstance().AppExit(this);

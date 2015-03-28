@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="beiduo_sdk_v3.5.8">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/beiduo_sdk_v3.5.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
