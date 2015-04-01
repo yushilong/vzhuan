@@ -24,7 +24,7 @@ public class TaskAdapter extends ReplenishAdapter<Ads> {
         TextView tv_desc = viewHolder.obtainView(convertView, R.id.tv_desc);
         Ads task = list.get(position);
         ImageUtil.displayRoundImage(Constants.HOST + task.icon, iv_pic, 180, R.drawable.avatar);
-        tv_name.setText(task.label);
+        tv_name.setText(task.label.trim());
         tv_desc.setText(task.info);
         return convertView;
     }
