@@ -1,5 +1,9 @@
 package com.vzhuan;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.KeyEvent;
@@ -7,19 +11,24 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
-import cn.aow.android.DAOW;
+//import cn.aow.android.DAOW;
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
-import cn.waps.AppConnect;
-import com.bb.dd.BeiduoPlatform;
-import com.dlnetwork.Dianle;
-import com.miji.MijiConnect;
-import com.testin.cloud.tesaclo;
+//import cn.waps.AppConnect;
+//import com.bb.dd.BeiduoPlatform;
+//import com.dlnetwork.Dianle;
+//import com.miji.MijiConnect;
+//import com.testin.cloud.tesaclo;
+import com.vzhuan.api.HttpListener;
+import com.vzhuan.api.MyHttpRequestor;
 import com.vzhuan.eventbus.EventBus;
 import com.vzhuan.eventbus.EventNames;
 import com.vzhuan.viewpager.FragmentPagerAdapter;
 import com.vzhuan.viewpager.ViewPager;
-import com.winad.android.offers.AdManager;
+//import com.winad.android.offers.AdManager;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +42,8 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
     private ViewPager mViewPager;
     private List<Fragment> fragments;
     private ImageView iv_rocket;
+    private JSONArray infos;
+    private MyHttpRequestor checkUpdateRequest;
 
     @Override
     public int doGetContentViewId() {
@@ -56,6 +67,9 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
     @Override
     public void doInitDataes() {
         super.doInitDataes();
+        //update app
+        checkUpdate();
+        //
         ShareSDK.initSDK(this);
 //        ShareSDK.registerPlatform(Laiwang.class);
         ShareSDK.setConnTimeout(20000);
@@ -93,26 +107,26 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
 
     private void initAds() {
         //dianle
-        Dianle.initGoogleContext(this, "c96e880f25579db0645a73dddd6fc1b0");
-        Dianle.setCurrentUserID(this, Constants.getDid());
+//        Dianle.initGoogleContext(this, "c96e880f25579db0645a73dddd6fc1b0");
+//        Dianle.setCurrentUserID(this, Constants.getDid());
         //appoffer
-        AppConnect.getInstance("e962f6e8021a4d4db681772ac9783dae", "waps", this);
-        AppConnect.getInstance(this).getConfig(Constants.getDid());
+//        AppConnect.getInstance("e962f6e8021a4d4db681772ac9783dae", "waps", this);
+//        AppConnect.getInstance(this).getConfig(Constants.getDid());
         //youmi
-        tesaclo.getInstance(this).weaklp();
+//        tesaclo.getInstance(this).weaklp();
         //aimeng
         //beiduo
-        BeiduoPlatform.setAppId(this, "13535", "14c46f9e7471112");
-        BeiduoPlatform.setUserId(Constants.getDid());
+//        BeiduoPlatform.setAppId(this, "13535", "14c46f9e7471112");
+//        BeiduoPlatform.setUserId(Constants.getDid());
         //大头鸟
 
         //米积分
-        MijiConnect.requestConnect(this, "d27a7cb7e7a6a8929a87767bc74e5d4e", "google");
+//        MijiConnect.requestConnect(this, "d27a7cb7e7a6a8929a87767bc74e5d4e", "google");
         //赢告无限
-        AdManager.setAPPID(this, "FE62770D3B6D0B8F72D7F94EB7F5F2B8504D51AC");
-        AdManager.setUserID(this, Constants.getDid());
+//        AdManager.setAPPID(this, "FE62770D3B6D0B8F72D7F94EB7F5F2B8504D51AC");
+//        AdManager.setUserID(this, Constants.getDid());
         //多盟
-        DAOW.getInstance(this).init(this, "96ZJ2vTgzeDHXwTCab", Constants.getDid());
+//        DAOW.getInstance(this).init(this, "96ZJ2vTgzeDHXwTCab", Constants.getDid());
     }
 
     @Override
@@ -139,9 +153,9 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
     @Override
     protected void onDestroy() {
         // 回收积分墙资源
-        tesaclo.getInstance(this).webclp();
-        if (com.datouniao.AdPublisher.AppConnect.getInstance(this) != null)
-            com.datouniao.AdPublisher.AppConnect.getInstance(this).close();
+//        tesaclo.getInstance(this).webclp();
+//        if (com.datouniao.AdPublisher.AppConnect.getInstance(this) != null)
+//            com.datouniao.AdPublisher.AppConnect.getInstance(this).close();
         super.onDestroy();
         EventBus.getInstance().unSubscribe(EventNames.LOGIN_SUCCESS, this);
         AppManagerStack.getInstance().AppExit(this);
@@ -192,5 +206,82 @@ public class MainActivity extends BaseActivity implements EventBus.SubscriberCha
     protected void onResume() {
         super.onResume();
         EventBus.getInstance().subscribe(EventNames.LOGIN_SUCCESS, this);
+    }
+
+    private void checkUpdate() {
+        if (checkUpdateRequest == null) {
+            checkUpdateRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, Constants.CHECK_UPDATE, new HttpListener() {
+                @Override
+                public void onSuccess(String msg) {
+                    JSONObject resultObject = null;
+                    try {
+                        JSONObject object = new JSONObject(msg);
+                        resultObject = object.optJSONObject("entity");
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                    if (resultObject == null)
+                        return;
+                    int versionCode = resultObject.optInt("version");
+                    int policy = resultObject.optInt("policy");
+                    String downUrl = resultObject.optString("downloadUrl");
+//                    String downUrl = "http://download.taobaocdn.com/freedom/28999/andriod/tmall_4.9.2_10002119.apk?spm=a221s.7204313.0.2.ziah1i&file=tmall_4.9.2_10002119.apk";
+                    infos = resultObject.optJSONArray("info");
+                    if (isNeedUpdate(versionCode)) {
+                        if (policy == 1) {//need update
+                            if (DataUtil.isWifi(MainActivity.this)) {
+                                downloadFile(downUrl, false);
+                            } else {
+                                showUpdateDialog(downUrl);
+                            }
+                        } else {
+                            showUpdateDialog(downUrl);
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(int statusCode, String emsg) {
+
+                }
+            });
+        }
+        checkUpdateRequest.start();
+    }
+
+    private void showUpdateDialog(final String downUrl) {
+        StringBuffer sb = new StringBuffer();
+        int length = infos.length();
+        for (int i = 0; i < length; i++) {
+            sb.append(i+1).append("、").append(infos.optString(i)).append("\n");
+        }
+        new AlertDialog.Builder(this).setTitle("发现新版本").setMessage(sb.toString()).setPositiveButton("更新", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                downloadFile(downUrl, true);
+            }
+        }).setNegativeButton("忽略", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        }).setCancelable(false).create().show();
+    }
+
+    public void downloadFile(String downUrl, boolean isShowProgress) {
+        new UpdateManager(getApplicationContext(), downUrl, isShowProgress).downloadPackage();
+    }
+
+    private boolean isNeedUpdate(int versionCode) {
+        try {
+            PackageInfo info = getPackageManager().getPackageInfo(getPackageName(), 0);
+            int localVersionCode = info.versionCode;
+            if (localVersionCode < versionCode)
+                return true;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace(System.err);
+        }
+        return false;
     }
 }

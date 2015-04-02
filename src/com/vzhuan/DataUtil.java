@@ -8,6 +8,13 @@ import android.net.NetworkInfo;
  * Created by lscm on 2015/1/7.
  */
 public class DataUtil {
+
+    public static final int UPDATE_CHECKCOMPLETED = 1;
+    public static final int UPDATE_DOWNLOADING = 2;
+    public static final int UPDATE_DOWNLOAD_ERROR = 3;
+    public static final int UPDATE_DOWNLOAD_COMPLETED = 4;
+    public static final int UPDATE_DOWNLOAD_CANCELED = 5;
+
     public static boolean isNetworkAvailable(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         if (cm == null) {

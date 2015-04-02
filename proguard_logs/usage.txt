@@ -148,100 +148,6 @@ cn.jpush.android.util.w:
     private w(cn.jpush.android.util.JRecorder)
     synthetic w(cn.jpush.android.util.JRecorder,byte)
 cn.jpush.android.util.z
-com.bb.dd.c.a:
-    public a()
-com.bb.dd.c.b:
-    public b()
-com.bb.dd.c.c:
-    private c()
-com.bb.dd.listener.IActiveListener:
-    public abstract void activeSuccess(int,int,java.lang.String)
-    public abstract void activeFailed(int,int,java.lang.String)
-com.bb.dd.listener.IAddListener:
-    public abstract void addSuccess(int)
-    public abstract void addFailed(int)
-com.bb.dd.listener.IGetListener:
-    public abstract void getSuccess(int,java.lang.String)
-    public abstract void getFailed(int)
-com.bb.dd.listener.IReduceListener:
-    public abstract void reduceSuccess(int)
-    public abstract void reduceFailed(int)
-com.bb.dd.listener.IShowListener:
-    public abstract void open()
-    public abstract void closed()
-com.datouniao.AdPublisher.AppConfig:
-    public void setReceiveNotifier(com.datouniao.AdPublisher.ReceiveNotifier)
-com.datouniao.AdPublisher.AppConnect:
-    public static com.datouniao.AdPublisher.AppConnect getInstance(android.content.Context,java.lang.String)
-    public static com.datouniao.AdPublisher.AppConnect getInstance(android.content.Context,com.datouniao.AdPublisher.ReceiveNotifier)
-    public static com.datouniao.AdPublisher.AppConnect getInstance(android.content.Context,java.lang.String,com.datouniao.AdPublisher.ReceiveNotifier)
-    public android.content.Intent GetAdsIntent(java.lang.String)
-    public void GetAmount(com.datouniao.AdPublisher.GetAmountNotifier)
-    public void SpendAmount(float,com.datouniao.AdPublisher.SpendNotifier)
-    public void AddAmount(float,com.datouniao.AdPublisher.AddNotifier)
-    private void e()
-    private void f()
-    private void g()
-com.datouniao.AdPublisher.m:
-    private m(com.datouniao.AdPublisher.AppConnect)
-    synthetic m(com.datouniao.AdPublisher.AppConnect,com.datouniao.AdPublisher.m)
-com.datouniao.AdPublisher.n:
-    private n(com.datouniao.AdPublisher.AppConnect)
-    synthetic n(com.datouniao.AdPublisher.AppConnect,com.datouniao.AdPublisher.n)
-com.datouniao.AdPublisher.o:
-    private o(com.datouniao.AdPublisher.AppConnect)
-    synthetic o(com.datouniao.AdPublisher.AppConnect,com.datouniao.AdPublisher.o)
-com.datouniao.AdPublisher.service.AdsService:
-    public static void callServiceStop(android.content.Context)
-com.datouniao.AdPublisher.utils.JSInterface:
-    public int isPackageInstalled(java.lang.String)
-    public void openPackage(java.lang.String)
-    public void signInFromWeb(java.lang.String,float,float,java.lang.String)
-    public void onBackKeyPressed()
-    public void toastMsg(java.lang.String)
-com.datouniao.AdPublisher.utils.f:
-    public static boolean b(android.content.pm.PackageManager,java.lang.String)
-com.dlnetwork.Dianle:
-    private Dianle()
-    public static void initGoogleContext(android.app.Activity,java.lang.String,java.lang.String)
-    public static void initGoogleContext(android.app.Service,java.lang.String,java.lang.String)
-    public static void initGoogleContext(android.app.Service,java.lang.String)
-    public static void spendMoney(android.content.Context,int,com.dlnetwork.SpendMoneyListener)
-    public static void giveMoney(android.content.Context,int,com.dlnetwork.GiveMoneyListener)
-    public static void setTotalMoney(android.content.Context,int,com.dlnetwork.SetTotalMoneyListener)
-    public static void getOnlineParams(android.content.Context,java.lang.String,com.dlnetwork.GetOnlineParamsListener,java.lang.String)
-    public static java.lang.String getOnlineParams(android.content.Context,java.lang.String,java.lang.String)
-    public static void setCustomService(java.lang.String)
-    public static void setCustomActivity(java.lang.String)
-    public static void setNativeActivity(java.lang.String)
-    static java.lang.Class a(java.lang.Class,java.lang.String)
-com.dlnetwork.GetOnlineParamsListener
-com.dlnetwork.SetTotalMoneyListener
-com.dlnetwork.ad
-com.dlnetwork.bo:
-    static java.lang.String a(android.content.Context,java.lang.String,java.lang.String)
-    static void b(android.content.Context,java.lang.String,java.lang.String)
-com.dlnetwork.by:
-    static java.lang.String b(java.lang.String)
-    private static java.lang.String e(java.lang.String)
-com.dlnetwork.n
-com.dlnetwork.o
-com.dlnetwork.p
-com.dlnetwork.q:
-    synchronized void a(android.content.Context,int,com.dlnetwork.SpendMoneyListener)
-    synchronized void a(android.content.Context,int,com.dlnetwork.GiveMoneyListener)
-    private java.lang.String a(java.lang.String)
-    void a(android.content.Context,java.lang.String,com.dlnetwork.GetOnlineParamsListener,java.lang.String)
-    java.lang.String a(android.content.Context,java.lang.String,java.lang.String)
-    private void a(long)
-    static synthetic java.lang.Runnable l(com.dlnetwork.q)
-    static synthetic void a(com.dlnetwork.q,long)
-    static synthetic java.lang.Runnable m(com.dlnetwork.q)
-    static synthetic java.lang.Runnable n(com.dlnetwork.q)
-    static synthetic java.lang.Runnable o(com.dlnetwork.q)
-com.dlnetwork.s
-com.dlnetwork.t
-com.dlnetwork.u
 com.google.gson.DefaultDateTypeAdapter
 com.google.gson.FieldAttributes:
     53:53:public java.lang.Class getDeclaringClass()
@@ -660,16 +566,7 @@ com.tencent.mm.algorithm.LRUMap$1
 com.tencent.mm.algorithm.LRUMap$OnClearListener
 com.tencent.mm.algorithm.LRUMap$PreRemoveCallback
 com.tencent.mm.algorithm.LRUMap$TimeVal
-com.tencent.mm.algorithm.MD5:
-    private MD5()
-    public static final byte[] getRawDigest(byte[])
-    public static final java.lang.String getMD5(java.io.FileInputStream,int,int,int)
-    public static final java.lang.String getMD5(java.io.FileInputStream,int)
-    public static java.lang.String getMD5(java.lang.String)
-    public static java.lang.String getMD5(java.io.File)
-    public static java.lang.String getMD5(java.io.File,int)
-    public static java.lang.String getMD5(java.lang.String,int,int)
-    public static java.lang.String getMD5(java.io.File,int,int)
+com.tencent.mm.algorithm.MD5
 com.tencent.mm.algorithm.TypeTransform:
     private TypeTransform()
     private static byte[] a(byte[])
@@ -694,17 +591,14 @@ com.tencent.mm.sdk.MMSharedPreferences$REditor
 com.tencent.mm.sdk.channel.ConstantsMMessage
 com.tencent.mm.sdk.channel.MMessage:
     public MMessage()
+    public static boolean send(android.content.Context,java.lang.String,java.lang.String,java.lang.String,android.os.Bundle)
     public static void send(android.content.Context,java.lang.String,java.lang.String)
+    public static void send(android.content.Context,java.lang.String,java.lang.String,java.lang.String)
 com.tencent.mm.sdk.channel.MMessage$Receiver:
     public static void registerCallBack(java.lang.String,com.tencent.mm.sdk.channel.MMessage$CallBack)
     public static void unregisterCallBack(java.lang.String)
-com.tencent.mm.sdk.channel.MMessageAct:
-    public MMessageAct()
-    public static boolean send(android.content.Context,java.lang.String,java.lang.String)
-    public static boolean send(android.content.Context,java.lang.String,java.lang.String,android.os.Bundle)
-    public static boolean sendToWx(android.content.Context,java.lang.String)
-com.tencent.mm.sdk.channel.MMessageUtil:
-    private MMessageUtil()
+com.tencent.mm.sdk.channel.MMessageAct
+com.tencent.mm.sdk.channel.MMessageUtil
 com.tencent.mm.sdk.channel.package-info
 com.tencent.mm.sdk.contact.RContact
 com.tencent.mm.sdk.contact.RContactAvatar
@@ -718,86 +612,39 @@ com.tencent.mm.sdk.conversation.package-info
 com.tencent.mm.sdk.message.RMsgInfo
 com.tencent.mm.sdk.message.RMsgInfoDB
 com.tencent.mm.sdk.message.RMsgInfoStorage
-com.tencent.mm.sdk.openapi.BaseReq:
-    public void fromBundle(android.os.Bundle)
+com.tencent.mm.sdk.openapi.BaseReq
 com.tencent.mm.sdk.openapi.BaseResp
 com.tencent.mm.sdk.openapi.BaseResp$ErrCode
 com.tencent.mm.sdk.openapi.ConstantsAPI
 com.tencent.mm.sdk.openapi.GetMessageFromWX
 com.tencent.mm.sdk.openapi.GetMessageFromWX$Req
 com.tencent.mm.sdk.openapi.GetMessageFromWX$Resp
-com.tencent.mm.sdk.openapi.IWXAPI:
-    public abstract void unregisterApp()
-    public abstract boolean handleIntent(android.content.Intent,com.tencent.mm.sdk.openapi.IWXAPIEventHandler)
-    public abstract boolean isWXAppInstalled()
-    public abstract boolean isWXAppSupportAPI()
-    public abstract int getWXAppSupportAPI()
-    public abstract boolean openWXApp()
-    public abstract boolean sendResp(com.tencent.mm.sdk.openapi.BaseResp)
+com.tencent.mm.sdk.openapi.IWXAPI
 com.tencent.mm.sdk.openapi.IWXAPIEventHandler
 com.tencent.mm.sdk.openapi.SendAuth
 com.tencent.mm.sdk.openapi.SendAuth$Req
 com.tencent.mm.sdk.openapi.SendAuth$Resp
-com.tencent.mm.sdk.openapi.SendMessageToWX:
-    private SendMessageToWX()
-com.tencent.mm.sdk.openapi.SendMessageToWX$Req:
-    public static final int WXSceneSession
-    public static final int WXSceneTimeline
-    public SendMessageToWX$Req(android.os.Bundle)
-    public void fromBundle(android.os.Bundle)
+com.tencent.mm.sdk.openapi.SendMessageToWX
+com.tencent.mm.sdk.openapi.SendMessageToWX$Req
 com.tencent.mm.sdk.openapi.SendMessageToWX$Resp
 com.tencent.mm.sdk.openapi.ShowMessageFromWX
 com.tencent.mm.sdk.openapi.ShowMessageFromWX$Req
 com.tencent.mm.sdk.openapi.ShowMessageFromWX$Resp
-com.tencent.mm.sdk.openapi.WXAPIFactory:
-    public static com.tencent.mm.sdk.openapi.IWXAPI createWXAPI(android.content.Context,java.lang.String)
-com.tencent.mm.sdk.openapi.WXApiImplV10:
-    protected WXApiImplV10(android.content.Context,java.lang.String)
-    public final void unregisterApp()
-    public final boolean handleIntent(android.content.Intent,com.tencent.mm.sdk.openapi.IWXAPIEventHandler)
-    public final boolean isWXAppInstalled()
-    public final boolean isWXAppSupportAPI()
-    public final int getWXAppSupportAPI()
-    public final boolean openWXApp()
-    public final boolean sendResp(com.tencent.mm.sdk.openapi.BaseResp)
-    private static boolean a(byte[],byte[])
+com.tencent.mm.sdk.openapi.WXAPIFactory
+com.tencent.mm.sdk.openapi.WXApiImplV10
 com.tencent.mm.sdk.openapi.WXAppExtendObject
 com.tencent.mm.sdk.openapi.WXAppLaunchData
 com.tencent.mm.sdk.openapi.WXAppLaunchData$Builder
 com.tencent.mm.sdk.openapi.WXEmojiObject
-com.tencent.mm.sdk.openapi.WXFileObject:
-    public WXFileObject(byte[])
-    public void setFileData(byte[])
-    public void setFilePath(java.lang.String)
-    public void unserialize(android.os.Bundle)
-com.tencent.mm.sdk.openapi.WXImageObject:
-    public WXImageObject(byte[])
-    public void setImagePath(java.lang.String)
-    public void unserialize(android.os.Bundle)
-com.tencent.mm.sdk.openapi.WXMediaMessage:
-    public static final java.lang.String ACTION_WXAPPMESSAGE
-com.tencent.mm.sdk.openapi.WXMediaMessage$Builder:
-    public static final java.lang.String KEY_IDENTIFIER
-    public WXMediaMessage$Builder()
-    public static com.tencent.mm.sdk.openapi.WXMediaMessage fromBundle(android.os.Bundle)
-com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject:
-    public static final int TYPE_UNKNOWN
-    public static final int TYPE_TEXT
-    public static final int TYPE_IMAGE
-    public static final int TYPE_MUSIC
-    public static final int TYPE_VIDEO
-    public static final int TYPE_URL
-    public static final int TYPE_FILE
-    public static final int TYPE_APPDATA
-    public static final int TYPE_EMOJI
-    public abstract void unserialize(android.os.Bundle)
+com.tencent.mm.sdk.openapi.WXFileObject
+com.tencent.mm.sdk.openapi.WXImageObject
+com.tencent.mm.sdk.openapi.WXMediaMessage
+com.tencent.mm.sdk.openapi.WXMediaMessage$Builder
+com.tencent.mm.sdk.openapi.WXMediaMessage$IMediaObject
 com.tencent.mm.sdk.openapi.WXMusicObject
-com.tencent.mm.sdk.openapi.WXTextObject:
-    public void unserialize(android.os.Bundle)
+com.tencent.mm.sdk.openapi.WXTextObject
 com.tencent.mm.sdk.openapi.WXVideoObject
-com.tencent.mm.sdk.openapi.WXWebpageObject:
-    public WXWebpageObject(java.lang.String)
-    public void unserialize(android.os.Bundle)
+com.tencent.mm.sdk.openapi.WXWebpageObject
 com.tencent.mm.sdk.openapi.package-info
 com.tencent.mm.sdk.package-info
 com.tencent.mm.sdk.platformtools.AnimationHelperImpl21below
@@ -1082,17 +929,24 @@ com.vzhuan.Constants:
     public static final java.lang.String HOST
     public static final java.lang.String REGISTER
     public static final java.lang.String REGISTER_CHECK_ACCESS
-    public static final java.lang.String BAIDU_PUSH_APIKEY
     public static final java.lang.String USERINFO
     public static final java.lang.String GET_ADS
     public static final java.lang.String ALREADY_SUBMIT_REFERRRERINFO
     public static final java.lang.String SUBMIT_REFERRER
     public static final java.lang.String UPDATE_POINT
+    public static final java.lang.String CHECK_UPDATE
     public static final java.lang.String primary_token_did
     public static final java.lang.String primary_token_uid
     public static final long time_refresh
     9:9:public Constants()
-com.vzhuan.DataUtil
+com.vzhuan.DataUtil:
+    public static final int UPDATE_CHECKCOMPLETED
+    public static final int UPDATE_DOWNLOADING
+    public static final int UPDATE_DOWNLOAD_ERROR
+    public static final int UPDATE_DOWNLOAD_COMPLETED
+    public static final int UPDATE_DOWNLOAD_CANCELED
+    10:10:public DataUtil()
+    19:32:public static boolean isNetworkAvailable(android.content.Context)
 com.vzhuan.ExecutorServiceUtil:
     9:9:public ExecutorServiceUtil()
 com.vzhuan.FixedSpeedScroller:
@@ -1128,11 +982,11 @@ com.vzhuan.MD5:
 com.vzhuan.MainActivity:
     public static java.lang.String TEST_IMAGE
     public static java.lang.String TEST_IMAGE_URL
-    154:170:public static java.lang.String actionToString(int)
+    168:184:public static java.lang.String actionToString(int)
 com.vzhuan.Manifest
 com.vzhuan.Manifest$permission
 com.vzhuan.R:
-    10:571:public R()
+    10:573:public R()
 com.vzhuan.ReplenishAdapter:
     23:23:public java.util.List getList()
     27:28:public void setList(java.util.List)
@@ -1146,7 +1000,16 @@ com.vzhuan.StringUtils
 com.vzhuan.StringUtils$1
 com.vzhuan.StringUtils$2
 com.vzhuan.TaskFragment:
+    com.vzhuan.api.MyHttpRequestor updatePointRequest
     174:174:public com.vzhuan.viewpager.ViewPager getViewPager()
+com.vzhuan.UpdateManager:
+    public static final java.lang.String UPDATE_SAVENAME
+    private static final int UPDATE_CHECKCOMPLETED
+    private static final int UPDATE_DOWNLOADING
+    private static final int UPDATE_DOWNLOAD_ERROR
+    private static final int UPDATE_DOWNLOAD_COMPLETED
+    private static final int UPDATE_DOWNLOAD_CANCELED
+    private static final java.lang.String savefolder
 com.vzhuan.api.B5MFileHelper
 com.vzhuan.api.MyHttpRequestor:
     public static final byte GET_METHOD
@@ -1208,33 +1071,6 @@ com.vzhuan.widget.CircleImageView:
     private static final int DEFAULT_BORDER_WIDTH
     private static final int DEFAULT_BORDER_COLOR
     45:46:public CircleImageView(android.content.Context)
-com.winad.android.a.b:
-    public b()
-com.winad.android.a.c:
-    public c()
-com.winad.android.a.e:
-    public e()
-com.winad.android.offers.ad:
-    public ad(android.content.Context,boolean,android.content.DialogInterface$OnCancelListener)
-    public ad(android.content.Context)
-com.winad.android.offers.ae:
-    ae()
-com.winad.android.offers.al:
-    al()
-com.winad.android.offers.d:
-    d()
-com.winad.android.offers.i:
-    i()
-com.winad.android.offers.q:
-    q()
-com.winad.android.offers.r:
-    r()
-com.winad.android.offers.webView.VideoPlayerView:
-    public VideoPlayerView(android.content.Context)
-com.winad.android.offers.webView.q:
-    q()
-com.winad.android.offers.x:
-    x()
 org.apache.commons.httpclient.ChunkedInputStream:
     120:121:public ChunkedInputStream(java.io.InputStream)
 org.apache.commons.httpclient.ConnectMethod:

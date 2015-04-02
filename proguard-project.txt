@@ -58,36 +58,32 @@
 }
 
 #waps
--keep public class cn.waps.** {*;}
--keep public interface cn.waps.** {*;}
--dontwarn cn.waps.**
+#-keep public class cn.waps.** {*;}
+#-keep public interface cn.waps.** {*;}
+#-dontwarn cn.waps.**
 #youmi
--dontwarn com.testin.cloud.**
--keep class com.testin.cloud.** {*;}
-#aimeng
--keep public class com.esas.cned.** {*;}
--keep public class com.exds.ceffcs.** {*;}
+#-dontwarn com.testin.cloud.**
+#-keep class com.testin.cloud.** {*;}
 #dianle
--dontwarn com.dlnetwork.**
--keep class **.R$* {*;}
+#-dontwarn com.dlnetwork.**
+#-keep class **.R$* {*;}
 #beiduo
--keep class com.bb.dd.* {*;}
+#-keep class com.bb.dd.* {*;}
 #米积分
--dontwarn com.miji.**
--keep public class com.miji.** {*;}
--keep public interface com.miji.** {*;}
+#-dontwarn com.miji.**
+#-keep public class com.miji.** {*;}
+#-keep public interface com.miji.** {*;}
 #赢告无限
--keep public class com.winad.android.offers.** {*;}
--keep public class com.baidu.location.** {*;}
+#-keep public class com.winad.android.offers.** {*;}
+#-keep public class com.baidu.location.** {*;}
 #多盟
--dontwarn cn.aow.**
--keep class cn.aow.** {*;}
+#-dontwarn cn.aow.**
+#-keep class cn.aow.** {*;}
 
 -dontwarn org.apache.commons.*.**
 -dontwarn org.w3c.dom.bootstrap.**
 -dontwarn org.joda.time.*.**
 -dontwarn org.joda.time.*
--dontwarn com.exds.ceffcs.*.**
 
 -libraryjars ./libs/android-support-v4.jar
 -dontwarn android.support.v4.**

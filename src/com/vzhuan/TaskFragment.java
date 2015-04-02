@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import com.google.gson.Gson;
-import com.miji.MijiConnect;
-import com.miji.MijiNotifier;
-import com.miji.MijiSpendPointsNotifier;
+//import com.miji.MijiConnect;
+//import com.miji.MijiNotifier;
+//import com.miji.MijiSpendPointsNotifier;
 import com.vzhuan.ads.AdvertiseContext;
 import com.vzhuan.api.HttpListener;
 import com.vzhuan.api.MyHttpRequestor;
@@ -113,7 +113,7 @@ public class TaskFragment extends BaseFragment {
                 mTimeTask = new TimerTask() {
                     @Override
                     public void run() {
-                        updatePointToSever();
+//                        updatePointToSever();
                     }
                 };
                 mTimer.schedule(mTimeTask, 0, 1 * 60 * 1000);
@@ -125,50 +125,50 @@ public class TaskFragment extends BaseFragment {
         });
     }
 
-    private void updatePointToSever() {
-        if (!isSendEnd)
-            return;
-        isSendEnd = false;
-        MijiConnect.getInstance().getPoints(new MijiNotifier() {
-            @Override
-            public void getUpdatePoints(String s, int i) {
-                Log.i("HTTP", "积分数--->" + i);
-                if (i > 0) {
-                    MijiConnect.getInstance().spendPoints(i, new MijiSpendPointsNotifier() {
-                        @Override
-                        public void getSpendPointsResponse(String s, int i) {
-                            //调wuyimin端接口
-                            //
-                            String updateUrl = Constants.UPDATE_POINT+"&oid="+s+"&uid="+Constants.getDid()+"&p="+i;
-                            updatePointRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, null, new HttpListener() {
-                                @Override
-                                public void onSuccess(String msg) {
-                                    isSendEnd = true;
-                                }
-
-                                @Override
-                                public void onFailure(int statusCode, String emsg) {
-                                    isSendEnd = true;
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void getSpendPointsResponseFailed(String s) {
-                            isSendEnd = true;
-                        }
-                    });
-                }else {
-                    isSendEnd = true;
-                }
-            }
-
-            @Override
-            public void getUpdatePointsFailed(String s) {
-                isSendEnd = true;
-            }
-        });
-    }
+//    private void updatePointToSever() {
+//        if (!isSendEnd)
+//            return;
+//        isSendEnd = false;
+//        MijiConnect.getInstance().getPoints(new MijiNotifier() {
+//            @Override
+//            public void getUpdatePoints(String s, int i) {
+//                Log.i("HTTP", "积分数--->" + i);
+//                if (i > 0) {
+//                    MijiConnect.getInstance().spendPoints(i, new MijiSpendPointsNotifier() {
+//                        @Override
+//                        public void getSpendPointsResponse(String s, int i) {
+//                            //调wuyimin端接口
+//                            //
+//                            String updateUrl = Constants.UPDATE_POINT+"&oid="+s+"&uid="+Constants.getDid()+"&p="+i;
+//                            updatePointRequest = new MyHttpRequestor().init(MyHttpRequestor.GET_METHOD, null, new HttpListener() {
+//                                @Override
+//                                public void onSuccess(String msg) {
+//                                    isSendEnd = true;
+//                                }
+//
+//                                @Override
+//                                public void onFailure(int statusCode, String emsg) {
+//                                    isSendEnd = true;
+//                                }
+//                            });
+//                        }
+//
+//                        @Override
+//                        public void getSpendPointsResponseFailed(String s) {
+//                            isSendEnd = true;
+//                        }
+//                    });
+//                }else {
+//                    isSendEnd = true;
+//                }
+//            }
+//
+//            @Override
+//            public void getUpdatePointsFailed(String s) {
+//                isSendEnd = true;
+//            }
+//        });
+//    }
 
     public ViewPager getViewPager() {
         return viewPager;

@@ -11,9 +11,7 @@ public class AdvertiseContext {
 
     public AdvertiseContext setType(Activity activity, String type) {
         this.activity = activity;
-        if ("AIM".equals(type)) {
-            advertise = new AiMengAdvertise();
-        } else if ("DIANLE".equals(type)) {
+        if ("DIANLE".equals(type)) {
             advertise = new DianLeAdvertise();
         } else if ("WAPS".equals(type)) {
             advertise = new WapsAdvertise();
