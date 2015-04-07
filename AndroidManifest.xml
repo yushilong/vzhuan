@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.vzhuan"
-          android:versionCode="2"
+          android:versionCode="5"
           android:versionName="1.0">
 
     <uses-sdk android:minSdkVersion="14"/>
@@ -205,31 +205,31 @@
                 android:theme="@android:style/Theme.Translucent.NoTitleBar"
                 android:configChanges="keyboardHidden|orientation"/>
         <service android:name="com.dlnetwork.DianleGoogleService"/>
-        <activity
-                android:name="com.esas.cned.Dwez"
-                android:screenOrientation="portrait">
-            <intent-filter>
-                <action android:name="android.intent.action.CREATE_SHORTCUT"/>
-            </intent-filter>
-        </activity>
-        <receiver android:name="com.esas.cned.Gaha">
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT"/>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
+        <!--<activity-->
+                <!--android:name="com.esas.cned.Dwez"-->
+                <!--android:screenOrientation="portrait">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.CREATE_SHORTCUT"/>-->
+            <!--</intent-filter>-->
+        <!--</activity>-->
+        <!--<receiver android:name="com.esas.cned.Gaha">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.USER_PRESENT"/>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
 
-        <activity
-                android:name="com.exds.ceffcs.Zee"
-                android:configChanges="keyboard|keyboardHidden|orientation"
-                android:theme="@android:style/Theme.Translucent.NoTitleBar"/>
-        <receiver android:name="com.exds.ceffcs.Rtt">
-            <intent-filter>
-                <action android:name="android.intent.action.USER_PRESENT"/>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
-            </intent-filter>
-        </receiver>
-        <service android:name="com.exds.ceffcs.Kyy"/>
+        <!--<activity-->
+                <!--android:name="com.exds.ceffcs.Zee"-->
+                <!--android:configChanges="keyboard|keyboardHidden|orientation"-->
+                <!--android:theme="@android:style/Theme.Translucent.NoTitleBar"/>-->
+        <!--<receiver android:name="com.exds.ceffcs.Rtt">-->
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.USER_PRESENT"/>-->
+                <!--<action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>-->
+            <!--</intent-filter>-->
+        <!--</receiver>-->
+        <!--<service android:name="com.exds.ceffcs.Kyy"/>-->
         <!-- 添加必须的组件 -->
         <activity
                 android:name="net.dy.updt.BoBrowser"
