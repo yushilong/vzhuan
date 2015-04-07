@@ -23,22 +23,10 @@
     <orderEntry type="library" name="mframework (2)" level="project" />
     <orderEntry type="library" name="gson-2.2.2" level="project" />
     <orderEntry type="library" name="jpush-sdk-release1.7.1" level="project" />
-    <orderEntry type="library" name="commons-httpclient-3.1" level="project" />
-    <orderEntry type="library" name="YoumiSdk_v5.00_2015-01-08" level="project" />
-    <orderEntry type="library" name="AppOffer_2.3.2" level="project" />
-    <orderEntry type="library" name="dlnetwork_v3.5.0" level="project" />
-    <orderEntry type="library" name="box" level="project" />
-    <orderEntry type="library" name="chaping" level="project" />
-    <orderEntry type="library" name="AppOffer_2.3.2" level="project" />
-    <orderEntry type="library" name="jackson-core-asl-1.9.9" level="project" />
-    <orderEntry type="library" name="libammsdk" level="project" />
-    <orderEntry type="library" name="YoumiSdk_v5.00_2015-01-08" level="project" />
     <orderEntry type="module-library">
       <library name="AppOffer_2.3.2">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/AppOffer_2.3.2.jar!/" />
-          <root url="jar://$MODULE_DIR$/libs/box.jar!/" />
-          <root url="jar://$MODULE_DIR$/libs/chaping.jar!/" />
           <root url="jar://$MODULE_DIR$/libs/commons-httpclient-3.1.jar!/" />
           <root url="jar://$MODULE_DIR$/libs/commons-io-1.4.jar!/" />
           <root url="jar://$MODULE_DIR$/libs/dlnetwork_v3.5.0.jar!/" />
@@ -61,19 +49,16 @@
       <library name="libammsdk">
         <CLASSES>
           <root url="jar://$MODULE_DIR$/libs/libammsdk.jar!/" />
-          <root url="jar://$MODULE_DIR$/libs/YoumiSdk_v5.00_2015-01-08.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
       </library>
     </orderEntry>
-    <orderEntry type="library" name="YoumiSdk_v5.0.0_2015-01-29" level="project" />
     <orderEntry type="library" name="YoumiSdk_v5.00_2015-03-04" level="project" />
     <orderEntry type="library" name="beiduo_sdk_v3.5.8" level="project" />
     <orderEntry type="library" name="com.datouniao.AdPublisher" level="project" />
     <orderEntry type="library" name="mijisdk" level="project" />
     <orderEntry type="library" name="offers-android-sdk" level="project" />
-    <orderEntry type="library" name="dm_dynamic_sdk_3.0.0" level="project" />
     <orderEntry type="library" name="dm_sdk_3.1.0" level="project" />
   </component>
 </module>

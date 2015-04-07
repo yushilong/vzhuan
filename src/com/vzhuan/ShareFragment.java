@@ -10,20 +10,23 @@ import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
-import cn.sharesdk.demo.ShareContentCustomizeDemo;
-import cn.sharesdk.onekeyshare.OnekeyShare;
-import cn.sharesdk.onekeyshare.OnekeyShareTheme;
-import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
+
 import com.google.gson.Gson;
 import com.vzhuan.api.HttpListener;
 import com.vzhuan.api.MyHttpRequestor;
 import com.vzhuan.mode.Code;
 import com.vzhuan.viewpager.ViewPager;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.File;
 import java.io.FileOutputStream;
+
+import cn.sharesdk.demo.ShareContentCustomizeDemo;
+import cn.sharesdk.onekeyshare.OnekeyShare;
+import cn.sharesdk.onekeyshare.OnekeyShareTheme;
+import cn.sharesdk.onekeyshare.ShareContentCustomizeCallback;
 
 /**
  * Created by lscm on 2015/1/5.
